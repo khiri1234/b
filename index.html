@@ -291,7 +291,9 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .proj-card-num{font-family:'EB Garamond',serif;font-size:1.1rem;color:rgba(184,147,90,.28);margin-bottom:.9rem;}
 .proj-card-name{font-family:'Tenor Sans',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);margin-bottom:.5rem;line-height:1.3;}
 .proj-card-loc{font-size:.9rem;color:rgba(237,232,223,.62);letter-spacing:.25em;text-transform:uppercase;margin-bottom:.4rem;}
-.proj-card-type{font-size:.74rem;color:rgba(184,147,90,.5);font-style:italic;font-family:'EB Garamond',serif;line-height:1.4;}
+.proj-card-type{font-size:.74rem;color:rgba(184,147,90,.5);font-style:italic;font-family:'EB Garamond',serif;line-height:1.4;margin-bottom:.6rem;}
+.proj-card-stat{font-size:.7rem;color:rgba(237,232,223,.55);letter-spacing:.12em;line-height:1.4;margin-bottom:.55rem;}
+.proj-card-badge{display:inline-block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--badge-color,rgba(184,147,90,.75));border:1px solid var(--badge-color,rgba(184,147,90,.4));border-radius:2px;padding:.15rem .45rem;margin-top:.1rem;}
 @media(max-width:900px){.detail-proj-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:560px){.detail-proj-grid{grid-template-columns:repeat(2,1fr);}}
 
@@ -1490,32 +1492,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('emaar_burj', 'emaar')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">Burj Khalifa</div>
+      
       <div class="proj-card-loc">Downtown Dubai</div>
       <div class="proj-card-type">Supertall Tower · 828 m</div>
+      <div class="proj-card-stat">Completed 2010 · World's Tallest</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('emaar_downtown', 'emaar')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">Downtown Dubai</div>
+      
       <div class="proj-card-loc">Downtown Dubai</div>
       <div class="proj-card-type">Master Community · 500 Acres</div>
+      <div class="proj-card-stat">AED 1.2M+ · 20,000 Residences</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('emaar_hills', 'emaar')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Dubai Hills Estate</div>
+      
       <div class="proj-card-loc">Dubai Hills</div>
       <div class="proj-card-type">Golf & Nature · 2,700 Acres</div>
+      <div class="proj-card-stat">AED 1.8M+ · 18-Hole Championship</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('emaar_marina', 'emaar')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Dubai Marina</div>
+      
       <div class="proj-card-loc">Marina District</div>
-      <div class="proj-card-type">Waterfront Community · 35K Res.</div>
+      <div class="proj-card-type">Waterfront Community · 200 Towers</div>
+      <div class="proj-card-stat">AED 900K+ · 35,000 Residents</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('emaar_beachfront', 'emaar')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">Emaar Beachfront</div>
+      
       <div class="proj-card-loc">Dubai Harbour</div>
       <div class="proj-card-type">Sea-Facing Residences · 27 Towers</div>
+      <div class="proj-card-stat">AED 2.5M+ · Private Beach Access</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     </div>
   </div>
@@ -1657,32 +1674,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('damac_hills', 'damac')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">DAMAC Hills</div>
+      
       <div class="proj-card-loc">Dubailand</div>
       <div class="proj-card-type">Trump Golf Community · 42M Sq Ft</div>
+      <div class="proj-card-stat">AED 700K+ · Trump Golf Course</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('damac_hills2', 'damac')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">DAMAC Hills 2</div>
+      
       <div class="proj-card-loc">Dubailand</div>
       <div class="proj-card-type">Eco Community · 55M Sq Ft</div>
+      <div class="proj-card-stat">AED 499K+ · Lagoon & Surf Beach</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('damac_safa', 'damac')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Safa One & Two</div>
-      <div class="proj-card-loc">Sheikh Zayed Rd</div>
-      <div class="proj-card-type">Sky Pool Towers · Iconic Design</div>
+      
+      <div class="proj-card-loc">Sheikh Zayed Road</div>
+      <div class="proj-card-type">Sky Pool Towers · De Grisogono</div>
+      <div class="proj-card-stat">AED 2.5M+ · Branded Interiors</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('damac_cavalli', 'damac')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Cavalli Tower</div>
+      
       <div class="proj-card-loc">Dubai Marina</div>
       <div class="proj-card-type">Roberto Cavalli Branded · 70 Floors</div>
+      <div class="proj-card-stat">AED 3M+ · Marina Skyline Views</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('damac_bay', 'damac')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">DAMAC Bay</div>
+      
       <div class="proj-card-loc">Dubai Harbour</div>
-      <div class="proj-card-type">Ultra Luxury · 49 Floors</div>
+      <div class="proj-card-type">Ultra Luxury · Cavalli Design</div>
+      <div class="proj-card-stat">AED 5M+ · 49 Floors</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     </div>
   </div>
@@ -1762,32 +1794,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('meraas_citywalk', 'meraas')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">City Walk</div>
+      
       <div class="proj-card-loc">Al Wasl</div>
       <div class="proj-card-type">Urban Lifestyle District · 450+ Outlets</div>
+      <div class="proj-card-stat">Completed 2014 · 4.5M Visitors/Yr</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('meraas_bluewaters', 'meraas')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">Bluewaters Island</div>
+      
       <div class="proj-card-loc">JBR Area</div>
       <div class="proj-card-type">Home of Ain Dubai · Iconic Island</div>
+      <div class="proj-card-stat">AED 1.8M+ · World's Tallest Wheel</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('meraas_lamer', 'meraas')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">La Mer</div>
+      
       <div class="proj-card-loc">Jumeirah</div>
       <div class="proj-card-type">Beachfront Lifestyle · 2.7 km Beach</div>
+      <div class="proj-card-stat">AED 1.5M+ · Surf School & Dining</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('meraas_portlamer', 'meraas')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Port de La Mer</div>
+      
       <div class="proj-card-loc">Jumeirah</div>
       <div class="proj-card-type">Marina Residences · Private Jetties</div>
+      <div class="proj-card-stat">AED 2M+ · 2,400 Berth Marina</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('meraas_beach', 'meraas')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">The Beach JBR</div>
-      <div class="proj-card-loc">Jumeirah Beach</div>
-      <div class="proj-card-type">Alfresco Dining & Retail</div>
+      
+      <div class="proj-card-loc">Jumeirah Beach Rd</div>
+      <div class="proj-card-type">Alfresco Retail & Dining</div>
+      <div class="proj-card-stat">Completed 2015 · 2 km Beach Walk</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     </div>
   </div>
@@ -1865,32 +1912,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('sobha_hartland', 'sobha')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">Sobha Hartland</div>
+      
       <div class="proj-card-loc">MBR City</div>
       <div class="proj-card-type">Waterfront Community · 8M Sq Ft</div>
+      <div class="proj-card-stat">AED 1.2M+ · Crystal Lagoon</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('sobha_hartland2', 'sobha')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">Sobha Hartland 2</div>
+      
       <div class="proj-card-loc">MBR City</div>
-      <div class="proj-card-type">Greens & Water · 6M Sq Ft</div>
+      <div class="proj-card-type">Lagoon Community · Crystal Waters</div>
+      <div class="proj-card-stat">AED 1.8M+ · 1M Sq Ft Lagoon</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('sobha_reserve', 'sobha')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Sobha Reserve</div>
+      
       <div class="proj-card-loc">Wadi Al Safa</div>
-      <div class="proj-card-type">Villa Community · 350 Villas</div>
+      <div class="proj-card-type">Exclusive Villas · Nature Reserve</div>
+      <div class="proj-card-stat">AED 5M+ · 6-Bed Forest Villas</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('sobha_one', 'sobha')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Sobha One</div>
-      <div class="proj-card-loc">MBR City</div>
-      <div class="proj-card-type">Luxury Towers · Creek Views</div>
+      
+      <div class="proj-card-loc">Ras Al Khor</div>
+      <div class="proj-card-type">Luxury Towers · Creek & Golf Views</div>
+      <div class="proj-card-stat">AED 1.4M+ · 5 Interconnected Towers</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('sobha_creekheights', 'sobha')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">Creek Vistas Heights</div>
+      
       <div class="proj-card-loc">MBR City</div>
       <div class="proj-card-type">Twin Tower Residences · 64 Floors</div>
+      <div class="proj-card-stat">AED 1.3M+ · Burj Khalifa Panorama</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     </div>
   </div>
@@ -1996,32 +2058,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('bgh_bugatti', 'binghatti')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">Bugatti Residences</div>
+      
       <div class="proj-card-loc">Business Bay</div>
       <div class="proj-card-type">World's 1st Bugatti Branded · 42 Floors</div>
+      <div class="proj-card-stat">AED 18M+ · Hyper Car Lift</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('bgh_mercedes', 'binghatti')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">Mercedes-Benz Places</div>
+      
       <div class="proj-card-loc">Downtown Dubai</div>
       <div class="proj-card-type">Branded Residences · 65 Floors</div>
+      <div class="proj-card-stat">AED 5M+ · Burj Khalifa Views</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('bgh_ghost', 'binghatti')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Binghatti Ghost</div>
+      
       <div class="proj-card-loc">Business Bay</div>
-      <div class="proj-card-type">Ultra Luxury · Canal Views</div>
+      <div class="proj-card-type">Ultra Luxury · Canal Front</div>
+      <div class="proj-card-stat">AED 1.8M+ · Gold-Tone Interiors</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('bgh_hills', 'binghatti')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Binghatti Hills</div>
+      
       <div class="proj-card-loc">Dubai Science Park</div>
       <div class="proj-card-type">Skyline Views · 42 Floors</div>
+      <div class="proj-card-stat">AED 900K+ · Infinity Pool Sky Deck</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('bgh_nova', 'binghatti')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">Binghatti Nova</div>
+      
       <div class="proj-card-loc">JVC</div>
       <div class="proj-card-type">Modern Residences · 24 Floors</div>
+      <div class="proj-card-stat">AED 700K+ · Private Pools</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     </div>
   </div>
@@ -2100,32 +2177,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('byd_opus', 'beyond')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">The Opus</div>
+      
       <div class="proj-card-loc">Business Bay</div>
       <div class="proj-card-type">Zaha Hadid Icon · Deconstructed Form</div>
+      <div class="proj-card-stat">AED 3M+ · ME by Meliá Hotel</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('byd_palm', 'beyond')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">One at Palm</div>
+      
       <div class="proj-card-loc">Palm Jumeirah</div>
       <div class="proj-card-type">Ultra Luxury · Dorchester Collection</div>
+      <div class="proj-card-stat">AED 15M+ · Half-Floor Residences</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('byd_vela', 'beyond')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Vela by Omniyat</div>
+      
       <div class="proj-card-loc">Business Bay</div>
       <div class="proj-card-type">Canal Frontage · 49 Exclusive Homes</div>
+      <div class="proj-card-stat">AED 20M+ · Private Beach Club</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('byd_ava', 'beyond')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">AVA at Palm</div>
+      
       <div class="proj-card-loc">Palm Jumeirah</div>
       <div class="proj-card-type">Ultra Luxury · 17 Half-Floors</div>
+      <div class="proj-card-stat">AED 18M+ · Direct Sea Views</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('byd_sterling', 'beyond')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">The STERLING</div>
+      
       <div class="proj-card-loc">Business Bay</div>
       <div class="proj-card-type">Premium Waterfront · Canal Views</div>
+      <div class="proj-card-stat">AED 2M+ · Smart Home Automation</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     </div>
   </div>
@@ -2204,32 +2296,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('elg_dt1', 'ellington')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">DT1</div>
+      
       <div class="proj-card-loc">Downtown Dubai</div>
       <div class="proj-card-type">Ultra Luxury · Burj Khalifa Views</div>
+      <div class="proj-card-stat">AED 4M+ · Bespoke Interiors</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('elg_crestmark', 'ellington')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">The Crestmark</div>
+      
       <div class="proj-card-loc">Business Bay</div>
       <div class="proj-card-type">Boutique Residences · Canal Views</div>
+      <div class="proj-card-stat">AED 1.8M+ · Concierge Living</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('elg_sanctuary', 'ellington')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">The Sanctuary</div>
+      
       <div class="proj-card-loc">Nad Al Sheba</div>
       <div class="proj-card-type">Exclusive Villas · Nature Reserve</div>
+      <div class="proj-card-stat">AED 8M+ · Equestrian Community</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('elg_house', 'ellington')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Ellington House</div>
+      
       <div class="proj-card-loc">Dubai Hills</div>
       <div class="proj-card-type">Golf Course Views · Boutique Living</div>
+      <div class="proj-card-stat">AED 1.5M+ · Artist-Inspired Design</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('elg_wilton', 'ellington')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">Wilton Terraces</div>
+      
       <div class="proj-card-loc">MBR City</div>
       <div class="proj-card-type">Waterfront · Crystal Lagoon Views</div>
+      <div class="proj-card-stat">AED 850K+ · Lagoon Beach Club</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     </div>
   </div>
@@ -2308,32 +2415,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('azi_riviera', 'azizi')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">Riviera</div>
+      
       <div class="proj-card-loc">MBR City</div>
       <div class="proj-card-type">French Riviera Inspired · 74 Buildings</div>
+      <div class="proj-card-stat">AED 450K+ · Boulevard & Beach</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('azi_venice', 'azizi')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">Venice</div>
+      
       <div class="proj-card-loc">Dubai South</div>
       <div class="proj-card-type">Grand Canal Community · 131 Buildings</div>
+      <div class="proj-card-stat">AED 380K+ · Opera & Gondola Rides</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(184,147,90,.75)">Ongoing</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('azi_creek', 'azizi')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Creek Views</div>
+      
       <div class="proj-card-loc">Dubai Healthcare City</div>
       <div class="proj-card-type">Creek Waterfront · Panoramic Views</div>
+      <div class="proj-card-stat">AED 550K+ · Creek & City Panorama</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('azi_star', 'azizi')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Star by Azizi</div>
+      
       <div class="proj-card-loc">Dubai Studio City</div>
       <div class="proj-card-type">Creative District · 36 Floors</div>
+      <div class="proj-card-stat">AED 720K+ · Rooftop Entertainment</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('azi_berton', 'azizi')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">Berton</div>
+      
       <div class="proj-card-loc">Al Furjan</div>
       <div class="proj-card-type">Modern Family Community · 18 Floors</div>
+      <div class="proj-card-stat">AED 490K+ · Co-Working Lounges</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(80,200,120,.75)">Completed</div>
     </div>
     </div>
   </div>
@@ -2412,32 +2534,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('imt_sunsetbay', 'imtiaz')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">Sunset Bay</div>
+      
       <div class="proj-card-loc">Dubai Islands</div>
       <div class="proj-card-type">Beachfront Residences · Sea Views</div>
+      <div class="proj-card-stat">AED 1.2M+ · Private Beach Strip</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('imt_westwood', 'imtiaz')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">Westwood Grande</div>
+      
       <div class="proj-card-loc">JVC</div>
       <div class="proj-card-type">Premium Mid-Rise · Landscaped Podium</div>
+      <div class="proj-card-stat">AED 750K+ · Smart Home Features</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('imt_oceanpearl', 'imtiaz')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Ocean Pearl</div>
+      
       <div class="proj-card-loc">Dubai Islands</div>
       <div class="proj-card-type">Seafront Living · Private Beach</div>
+      <div class="proj-card-stat">AED 1.5M+ · Pearl-Inspired Design</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('imt_florea', 'imtiaz')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Florea</div>
+      
       <div class="proj-card-loc">JVC</div>
       <div class="proj-card-type">Green Living · Sustainable Design</div>
+      <div class="proj-card-stat">AED 650K+ · Biophilic Architecture</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('imt_celia', 'imtiaz')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">Celia</div>
+      
       <div class="proj-card-loc">Dubailand</div>
       <div class="proj-card-type">Modern Community · City Views</div>
+      <div class="proj-card-stat">AED 580K+ · Resort-Style Amenities</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     </div>
   </div>
@@ -2516,32 +2653,47 @@ function closePage(id){
     <div class="proj-card" onclick="openProjPanel('dnb_fashionz', 'danube')">
       <div class="proj-card-num">01</div>
       <div class="proj-card-name">Fashionz</div>
-      <div class="proj-card-loc">JVT</div>
-      <div class="proj-card-type">Fashion-Themed Tower · Runway Views</div>
+      
+      <div class="proj-card-loc">Jumeirah Village Triangle</div>
+      <div class="proj-card-type">Fashion-Themed · 70 Floors</div>
+      <div class="proj-card-stat">AED 599K+ · Fashion Week Events</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('dnb_elitz3', 'danube')">
       <div class="proj-card-num">02</div>
       <div class="proj-card-name">Elitz 3</div>
+      
       <div class="proj-card-loc">JVC</div>
-      <div class="proj-card-type">Smart Home Tech · Pool on Every Floor</div>
+      <div class="proj-card-type">Smart Homes · Pool on Every Floor</div>
+      <div class="proj-card-stat">AED 525K+ · 85% Sold at Launch</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('dnb_sportz', 'danube')">
       <div class="proj-card-num">03</div>
       <div class="proj-card-name">Sportz</div>
+      
       <div class="proj-card-loc">DSO</div>
       <div class="proj-card-type">Sports Community · 300 Activities</div>
+      <div class="proj-card-stat">AED 490K+ · NBA-Size Basketball</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('dnb_opalz', 'danube')">
       <div class="proj-card-num">04</div>
       <div class="proj-card-name">Opalz</div>
+      
       <div class="proj-card-loc">Dubai Science Park</div>
-      <div class="proj-card-type">Smart Apartments · Green Building</div>
+      <div class="proj-card-type">Smart Eco Tower · Rooftop Farm</div>
+      <div class="proj-card-stat">AED 595K+ · LEED-Inspired Design</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(140,170,255,.75)">Upcoming</div>
     </div>
     <div class="proj-card" onclick="openProjPanel('dnb_altai', 'danube')">
       <div class="proj-card-num">05</div>
       <div class="proj-card-name">Altai Tower</div>
+      
       <div class="proj-card-loc">JVC</div>
-      <div class="proj-card-type">Premium High-Rise · 39 Floors</div>
+      <div class="proj-card-type">Premium Mountain-Inspired · 39 Floors</div>
+      <div class="proj-card-stat">AED 720K+ · Sky Terrace & Hammam</div>
+      <div class="proj-card-badge" style="--badge-color:rgba(220,160,60,.75)">Under Construction</div>
     </div>
     </div>
   </div>
