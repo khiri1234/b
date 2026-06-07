@@ -717,6 +717,31 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   margin-top:.25rem;
   font-style:italic;
 }
+
+/* ── PROJECT PANEL PHOTO HERO ─────────────────────────────── */
+.proj-panel-hero{position:relative;overflow:hidden;}
+.proj-panel-hero-img{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  background-color:var(--dark);
+  transition:transform 6s ease;
+}
+.proj-panel-hero-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(44,53,24,.45) 0%,rgba(44,53,24,.82) 100%);
+}
+.proj-panel.open .proj-panel-hero-img{transform:scale(1.04);}
+
+/* ── PROJECT PANEL GALLERY ────────────────────────────────── */
+.proj-panel-gallery{padding:0 6vw 6vh;}
+.ppg-label{font-size:.65rem;letter-spacing:.35em;color:rgba(184,147,90,.5);
+  text-transform:uppercase;margin-bottom:1.4rem;}
+.ppg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ppg-img{width:100%;height:220px;object-fit:cover;border-radius:3px;
+  transition:transform .6s var(--ease),filter .4s ease;
+  filter:brightness(.85);}
+.ppg-img:hover{transform:scale(1.02);filter:brightness(1);}
+@media(max-width:560px){.ppg-img{height:140px;}}
 </style>
 </head>
 <body>
@@ -3393,6 +3418,7 @@ function closePage(id){
     <button class="proj-panel-back-btn" onclick="closeProjPanel()">Back to Developer</button>
   </div>
   <div class="proj-panel-hero" id="proj-panel-hero" data-num="01">
+    <div class="proj-panel-hero-img" id="proj-panel-hero-img"></div>
     <div class="proj-panel-dev-lbl" id="proj-panel-dev"></div>
     <div class="proj-panel-name" id="proj-panel-name"></div>
     <div class="proj-panel-tagline" id="proj-panel-tagline"></div>
@@ -3403,6 +3429,13 @@ function closePage(id){
     <div class="proj-panel-desc" id="proj-panel-desc"></div>
     <div class="proj-panel-section-lbl">— Key Highlights</div>
     <div class="proj-panel-feats" id="proj-panel-feats"></div>
+  </div>
+  <div class="proj-panel-gallery" id="proj-panel-gallery">
+    <div class="ppg-label">— Photo Gallery</div>
+    <div class="ppg-grid">
+      <img class="ppg-img" id="ppg-img1" src="" alt="Project photo 1" loading="lazy">
+      <img class="ppg-img" id="ppg-img2" src="" alt="Project photo 2" loading="lazy">
+    </div>
   </div>
   <div class="proj-panel-cta">
     <div class="proj-panel-cta-title">Enquire About <em>This Project</em></div>
@@ -3439,7 +3472,9 @@ const projectData = {
       {ico:'📏', lbl:'Area', val:'8 Million Sq Ft'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.3M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dp_serena: {
     dev: 'DUBAI PROPERTIES · DUBAILAND',
     name: 'Serena',
@@ -3460,7 +3495,9 @@ const projectData = {
       {ico:'🤝', lbl:'Community', val:'3 Sub-Phases'},
       {ico:'💰', lbl:'Pricing', val:'AED 900K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dp_mudon: {
     dev: 'DUBAI PROPERTIES · DUBAILAND',
     name: 'Mudon',
@@ -3481,7 +3518,9 @@ const projectData = {
       {ico:'🏫', lbl:'Education', val:'GEMS School On-Site'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.1M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dp_midtown: {
     dev: 'DUBAI PROPERTIES · PRODUCTION CITY',
     name: 'Midtown',
@@ -3502,7 +3541,9 @@ const projectData = {
       {ico:'📈', lbl:'Yield', val:'6–8% Rental Return'},
       {ico:'💰', lbl:'Pricing', val:'AED 600K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dp_baysquare: {
     dev: 'DUBAI PROPERTIES · BUSINESS BAY',
     name: 'Bay Square',
@@ -3523,7 +3564,9 @@ const projectData = {
       {ico:'🏃', lbl:'Promenade', val:'Canal Walk Access'},
       {ico:'💰', lbl:'Pricing', val:'AED 950K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // ── MEYDAN ──────────────────────────────────────────────────────────────────
   myd_meydanone: {
@@ -3546,7 +3589,9 @@ const projectData = {
       {ico:'🏨', lbl:'Hotel', val:'5-Star Integrated'},
       {ico:'🌍', lbl:'Record', val:'Multiple World Records'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   myd_polo: {
     dev: 'MEYDAN · RACECOURSE DISTRICT',
     name: 'Polo Residences',
@@ -3567,7 +3612,9 @@ const projectData = {
       {ico:'🛏', lbl:'Bedrooms', val:'3 – 5 Bed Villas'},
       {ico:'💰', lbl:'Pricing', val:'AED 2.5M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   myd_15north: {
     dev: 'MEYDAN · MBR CITY',
     name: '15 Northside',
@@ -3588,7 +3635,9 @@ const projectData = {
       {ico:'🏋', lbl:'Fitness', val:'Premium Gym'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.4M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   myd_districtone: {
     dev: 'MEYDAN · MBR CITY',
     name: 'District One',
@@ -3609,7 +3658,9 @@ const projectData = {
       {ico:'🛏', lbl:'Sizes', val:'4 – 7 Bedrooms'},
       {ico:'💰', lbl:'Pricing', val:'AED 5M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   myd_avenue: {
     dev: 'MEYDAN · RACECOURSE STRIP',
     name: 'Meydan Avenue',
@@ -3630,7 +3681,9 @@ const projectData = {
       {ico:'📍', lbl:'Location', val:'MBR City Hub'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.8M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   nkh_palmcentral: {
     dev: 'NAKHEEL · PALM JEBEL ALI',
@@ -3652,7 +3705,9 @@ const projectData = {
       {ico:'💳', lbl:'Payment', val:'20 / 40 / 40 Plan'},
       {ico:'🌴', lbl:'Location', val:'Palm Jebel Ali Trunk'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   nkh_palmjumeirah: {
     dev: 'NAKHEEL · JUMEIRAH',
     name: 'Palm Jumeirah',
@@ -3673,7 +3728,9 @@ const projectData = {
       {ico:'🚝', lbl:'Transit', val:'Monorail Connected'},
       {ico:'🌊', lbl:'Coastline', val:'+78 km Added'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   nkh_deira: {
     dev: 'NAKHEEL · DEIRA',
     name: 'Deira Islands',
@@ -3694,7 +3751,9 @@ const projectData = {
       {ico:'✈️', lbl:'Location', val:'Near DXB Airport'},
       {ico:'🏨', lbl:'Hotels', val:'10+ Keys Planned'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   nkh_world: {
     dev: 'NAKHEEL · OFFSHORE DUBAI',
     name: 'The World Islands',
@@ -3715,7 +3774,9 @@ const projectData = {
       {ico:'🏰', lbl:'Use', val:'Private Estates & Resorts'},
       {ico:'⚓', lbl:'Marina', val:'Private Jetty per Island'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   nkh_jvc: {
     dev: 'NAKHEEL · DUBAI',
     name: 'Jumeirah Village Circle',
@@ -3736,7 +3797,9 @@ const projectData = {
       {ico:'📈', lbl:'Yield', val:'6–9% Rental Return'},
       {ico:'🏪', lbl:'Retail', val:'Circle Mall & More'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   // EMAAR
   emaar_burj: {
     dev: 'EMAAR · Downtown Dubai',
@@ -3758,7 +3821,9 @@ const projectData = {
       {ico:'🏠', lbl:'Residences', val:'304 Units'},
       {ico:'✅', lbl:'Completed', val:'2010'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   emaar_downtown: {
     dev: 'EMAAR · Downtown Dubai',
     name: 'Downtown Dubai',
@@ -3779,7 +3844,9 @@ const projectData = {
       {ico:'🚇', lbl:'Metro', val:'Direct Access'},
       {ico:'🌟', lbl:'Annual Visitors', val:'100M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   emaar_hills: {
     dev: 'EMAAR · Dubai Hills',
     name: 'Dubai Hills Estate',
@@ -3800,7 +3867,9 @@ const projectData = {
       {ico:'🏥', lbl:'Healthcare', val:'Hospitals'},
       {ico:'📍', lbl:'Location', val:'New Dubai'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   emaar_marina: {
     dev: 'EMAAR · Dubai Marina',
     name: 'Dubai Marina',
@@ -3821,7 +3890,9 @@ const projectData = {
       {ico:'🛥', lbl:'Yacht Club', val:'Full Facilities'},
       {ico:'🏙', lbl:'Towers', val:'200+ Residential'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   emaar_beachfront: {
     dev: 'EMAAR · Dubai Harbour',
     name: 'Emaar Beachfront',
@@ -3842,7 +3913,9 @@ const projectData = {
       {ico:'🏠', lbl:'Units', val:'10,000+'},
       {ico:'🚗', lbl:'Access', val:'Sheikh Zayed Rd'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // DAMAC
   damac_hills: {
@@ -3865,7 +3938,9 @@ const projectData = {
       {ico:'🦋', lbl:'Butterfly Garden', val:'Unique Amenity'},
       {ico:'🏘', lbl:'Community', val:'Self-Sustained'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   damac_hills2: {
     dev: 'DAMAC · Dubailand',
     name: 'DAMAC Hills 2',
@@ -3886,7 +3961,9 @@ const projectData = {
       {ico:'🏃', lbl:'Sports', val:'30+ Facilities'},
       {ico:'🏠', lbl:'Units', val:'Affordable Luxury'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   damac_safa: {
     dev: 'DAMAC · Al Safa / Sheikh Zayed Rd',
     name: 'Safa One & Two',
@@ -3907,7 +3984,9 @@ const projectData = {
       {ico:'👁', lbl:'Views', val:'Gulf & Downtown'},
       {ico:'📍', lbl:'Location', val:'Sheikh Zayed Rd'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   damac_cavalli: {
     dev: 'DAMAC · Dubai Marina',
     name: 'Cavalli Tower',
@@ -3928,7 +4007,9 @@ const projectData = {
       {ico:'💛', lbl:'Accents', val:'24k Gold Leaf'},
       {ico:'🌊', lbl:'Views', val:'Dubai Marina'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   damac_bay: {
     dev: 'DAMAC · Dubai Harbour',
     name: 'DAMAC Bay',
@@ -3949,7 +4030,9 @@ const projectData = {
       {ico:'🏊', lbl:'Pools', val:'Private In-Unit'},
       {ico:'🌊', lbl:'Views', val:'Arabian Gulf & Palm'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // MERAAS
   meraas_citywalk: {
@@ -3972,7 +4055,9 @@ const projectData = {
       {ico:'🎨', lbl:'Street Art', val:'Curated Murals'},
       {ico:'🏠', lbl:'Residences', val:'Luxury Apartments'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   meraas_bluewaters: {
     dev: 'MERAAS · JBR Coastline',
     name: 'Bluewaters Island',
@@ -3993,7 +4078,9 @@ const projectData = {
       {ico:'🌉', lbl:'Bridge', val:'JBR Connected'},
       {ico:'🌊', lbl:'Views', val:'360° Arabian Gulf'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   meraas_lamer: {
     dev: 'MERAAS · Jumeirah 1',
     name: 'La Mer',
@@ -4014,7 +4101,9 @@ const projectData = {
       {ico:'🏠', lbl:'Residences', val:'Beachside Living'},
       {ico:'📍', lbl:'Location', val:'Jumeirah 1'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   meraas_portlamer: {
     dev: 'MERAAS · La Mer / Jumeirah 1',
     name: 'Port de La Mer',
@@ -4035,7 +4124,9 @@ const projectData = {
       {ico:'🍽', lbl:'Dining', val:'Waterfront Restaurants'},
       {ico:'🏠', lbl:'Units', val:'1–4 Bedrooms'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   meraas_beach: {
     dev: 'MERAAS · Jumeirah Beach Residence',
     name: 'The Beach JBR',
@@ -4056,7 +4147,9 @@ const projectData = {
       {ico:'🛍', lbl:'Retail', val:'Boutique Shops'},
       {ico:'🌊', lbl:'Views', val:'Arabian Gulf'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // SOBHA
   sobha_hartland: {
@@ -4079,7 +4172,9 @@ const projectData = {
       {ico:'🏙', lbl:'Access', val:'MBR City'},
       {ico:'🏠', lbl:'Units', val:'Villas & Apartments'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   sobha_hartland2: {
     dev: 'SOBHA · MBR City',
     name: 'Sobha Hartland 2',
@@ -4100,7 +4195,9 @@ const projectData = {
       {ico:'🏠', lbl:'Quality', val:'In-House Craftsmanship'},
       {ico:'📍', lbl:'Location', val:'MBR City'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   sobha_reserve: {
     dev: 'SOBHA · Wadi Al Safa',
     name: 'Sobha Reserve',
@@ -4121,7 +4218,9 @@ const projectData = {
       {ico:'📐', lbl:'Size', val:'4700–12000 Sq Ft'},
       {ico:'🗺', lbl:'Access', val:'Global Village Vicinity'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   sobha_one: {
     dev: 'SOBHA · MBR City / Dubai Creek',
     name: 'Sobha One',
@@ -4142,7 +4241,9 @@ const projectData = {
       {ico:'🎾', lbl:'Tennis', val:'Courts'},
       {ico:'📐', lbl:'Amenities', val:'40K Sq Ft Total'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   sobha_creekheights: {
     dev: 'SOBHA · Sobha Hartland / MBR City',
     name: 'Creek Vistas Heights',
@@ -4163,7 +4264,9 @@ const projectData = {
       {ico:'🌲', lbl:'Flooring', val:'Engineered Hardwood'},
       {ico:'🔧', lbl:'Quality', val:'In-House Build'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // BINGHATTI
   bgh_bugatti: {
@@ -4186,7 +4289,9 @@ const projectData = {
       {ico:'🤵', lbl:'Service', val:'Concierge Butler'},
       {ico:'💰', lbl:'Pricing', val:'AED 7.9M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   bgh_mercedes: {
     dev: 'BINGHATTI · Downtown Dubai',
     name: 'Mercedes-Benz Places',
@@ -4207,7 +4312,9 @@ const projectData = {
       {ico:'📱', lbl:'Smart Home', val:'Full Integration'},
       {ico:'👁', lbl:'Views', val:'Burj Khalifa'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   bgh_ghost: {
     dev: 'BINGHATTI · Al Jaddaf / Business Bay',
     name: 'Binghatti Ghost',
@@ -4228,7 +4335,9 @@ const projectData = {
       {ico:'💛', lbl:'Lobby', val:'Gold-Infused Design'},
       {ico:'🏙', lbl:'Location', val:'Business Bay'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   bgh_hills: {
     dev: 'BINGHATTI · Dubai Science Park',
     name: 'Binghatti Hills',
@@ -4249,7 +4358,9 @@ const projectData = {
       {ico:'🦩', lbl:'Wildlife', val:'Sanctuary Views'},
       {ico:'💰', lbl:'Pricing', val:'AED 900K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   bgh_nova: {
     dev: 'BINGHATTI · JVC',
     name: 'Binghatti Nova',
@@ -4270,7 +4381,9 @@ const projectData = {
       {ico:'📍', lbl:'Location', val:'JVC'},
       {ico:'💰', lbl:'Pricing', val:'AED 680K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // BEYOND / OMNIYAT
   byd_opus: {
@@ -4293,7 +4406,9 @@ const projectData = {
       {ico:'🏠', lbl:'Residences', val:'Omniyat Branded'},
       {ico:'✅', lbl:'Status', val:'Completed 2020'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   byd_palm: {
     dev: 'BEYOND / OMNIYAT · Palm Jumeirah Crescent',
     name: 'One at Palm Jumeirah',
@@ -4314,7 +4429,9 @@ const projectData = {
       {ico:'🪨', lbl:'Finishes', val:'Italian Marble & Gold'},
       {ico:'💰', lbl:'Pricing', val:'AED 15M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   byd_vela: {
     dev: 'BEYOND / OMNIYAT · Business Bay Waterfront',
     name: 'Vela by Omniyat',
@@ -4335,7 +4452,9 @@ const projectData = {
       {ico:'💧', lbl:'Frontage', val:'Canal Waterfront'},
       {ico:'💰', lbl:'Pricing', val:'AED 9M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   byd_ava: {
     dev: 'BEYOND / OMNIYAT · Palm Jumeirah Crown',
     name: 'AVA at Palm Jumeirah',
@@ -4356,7 +4475,9 @@ const projectData = {
       {ico:'🔒', lbl:'Privacy', val:'Absolute'},
       {ico:'💰', lbl:'Pricing', val:'AED 25M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   byd_sterling: {
     dev: 'BEYOND / OMNIYAT · Business Bay',
     name: 'The STERLING',
@@ -4377,7 +4498,9 @@ const projectData = {
       {ico:'✅', lbl:'Status', val:'Completed 2018'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.5M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // ELLINGTON
   elg_dt1: {
@@ -4400,7 +4523,9 @@ const projectData = {
       {ico:'🪨', lbl:'Finishes', val:'Hand-Selected Stone'},
       {ico:'📱', lbl:'Smart Home', val:'Fully Integrated'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3884942/pexels-photo-3884942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   elg_crestmark: {
     dev: 'ELLINGTON · Business Bay Canal',
     name: 'The Crestmark',
@@ -4421,7 +4546,9 @@ const projectData = {
       {ico:'🏙', lbl:'Floors', val:'23 Stories'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.1M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   elg_sanctuary: {
     dev: 'ELLINGTON · Nad Al Sheba',
     name: 'The Sanctuary',
@@ -4442,7 +4569,9 @@ const projectData = {
       {ico:'🏠', lbl:'Living', val:'Double-Height Spaces'},
       {ico:'💰', lbl:'Pricing', val:'AED 12M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   elg_house: {
     dev: 'ELLINGTON · Dubai Hills',
     name: 'Ellington House',
@@ -4463,7 +4592,9 @@ const projectData = {
       {ico:'🪵', lbl:'Millwork', val:'Custom Designed'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.3M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   elg_wilton: {
     dev: 'ELLINGTON · MBR City',
     name: 'Wilton Terraces',
@@ -4484,7 +4615,9 @@ const projectData = {
       {ico:'🎨', lbl:'Art', val:'Curated Collection'},
       {ico:'💰', lbl:'Pricing', val:'AED 850K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // AZIZI
   azi_riviera: {
@@ -4507,7 +4640,9 @@ const projectData = {
       {ico:'🏠', lbl:'Units', val:'16,000+'},
       {ico:'💰', lbl:'Pricing', val:'AED 450K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   azi_venice: {
     dev: 'AZIZI · Dubai South',
     name: 'Venice',
@@ -4528,7 +4663,9 @@ const projectData = {
       {ico:'🌊', lbl:'Piazzas', val:'Waterfront'},
       {ico:'💰', lbl:'Pricing', val:'AED 450K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   azi_creek: {
     dev: 'AZIZI · Dubai Healthcare City',
     name: 'Creek Views',
@@ -4549,7 +4686,9 @@ const projectData = {
       {ico:'🏙', lbl:'Towers', val:'Multiple'},
       {ico:'💰', lbl:'Pricing', val:'AED 550K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   azi_star: {
     dev: 'AZIZI · Dubai Studio City',
     name: 'Star by Azizi',
@@ -4570,7 +4709,9 @@ const projectData = {
       {ico:'📱', lbl:'Tech Hub', val:'Creative Ecosystem'},
       {ico:'💰', lbl:'Pricing', val:'AED 700K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   azi_berton: {
     dev: 'AZIZI · Al Furjan',
     name: 'Berton',
@@ -4591,7 +4732,9 @@ const projectData = {
       {ico:'🌿', lbl:'Podium', val:'Landscaped Garden'},
       {ico:'💰', lbl:'Pricing', val:'AED 530K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // IMTIAZ
   imt_sunsetbay: {
@@ -4614,7 +4757,9 @@ const projectData = {
       {ico:'🏊', lbl:'Amenities', val:'Resort-Style'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.5M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   imt_westwood: {
     dev: 'IMTIAZ · JVC',
     name: 'Westwood Grande',
@@ -4635,7 +4780,9 @@ const projectData = {
       {ico:'🏙', lbl:'Floors', val:'15 Stories'},
       {ico:'💰', lbl:'Pricing', val:'AED 700K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   imt_oceanpearl: {
     dev: 'IMTIAZ · Dubai Islands',
     name: 'Ocean Pearl',
@@ -4656,7 +4803,9 @@ const projectData = {
       {ico:'🏝', lbl:'Location', val:'Dubai Islands'},
       {ico:'💰', lbl:'Pricing', val:'AED 1.8M+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1001911/pexels-photo-1001911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   imt_florea: {
     dev: 'IMTIAZ · JVC',
     name: 'Florea',
@@ -4677,7 +4826,9 @@ const projectData = {
       {ico:'📍', lbl:'Location', val:'JVC'},
       {ico:'💰', lbl:'Pricing', val:'AED 650K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   imt_celia: {
     dev: 'IMTIAZ · Dubailand',
     name: 'Celia',
@@ -4698,7 +4849,9 @@ const projectData = {
       {ico:'🏙', lbl:'Location', val:'Dubailand'},
       {ico:'💰', lbl:'Pricing', val:'AED 580K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
 
   // DANUBE
   dnb_fashionz: {
@@ -4721,7 +4874,9 @@ const projectData = {
       {ico:'🏙', lbl:'Floors', val:'65 Stories'},
       {ico:'💰', lbl:'Pricing', val:'AED 680K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dnb_elitz3: {
     dev: 'DANUBE · JVC',
     name: 'Elitz 3',
@@ -4742,7 +4897,9 @@ const projectData = {
       {ico:'📍', lbl:'Location', val:'JVC'},
       {ico:'💰', lbl:'Pricing', val:'AED 750K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dnb_sportz: {
     dev: 'DANUBE · Dubai Sports City',
     name: 'Sportz',
@@ -4763,7 +4920,9 @@ const projectData = {
       {ico:'🧘', lbl:'Yoga', val:'Studio Spaces'},
       {ico:'💰', lbl:'Pricing', val:'AED 500K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dnb_opalz: {
     dev: 'DANUBE · Dubai Science Park',
     name: 'Opalz',
@@ -4784,7 +4943,9 @@ const projectData = {
       {ico:'📅', lbl:'Payment', val:'1% Monthly Plan'},
       {ico:'💰', lbl:'Pricing', val:'AED 595K+'}
     ]
-  },
+  ,
+    photo: 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/1174996/pexels-photo-1174996.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']},
   dnb_altai: {
     dev: 'DANUBE · JVC',
     name: 'Altai Tower',
@@ -4805,7 +4966,9 @@ const projectData = {
       {ico:'🪨', lbl:'Finishes', val:'Italian Marble & Tiles'},
       {ico:'💰', lbl:'Pricing', val:'AED 720K+'}
     ]
-  }
+  ,
+    photo: 'https://images.pexels.com/photos/1486968/pexels-photo-1486968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    gallery: ['https://images.pexels.com/photos/3057959/pexels-photo-3057959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/2285396/pexels-photo-2285396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']}
 };
 
 // ── CURRENT DEV (for back-to-developer navigation) ────────────────────────────
@@ -4821,6 +4984,14 @@ function openProjPanel(key, devId) {
   // Hero
   const hero = document.getElementById('proj-panel-hero');
   if (hero) hero.setAttribute('data-num', d.num);
+  const heroImg = document.getElementById('proj-panel-hero-img');
+  if (heroImg && d.photo) { heroImg.style.backgroundImage = 'url(' + d.photo + ')'; }
+
+  // Gallery
+  const g1 = document.getElementById('ppg-img1');
+  const g2 = document.getElementById('ppg-img2');
+  if (g1 && d.gallery) { g1.src = d.gallery[0] || ''; }
+  if (g2 && d.gallery) { g2.src = d.gallery[1] || ''; }
   const devEl = document.getElementById('proj-panel-dev');
   if (devEl) devEl.textContent = d.dev;
   const nameEl = document.getElementById('proj-panel-name');
