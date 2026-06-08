@@ -5327,15 +5327,19 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
 
   var map = L.map('dubai-map', {
     center: [25.1124, 55.1390],
-    zoom: 11,
+    zoom: 12,
     zoomControl: true,
     scrollWheelZoom: false,
     attributionControl: false
   });
 
-  // Dark tile layer (CartoDB dark)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    maxZoom: 19
+  // English day-mode tiles — Esri World Street Map (always English, high resolution)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 19,
+    maxNativeZoom: 17,
+    tileSize: 256,
+    updateWhenZooming: false,
+    keepBuffer: 4
   }).addTo(map);
 
   // Enable scroll zoom only on click
