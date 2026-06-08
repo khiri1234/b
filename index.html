@@ -158,6 +158,31 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 .scroll-hint span{font-size:.92rem;letter-spacing:.25em;color:rgba(246,242,234,.78);text-transform:uppercase;}
 .scroll-line{width:1px;height:0;background:linear-gradient(to bottom,var(--gold),transparent);}
 
+/* ── DUBAI MAP ── */
+#dubai-map-section{padding:16vh 6vw 12vh;background:var(--black);overflow:hidden;}
+.dmap-header{max-width:700px;margin:0 auto 6vh;text-align:center;}
+.dmap-label{font-size:.82rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:1.2rem;}
+.dmap-title{font-family:'Tenor Sans',sans-serif;font-size:clamp(2rem,4.5vw,4rem);letter-spacing:.08em;text-transform:uppercase;color:var(--cream);line-height:1.05;margin-bottom:1.2rem;}
+.dmap-title em{font-family:'EB Garamond',serif;font-style:italic;color:var(--gold2);letter-spacing:.12em;text-transform:none;}
+.dmap-sub{font-size:.9rem;letter-spacing:.12em;color:rgba(246,242,234,.72);font-weight:300;}
+.dmap-wrap{position:relative;max-width:1100px;margin:0 auto;}
+#dubai-map{width:100%;height:520px;border-radius:4px;border:1px solid rgba(184,147,90,.18);
+  filter:saturate(.45) brightness(.75) hue-rotate(30deg);
+  transition:filter .6s ease;}
+#dubai-map:hover{filter:saturate(.6) brightness(.85) hue-rotate(25deg);}
+@media(max-width:768px){#dubai-map{height:340px;}}
+.dmap-legend{display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;}
+.dmap-leg-item{display:flex;align-items:center;gap:.55rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(246,242,234,.72);}
+.dleg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.leaflet-container{background:#3a4820!important;font-family:'Montserrat',sans-serif;}
+.leaflet-control-zoom a{background:rgba(44,53,24,.92)!important;color:var(--gold)!important;border-color:rgba(184,147,90,.3)!important;}
+.leaflet-control-zoom a:hover{background:rgba(184,147,90,.15)!important;}
+.leaflet-popup-content-wrapper{background:rgba(44,53,24,.96);border:1px solid rgba(184,147,90,.3);border-radius:3px;color:var(--cream);box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.leaflet-popup-tip{background:rgba(44,53,24,.96);}
+.leaflet-popup-content{margin:12px 16px;font-size:.82rem;letter-spacing:.08em;line-height:1.6;}
+.leaflet-popup-content strong{display:block;font-family:'Tenor Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);font-size:.78rem;margin-bottom:.3rem;}
+.leaflet-popup-close-button{color:rgba(184,147,90,.7)!important;}
+
 /* ── STATEMENT ── */
 #statement{padding:20vh 10vw;min-height:100vh;display:flex;align-items:center;background:var(--black);}
 .statement-wrap{max-width:900px;margin:0 auto;}
@@ -824,6 +849,8 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   .ppg-img.ppg-s1,.ppg-img.ppg-s2{height:150px;}
 }
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
@@ -868,6 +895,25 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   <div class="scroll-hint" id="scroll-hint">
     <span>Scroll</span>
     <div class="scroll-line" id="scroll-line"></div>
+  </div>
+</section>
+
+<!-- DUBAI MAP -->
+<section id="dubai-map-section">
+  <div class="dmap-header reveal-up">
+    <div class="dmap-label">— Our Footprint</div>
+    <h2 class="dmap-title">Dubai&rsquo;s Prime <em>Property Zones</em></h2>
+    <p class="dmap-sub">From Palm Jebel Ali to Downtown — every landmark district, mapped.</p>
+  </div>
+  <div class="dmap-wrap">
+    <div id="dubai-map"></div>
+    <!-- Zone legend -->
+    <div class="dmap-legend">
+      <div class="dmap-leg-item"><span class="dleg-dot" style="background:#b8935a"></span>Waterfront</div>
+      <div class="dmap-leg-item"><span class="dleg-dot" style="background:#d4b483"></span>Downtown</div>
+      <div class="dmap-leg-item"><span class="dleg-dot" style="background:#e8d5a3"></span>Villa Community</div>
+      <div class="dmap-leg-item"><span class="dleg-dot" style="background:#8fa85a"></span>Emerging</div>
+    </div>
   </div>
 </section>
 
@@ -5272,6 +5318,98 @@ function trapFocus(panel){
 document.querySelectorAll('.detail-page').forEach(trapFocus);
 if(document.getElementById('proj-panel')) trapFocus(document.getElementById('proj-panel'));
 
+</script>
+
+<script>
+// ── DUBAI MAP ────────────────────────────────────────────
+(function(){
+  var mapEl = document.getElementById('dubai-map');
+  if(!mapEl) return;
+
+  var map = L.map('dubai-map', {
+    center: [25.1124, 55.1390],
+    zoom: 11,
+    zoomControl: true,
+    scrollWheelZoom: false,
+    attributionControl: false
+  });
+
+  // Dark tile layer (CartoDB dark)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19
+  }).addTo(map);
+
+  // Enable scroll zoom only on click
+  map.once('click', function(){ map.scrollWheelZoom.enable(); });
+
+  // Color categories
+  var C = { water:'#b8935a', down:'#d4b483', villa:'#e8d5a3', emerge:'#8fa85a' };
+
+  function makeIcon(color, size){
+    size = size || 13;
+    return L.divIcon({
+      className:'',
+      html:'<div style="width:'+size+'px;height:'+size+'px;border-radius:50%;background:'+color+';border:2px solid rgba(255,255,255,.35);box-shadow:0 0 8px '+color+',0 0 18px '+color+'55;"></div>',
+      iconSize:[size,size],
+      iconAnchor:[size/2,size/2],
+      popupAnchor:[0,-size/2]
+    });
+  }
+
+  var zones = [
+    // Waterfront
+    { lat:25.1124, lng:55.1390, name:'Palm Jumeirah', type:'Waterfront Megadevelopment', cat:'water' },
+    { lat:25.0340, lng:55.0280, name:'Palm Jebel Ali', type:'Palm Central · Ultra-Luxury', cat:'water' },
+    { lat:25.2048, lng:55.2708, name:'Dubai Creek Harbour', type:'Waterfront · Emaar', cat:'water' },
+    { lat:25.0748, lng:55.1332, name:'Emaar Beachfront', type:'Private Beach Residences', cat:'water' },
+    { lat:25.0870, lng:55.1510, name:'Dubai Harbour', type:'Superyacht Marina', cat:'water' },
+    { lat:25.1906, lng:55.2803, name:'Deira Islands', type:'Nakheel Waterfront', cat:'water' },
+    { lat:25.0773, lng:55.1279, name:'Bluewaters Island', type:'Meraas · Ain Dubai', cat:'water' },
+    { lat:25.0788, lng:55.1372, name:'La Mer', type:'Beachfront Lifestyle', cat:'water' },
+    // Downtown
+    { lat:25.1972, lng:55.2744, name:'Downtown Dubai', type:'Burj Khalifa District', cat:'down' },
+    { lat:25.1872, lng:55.2684, name:'Business Bay', type:'Canal District', cat:'down' },
+    { lat:25.2285, lng:55.2900, name:'Dubai Creek', type:'Historic Waterway', cat:'down' },
+    { lat:25.1803, lng:55.2408, name:'Dubai Marina', type:'Highrise Marina District', cat:'down' },
+    { lat:25.1931, lng:55.2462, name:'JBR', type:'Jumeirah Beach Residence', cat:'down' },
+    { lat:25.0657, lng:55.1713, name:'Madinat Jumeirah', type:'Luxury Hospitality Hub', cat:'down' },
+    // Villa Communities
+    { lat:25.0520, lng:55.2700, name:'Dubai Hills Estate', type:'Emaar Golf Community', cat:'villa' },
+    { lat:25.0225, lng:55.2570, name:'DAMAC Hills', type:'Golf & Villa Community', cat:'villa' },
+    { lat:24.9780, lng:55.2300, name:'DAMAC Hills 2', type:'Townhouse Community', cat:'villa' },
+    { lat:25.0302, lng:55.3270, name:'Sobha Hartland', type:'Waterfront Villas', cat:'villa' },
+    { lat:25.0082, lng:55.2412, name:'Villanova', type:'Dubai Properties · Dubailand', cat:'villa' },
+    { lat:25.0120, lng:55.3800, name:'Meydan', type:'Nad Al Sheba District', cat:'villa' },
+    { lat:25.1589, lng:55.3854, name:'Sobha Reserve', type:'Ultra-Luxury Villas', cat:'villa' },
+    // Emerging
+    { lat:25.0578, lng:55.3660, name:'Mohammed Bin Rashid City', type:'Future District', cat:'emerge' },
+    { lat:25.2120, lng:55.3580, name:'Ras Al Khor', type:'Wildlife & Industry', cat:'emerge' },
+    { lat:25.0712, lng:55.3880, name:'Nad Al Sheba', type:'Meydan Racecourse', cat:'emerge' },
+    { lat:25.1050, lng:55.3620, name:'JVC', type:'Jumeirah Village Circle', cat:'emerge' },
+  ];
+
+  zones.forEach(function(z){
+    var ico = makeIcon(C[z.cat], z.cat==='down'||z.cat==='water' ? 14 : 11);
+    L.marker([z.lat, z.lng], {icon: ico})
+      .addTo(map)
+      .bindPopup('<strong>'+z.name+'</strong>'+z.type);
+  });
+
+  // ScrollTrigger fade-in
+  if(typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({
+      trigger:'#dubai-map-section',
+      start:'top 80%',
+      onEnter: function(){
+        if(typeof gsap !== 'undefined'){
+          gsap.from('#dubai-map', {opacity:0, y:40, duration:1.2, ease:'power3.out'});
+          gsap.from('.dmap-legend', {opacity:0, y:20, duration:1, delay:.4, ease:'power3.out'});
+        }
+      },
+      once: true
+    });
+  }
+})();
 </script>
 </body>
 </html>
