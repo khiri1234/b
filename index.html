@@ -14,7 +14,7 @@
 :root{
   --gold:#b8935a;--gold2:#d4b483;--gold3:#e8d5a3;
   --black:#526030;--dark:#637840;
-  --cream:#ede8df;--muted:rgba(237,232,223,.65);
+  --cream:#f6f2ea;--muted:rgba(246,242,234,.75);
   --ease: cubic-bezier(.76,0,.24,1);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -127,7 +127,7 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 }
 .nav-logo:active img{transform:scale(.96);}
 .nav-right{display:flex;align-items:center;gap:2.5rem;}
-.nav-link{font-size:.95rem;letter-spacing:.14em;color:rgba(237,232,223,.7);text-transform:uppercase;font-weight:300;text-decoration:none;transition:color .3s;cursor:none;}
+.nav-link{font-size:.95rem;letter-spacing:.14em;color:rgba(246,242,234,.88);text-transform:uppercase;font-weight:300;text-decoration:none;transition:color .3s;cursor:none;}
 .nav-link:hover{color:var(--gold2);}
 .nav-cta{font-size:.95rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;font-weight:300;border:1px solid rgba(184,147,90,.65);padding:.5rem 1.4rem;text-decoration:none;cursor:none;transition:background .3s,color .3s;}
 .nav-cta:hover{background:var(--gold);color:#000;}
@@ -152,17 +152,17 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 .hero-italic{font-family:'EB Garamond',serif;font-size:clamp(2rem,5vw,5.5rem);font-style:italic;font-weight:400;letter-spacing:.15em;color:var(--gold2);display:block;overflow:hidden;}
 .hero-italic span{display:block;transform:translateY(105%);}
 .hero-rule{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:2rem auto;}
-.hero-sub{font-size:.86rem;letter-spacing:.25em;color:rgba(237,232,223,.75);text-transform:uppercase;font-weight:300;overflow:hidden;}
+.hero-sub{font-size:.86rem;letter-spacing:.25em;color:rgba(246,242,234,.92);text-transform:uppercase;font-weight:300;overflow:hidden;}
 .hero-sub span{display:block;transform:translateY(100%);opacity:0;}
 .scroll-hint{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:.8rem;opacity:0;}
-.scroll-hint span{font-size:.92rem;letter-spacing:.25em;color:rgba(237,232,223,.6);text-transform:uppercase;}
+.scroll-hint span{font-size:.92rem;letter-spacing:.25em;color:rgba(246,242,234,.78);text-transform:uppercase;}
 .scroll-line{width:1px;height:0;background:linear-gradient(to bottom,var(--gold),transparent);}
 
 /* ── STATEMENT ── */
 #statement{padding:20vh 10vw;min-height:100vh;display:flex;align-items:center;background:var(--black);}
 .statement-wrap{max-width:900px;margin:0 auto;}
 .statement-label{font-size:.92rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;font-weight:300;margin-bottom:3rem;opacity:0;transform:translateY(20px);}
-.statement-text{font-family:'EB Garamond',serif;font-size:clamp(1.8rem,4vw,3.8rem);font-weight:400;line-height:1.45;color:rgba(237,232,223,.15);}
+.statement-text{font-family:'EB Garamond',serif;font-size:clamp(1.8rem,4vw,3.8rem);font-weight:400;line-height:1.45;color:rgba(246,242,234,.18);}
 .statement-text .word{display:inline-block;margin-right:.28em;transition:color .4s,opacity .4s;}
 .statement-text .word.lit{color:var(--cream);}
 .statement-author{font-size:.95rem;letter-spacing:.18em;color:rgba(184,147,90,.7);text-transform:uppercase;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(184,147,90,.1);opacity:0;transform:translateY(20px);}
@@ -177,8 +177,8 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 #collection{padding:15vh 6vw;background:var(--black);overflow-x:hidden;}
 .coll-header{margin-bottom:5vh;overflow:hidden;}
 .coll-filters{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:5vh;align-items:center;padding:.1rem 0;}
-.coll-filter-label{font-size:.8rem;letter-spacing:.22em;color:rgba(237,232,223,.55);text-transform:uppercase;font-weight:300;margin-right:.4rem;}
-.coll-filter-btn{font-size:.8rem;letter-spacing:.16em;color:rgba(237,232,223,.6);text-transform:uppercase;font-weight:300;border:1px solid rgba(184,147,90,.1);padding:.4rem 1.1rem;background:transparent;cursor:none;transition:color .3s,border-color .3s,background .3s;}
+.coll-filter-label{font-size:.8rem;letter-spacing:.22em;color:rgba(246,242,234,.72);text-transform:uppercase;font-weight:300;margin-right:.4rem;}
+.coll-filter-btn{font-size:.8rem;letter-spacing:.16em;color:rgba(246,242,234,.78);text-transform:uppercase;font-weight:300;border:1px solid rgba(184,147,90,.1);padding:.4rem 1.1rem;background:transparent;cursor:none;transition:color .3s,border-color .3s,background .3s;}
 .coll-filter-btn.active,.coll-filter-btn:hover{color:var(--gold);border-color:rgba(184,147,90,.65);background:rgba(184,147,90,.03);}
 .coll-count{font-size:.8rem;letter-spacing:.14em;color:rgba(184,147,90,.6);text-transform:uppercase;margin-left:auto;}
 .prop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
@@ -201,7 +201,7 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 .prop-tag[data-status="By Appointment"]{color:var(--gold);border-color:rgba(184,147,90,.28);}
 .prop-tag[data-status="Coming Soon"]{color:rgba(170,175,220,.65);border-color:rgba(170,175,220,.2);}
 .prop-name{font-family:'Tenor Sans',sans-serif;font-size:clamp(1.05rem,2vw,1.6rem);letter-spacing:.12em;text-transform:uppercase;color:#fff;line-height:1;margin-bottom:.55rem;opacity:0;transform:translateY(18px);}
-.prop-location{font-size:.84rem;letter-spacing:.28em;color:rgba(237,232,223,.58);text-transform:uppercase;opacity:0;transform:translateY(12px);}
+.prop-location{font-size:.84rem;letter-spacing:.28em;color:rgba(246,242,234,.75);text-transform:uppercase;opacity:0;transform:translateY(12px);}
 .prop-cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.3rem;font-size:.8rem;letter-spacing:.18em;color:rgba(184,147,90,.7);text-transform:uppercase;opacity:0;transform:translateY(10px);transition:color .3s;}
 .prop-cta::after{content:'\2192';transition:transform .3s;}
 .prop-item:hover .prop-cta{color:var(--gold);}
@@ -222,7 +222,7 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 .pillar-num{font-family:'EB Garamond',serif;font-size:3rem;font-style:italic;color:rgba(184,147,90,.1);line-height:1;margin-bottom:2rem;display:block;}
 .pillar-icon{font-size:1.6rem;margin-bottom:1.5rem;display:block;opacity:.7;}
 .pillar-title{font-family:'Tenor Sans',sans-serif;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin-bottom:1rem;}
-.pillar-desc{font-size:.9rem;line-height:2.1;color:rgba(237,232,223,.6);font-weight:300;letter-spacing:.04em;}
+.pillar-desc{font-size:.9rem;line-height:2.1;color:rgba(246,242,234,.78);font-weight:300;letter-spacing:.04em;}
 .pillar-img{position:absolute;inset:0;opacity:0;transition:opacity .6s;z-index:-1;}
 .pillar-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.2);}
 .pillar:hover .pillar-img{opacity:1;}
@@ -241,7 +241,7 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 @media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
 .stat-item{padding:3rem 2rem;border:1px solid rgba(184,147,90,.07);text-align:center;}
 .stat-num{font-family:'EB Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;color:var(--gold2);line-height:1;display:block;margin-bottom:.5rem;}
-.stat-label{font-size:.92rem;letter-spacing:.25em;color:rgba(237,232,223,.6);text-transform:uppercase;font-weight:300;}
+.stat-label{font-size:.92rem;letter-spacing:.25em;color:rgba(246,242,234,.78);text-transform:uppercase;font-weight:300;}
 
 /* ── FEATURED IMAGE ── */
 #featured{padding:0 6vw 15vh;background:var(--black);overflow-x:hidden;}
@@ -262,7 +262,7 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 .c-card{border:1px solid rgba(184,147,90,.15);padding:2rem 2.5rem;min-width:200px;text-align:center;cursor:none;transition:border-color .4s,transform .4s;position:relative;overflow:hidden;}
 .c-card::before{content:'';position:absolute;inset:0;background:var(--gold);opacity:0;transition:opacity .4s;}
 .c-card:hover{border-color:rgba(184,147,90,.7);transform:translateY(-5px);}
-.c-card:hover .c-card-type,.c-card:hover .c-card-val{color:rgba(237,232,223,.6);position:relative;z-index:1;}
+.c-card:hover .c-card-type,.c-card:hover .c-card-val{color:rgba(246,242,234,.78);position:relative;z-index:1;}
 .c-card-icon{font-size:1.2rem;margin-bottom:.8rem;display:block;position:relative;z-index:1;}
 .c-card-type{font-size:.92rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:.4rem;display:block;transition:color .3s;}
 .c-card-val{font-family:'EB Garamond',serif;font-size:1.05rem;color:var(--cream);display:block;text-decoration:none;transition:color .3s;}
@@ -272,7 +272,7 @@ nav.scrolled{background:rgba(44,53,24,.7);backdrop-filter:blur(12px);}
 /* ── FOOTER ── */
 footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 .foot-logo{font-family:'Tenor Sans',sans-serif;font-size:.92rem;letter-spacing:.22em;color:rgba(184,147,90,.7);text-transform:uppercase;}
-.foot-copy{font-size:.92rem;letter-spacing:.2em;color:rgba(237,232,223,.8);font-weight:300;}
+.foot-copy{font-size:.92rem;letter-spacing:.2em;color:rgba(246,242,234,.96);font-weight:300;}
 
 /* ── UTILS ── */
 .clip-wrap{overflow:hidden;}
@@ -289,7 +289,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .detail-page::-webkit-scrollbar-track{background:rgba(184,147,90,.05);}
 .detail-page::-webkit-scrollbar-thumb{background:rgba(184,147,90,.6);border-radius:2px;}
 .detail-back{position:sticky;top:0;left:0;z-index:800;display:inline-flex;align-items:center;
-  gap:.8rem;font-size:.9rem;letter-spacing:.14em;color:rgba(237,232,223,.6);text-transform:uppercase;
+  gap:.8rem;font-size:.9rem;letter-spacing:.14em;color:rgba(246,242,234,.78);text-transform:uppercase;
   cursor:none;transition:color .3s,background .3s;border-bottom:1px solid rgba(184,147,90,.15);
   padding:1.2rem 3vw;width:100%;background:rgba(44,53,24,.92);backdrop-filter:blur(16px);}
 .detail-back:hover{color:var(--gold);background:rgba(12,10,7,.97);}
@@ -306,7 +306,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .detail-stats-row{display:flex;gap:2rem;flex-wrap:wrap;}
 .detail-stat{text-align:center;}
 .detail-stat-num{font-family:'EB Garamond',serif;font-size:2rem;color:var(--gold2);display:block;}
-.detail-stat-lbl{font-size:.75rem;letter-spacing:.18em;color:rgba(237,232,223,.65);text-transform:uppercase;}
+.detail-stat-lbl{font-size:.75rem;letter-spacing:.18em;color:rgba(246,242,234,.82);text-transform:uppercase;}
 /* About section */
 .detail-about{padding:10vh 6vw;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;overflow-x:hidden;}
 @media(max-width:768px){.detail-about{grid-template-columns:1fr;}.detail-feat-grid{grid-template-columns:repeat(2,1fr)!important;}.detail-gal-grid{grid-template-columns:1fr!important;}.gal-img.tall{height:45vh!important;grid-row:span 1!important;}.stat-item{padding:2rem 1rem;}.prop-img-wrap{height:42vh;}}
@@ -314,7 +314,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .detail-about-title{font-family:'Tenor Sans',sans-serif;font-size:clamp(1.5rem,3vw,3rem);
   letter-spacing:.1em;text-transform:uppercase;color:var(--cream);margin-bottom:1.5rem;line-height:1.1;}
 .detail-about-title em{font-family:'EB Garamond',serif;font-style:italic;color:var(--gold2);}
-.detail-about-text{font-size:.92rem;line-height:2.2;color:rgba(237,232,223,.75);font-weight:300;margin-bottom:2rem;}
+.detail-about-text{font-size:.92rem;line-height:2.2;color:rgba(246,242,234,.92);font-weight:300;margin-bottom:2rem;}
 .detail-about-img{position:relative;overflow:hidden;height:55vh;}
 .detail-about-img img{width:100%;height:120%;object-fit:cover;object-position:center;}
 /* Features grid */
@@ -327,7 +327,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   transition:border-color .4s,background .4s;}
 .detail-feat-item:hover{border-color:rgba(184,147,90,.25);background:rgba(184,147,90,.03);}
 .feat-ico{font-size:1.4rem;margin-bottom:.8rem;display:block;}
-.feat-lbl{font-size:.95rem;letter-spacing:.14em;color:rgba(237,232,223,.7);text-transform:uppercase;
+.feat-lbl{font-size:.95rem;letter-spacing:.14em;color:rgba(246,242,234,.88);text-transform:uppercase;
   font-weight:300;margin-bottom:.3rem;}
 .feat-val{font-family:'EB Garamond',serif;font-size:1.1rem;color:var(--cream);}
 /* Gallery */
@@ -346,7 +346,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .detail-cta-title{font-family:'Tenor Sans',sans-serif;font-size:clamp(2rem,5vw,5rem);
   letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:1rem;}
 .detail-cta-title em{font-family:'EB Garamond',serif;font-style:italic;color:var(--gold2);}
-.detail-cta-sub{font-size:.9rem;color:rgba(237,232,223,.65);letter-spacing:.2em;
+.detail-cta-sub{font-size:.9rem;color:rgba(246,242,234,.82);letter-spacing:.2em;
   text-transform:uppercase;margin-bottom:3rem;}
 .detail-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
 .detail-btn-primary{font-size:.86rem;letter-spacing:.22em;color:#000;text-transform:uppercase;
@@ -383,7 +383,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .proj-card-name{font-family:'Tenor Sans',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);margin-bottom:.5rem;line-height:1.3;}
 .proj-card-loc{font-size:.9rem;color:rgba(237,232,223,.62);letter-spacing:.25em;text-transform:uppercase;margin-bottom:.4rem;}
 .proj-card-type{font-size:.74rem;color:rgba(184,147,90,.5);font-style:italic;font-family:'EB Garamond',serif;line-height:1.4;margin-bottom:.6rem;}
-.proj-card-stat{font-size:.7rem;color:rgba(237,232,223,.55);letter-spacing:.12em;line-height:1.4;margin-bottom:.55rem;}
+.proj-card-stat{font-size:.7rem;color:rgba(246,242,234,.72);letter-spacing:.12em;line-height:1.4;margin-bottom:.55rem;}
 .proj-card-badge{display:inline-block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--badge-color,rgba(184,147,90,.75));border:1px solid var(--badge-color,rgba(184,147,90,.4));border-radius:2px;padding:.15rem .45rem;margin-top:.1rem;}
 @media(max-width:900px){.detail-proj-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:560px){.detail-proj-grid{grid-template-columns:repeat(2,1fr);}}
@@ -528,7 +528,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .detail-topbar-logo img{height:30px;width:auto;display:block;filter:brightness(1.1);}
 .detail-topbar-back{background:none;border:none;cursor:pointer;
   display:inline-flex;align-items:center;gap:.7rem;
-  font-size:.86rem;letter-spacing:.16em;color:rgba(237,232,223,.65);
+  font-size:.86rem;letter-spacing:.16em;color:rgba(246,242,234,.82);
   text-transform:uppercase;font-family:'Montserrat',sans-serif;
   transition:color .4s var(--ease),gap .35s var(--ease),letter-spacing .4s var(--ease);}
 .detail-topbar-back:hover{color:var(--gold);gap:1rem;letter-spacing:.22em;}
@@ -549,7 +549,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   border-bottom:1px solid rgba(184,147,90,.15);}
 .proj-panel-back-btn{background:none;border:none;cursor:pointer;
   display:inline-flex;align-items:center;gap:.7rem;
-  font-size:.86rem;letter-spacing:.16em;color:rgba(237,232,223,.65);
+  font-size:.86rem;letter-spacing:.16em;color:rgba(246,242,234,.82);
   text-transform:uppercase;font-family:'Montserrat',sans-serif;
   transition:color .4s var(--ease),gap .35s var(--ease);}
 .proj-panel-back-btn:hover{color:var(--gold);gap:1rem;}
@@ -575,11 +575,11 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .proj-pstat-num{display:block;font-family:'EB Garamond',serif;
   font-size:clamp(1.3rem,3vw,2.2rem);color:var(--gold2);}
 .proj-pstat-lbl{display:block;font-size:.75rem;letter-spacing:.25em;
-  color:rgba(237,232,223,.55);text-transform:uppercase;margin-top:.3rem;}
+  color:rgba(246,242,234,.72);text-transform:uppercase;margin-top:.3rem;}
 .proj-panel-body{padding:8vh 6vw;}
 .proj-panel-section-lbl{font-size:.82rem;letter-spacing:.3em;color:var(--gold);
   text-transform:uppercase;margin-bottom:1.5rem;}
-.proj-panel-desc{font-size:.95rem;line-height:2.1;color:rgba(237,232,223,.78);
+.proj-panel-desc{font-size:.95rem;line-height:2.1;color:rgba(246,242,234,.94);
   margin-bottom:5vh;font-weight:300;max-width:800px;}
 .proj-panel-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:5vh;}
 @media(max-width:600px){.proj-panel-feats{grid-template-columns:repeat(2,1fr);}
@@ -589,7 +589,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   background:rgba(184,147,90,.02);transition:background .3s,border-color .3s,transform .4s var(--ease-spring);}
 .proj-pfeat:hover{background:rgba(184,147,90,.06);border-color:rgba(184,147,90,.28);transform:translateY(-4px);}
 .proj-pfeat-ico{font-size:1.3rem;margin-bottom:.6rem;display:block;}
-.proj-pfeat-lbl{font-size:.76rem;letter-spacing:.22em;color:rgba(237,232,223,.5);
+.proj-pfeat-lbl{font-size:.76rem;letter-spacing:.22em;color:rgba(246,242,234,.62);
   text-transform:uppercase;display:block;margin-bottom:.3rem;}
 .proj-pfeat-val{font-family:'EB Garamond',serif;font-size:1rem;color:var(--cream);}
 .proj-panel-cta{padding:8vh 6vw;text-align:center;background:var(--dark);
@@ -598,7 +598,7 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   font-size:clamp(1.5rem,3vw,3rem);letter-spacing:.08em;text-transform:uppercase;
   color:var(--cream);margin-bottom:.8rem;}
 .proj-panel-cta-title em{font-family:'EB Garamond',serif;font-style:italic;color:var(--gold2);}
-.proj-panel-cta-sub{font-size:.88rem;letter-spacing:.18em;color:rgba(237,232,223,.55);
+.proj-panel-cta-sub{font-size:.88rem;letter-spacing:.18em;color:rgba(246,242,234,.72);
   text-transform:uppercase;margin-bottom:2.5rem;}
 .proj-panel-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
 .proj-card{cursor:pointer;}
@@ -1923,7 +1923,7 @@ function closePage(id){
     <div style="font-size:2rem;margin-bottom:.8rem;">🏆</div>
     <div style="font-family:'Tenor Sans',sans-serif;font-size:clamp(1rem,2vw,1.5rem);letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin-bottom:.5rem;">Guinness World Record</div>
     <div style="font-family:'EB Garamond',serif;font-size:clamp(1.5rem,3vw,2.5rem);color:var(--gold2);margin-bottom:.5rem;">AED 10 Billion+ Sold in 24 Hours</div>
-    <div style="font-size:.9rem;color:rgba(237,232,223,.65);letter-spacing:.2em;text-transform:uppercase;">Highest Revenue Real Estate Launch in History · Dec 2025</div>
+    <div style="font-size:.9rem;color:rgba(246,242,234,.82);letter-spacing:.2em;text-transform:uppercase;">Highest Revenue Real Estate Launch in History · Dec 2025</div>
   </div>
 
   <!-- ABOUT -->
@@ -1963,23 +1963,23 @@ function closePage(id){
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:900px;margin:0 auto;">
       <div>
-        <p style="font-size:.92rem;line-height:2.2;color:rgba(237,232,223,.8);margin-bottom:1.2rem;">The final cluster of DAMAC Islands 2 — and its most coveted. Antigua centres on lagoon-side terraces, breezy verandas, private beach access, and open-plan interiors where indoors and outdoors merge seamlessly.</p>
+        <p style="font-size:.92rem;line-height:2.2;color:rgba(246,242,234,.96);margin-bottom:1.2rem;">The final cluster of DAMAC Islands 2 — and its most coveted. Antigua centres on lagoon-side terraces, breezy verandas, private beach access, and open-plan interiors where indoors and outdoors merge seamlessly.</p>
         <p style="font-size:.9rem;line-height:2.2;color:rgba(184,147,90,.6);font-style:italic;">"When a developer labels something The Final Release, that is not marketing language. It is inventory reality."</p>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
-        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">AED 2.9M</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Starting Price</div></div>
-        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">75/25</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Payment Plan</div></div>
-        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">Q4 2030</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Handover</div></div>
-        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">4–5 BR</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Villas & Townhouses</div></div>
+        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">AED 2.9M</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Starting Price</div></div>
+        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">75/25</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Payment Plan</div></div>
+        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">Q4 2030</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Handover</div></div>
+        <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.15);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">4–5 BR</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Villas & Townhouses</div></div>
       </div>
     </div>
     <!-- 5 Pillars -->
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;max-width:900px;margin:2.5rem auto 0;">
-      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🌿</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Nature</div><div style="font-size:.9rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.6;">Botanical Park · Orchard Trails</div></div>
-      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🧘</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Wellness</div><div style="font-size:.9rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.6;">Hot Spring Spa · Yoga Deck</div></div>
-      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🏄</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Adventure</div><div style="font-size:.9rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.6;">Aqua Dome · Jungle River</div></div>
-      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🥂</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Social</div><div style="font-size:.9rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.6;">Cave Dining · Floating Venue</div></div>
-      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🎭</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Cultural</div><div style="font-size:.9rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.6;">Art Spaces · Wildlife Park</div></div>
+      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🌿</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Nature</div><div style="font-size:.9rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.6;">Botanical Park · Orchard Trails</div></div>
+      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🧘</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Wellness</div><div style="font-size:.9rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.6;">Hot Spring Spa · Yoga Deck</div></div>
+      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🏄</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Adventure</div><div style="font-size:.9rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.6;">Aqua Dome · Jungle River</div></div>
+      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🥂</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Social</div><div style="font-size:.9rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.6;">Cave Dining · Floating Venue</div></div>
+      <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-size:1.3rem;margin-bottom:.5rem;">🎭</div><div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Cultural</div><div style="font-size:.9rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.6;">Art Spaces · Wildlife Park</div></div>
     </div>
   </div>
 
@@ -2361,25 +2361,25 @@ function closePage(id){
     <div style="max-width:900px;margin:0 auto;">
       <div style="font-size:.86rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1.2rem;">— Binghatti's First Villa Community</div>
       <div style="font-family:'Tenor Sans',sans-serif;font-size:clamp(1.8rem,4vw,3.5rem);letter-spacing:.08em;text-transform:uppercase;color:var(--cream);margin-bottom:.5rem;">Tilal <em style="font-family:'EB Garamond',serif;font-style:italic;color:var(--gold2)">by Binghatti</em></div>
-      <div style="font-size:.9rem;letter-spacing:.15em;color:rgba(237,232,223,.65);text-transform:uppercase;margin-bottom:3rem;">Al Rowaiyah · Dubailand · 10M+ Sq Ft Master Community</div>
+      <div style="font-size:.9rem;letter-spacing:.15em;color:rgba(246,242,234,.82);text-transform:uppercase;margin-bottom:3rem;">Al Rowaiyah · Dubailand · 10M+ Sq Ft Master Community</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4vw;">
         <div>
-          <p style="font-size:.9rem;line-height:2.2;color:rgba(237,232,223,.8);font-weight:300;margin-bottom:1.5rem;">Tilal Binghatti marks a historic moment — Binghatti's first-ever master-planned villa community spanning over 10 million square feet. Known for iconic branded high-rises (Mercedes, Bugatti, Jacob &amp; Co), Binghatti now enters the villa segment with collectible first-mover value.</p>
-          <p style="font-size:.9rem;line-height:2.2;color:rgba(237,232,223,.8);font-weight:300;margin-bottom:1.5rem;">Strategically positioned in Academic City with seamless access to Downtown Dubai and Dubai International Airport. A self-contained walkable district where villas, retail, wellness, and lifestyle converge. 25% dedicated to green landscapes.</p>
+          <p style="font-size:.9rem;line-height:2.2;color:rgba(246,242,234,.96);font-weight:300;margin-bottom:1.5rem;">Tilal Binghatti marks a historic moment — Binghatti's first-ever master-planned villa community spanning over 10 million square feet. Known for iconic branded high-rises (Mercedes, Bugatti, Jacob &amp; Co), Binghatti now enters the villa segment with collectible first-mover value.</p>
+          <p style="font-size:.9rem;line-height:2.2;color:rgba(246,242,234,.96);font-weight:300;margin-bottom:1.5rem;">Strategically positioned in Academic City with seamless access to Downtown Dubai and Dubai International Airport. A self-contained walkable district where villas, retail, wellness, and lifestyle converge. 25% dedicated to green landscapes.</p>
           <p style="font-size:.9rem;line-height:2.2;color:rgba(184,147,90,.6);font-style:italic;">"Projected rental yield: 7–10% · 12% avg capital appreciation between launch and 50% construction milestone."</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;align-content:start;">
-          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">AED 4.2M</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Starting Price</div></div>
-          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">Jun 2029</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Handover</div></div>
-          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">3–5 BR</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Villas &amp; Townhouses</div></div>
-          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">7–10%</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Projected Yield</div></div>
+          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">AED 4.2M</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Starting Price</div></div>
+          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">Jun 2029</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Handover</div></div>
+          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">3–5 BR</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Villas &amp; Townhouses</div></div>
+          <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;"><div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">7–10%</div><div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Projected Yield</div></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;margin-top:2rem;">
-        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">🏙</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Location</div><div style="font-size:.75rem;color:rgba(237,232,223,.7);margin-top:.3rem;">Academic City · Al Rowaiyah</div></div>
-        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">🌿</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Green Space</div><div style="font-size:.75rem;color:rgba(237,232,223,.7);margin-top:.3rem;">25% Landscaped · Wellness</div></div>
-        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">📐</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Community</div><div style="font-size:.75rem;color:rgba(237,232,223,.7);margin-top:.3rem;">50+ Amenities · Walkable</div></div>
-        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">🔑</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Ownership</div><div style="font-size:.75rem;color:rgba(237,232,223,.7);margin-top:.3rem;">100% Freehold · All Nations</div></div>
+        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">🏙</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Location</div><div style="font-size:.75rem;color:rgba(246,242,234,.88);margin-top:.3rem;">Academic City · Al Rowaiyah</div></div>
+        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">🌿</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Green Space</div><div style="font-size:.75rem;color:rgba(246,242,234,.88);margin-top:.3rem;">25% Landscaped · Wellness</div></div>
+        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">📐</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Community</div><div style="font-size:.75rem;color:rgba(246,242,234,.88);margin-top:.3rem;">50+ Amenities · Walkable</div></div>
+        <div style="padding:1.2rem;border:1px solid rgba(184,147,90,.08);text-align:center;"><div style="font-size:1.1rem;margin-bottom:.4rem;">🔑</div><div style="font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Ownership</div><div style="font-size:.75rem;color:rgba(246,242,234,.88);margin-top:.3rem;">100% Freehold · All Nations</div></div>
       </div>
     </div>
   </div>
@@ -3046,14 +3046,14 @@ function closePage(id){
     <div style="max-width:900px;margin:0 auto;">
       <div style="font-size:.86rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1.2rem;">— Launched April 2026 · Danube's First Villa Community</div>
       <div style="font-family:'Tenor Sans',sans-serif;font-size:clamp(1.8rem,4vw,3.5rem);letter-spacing:.08em;text-transform:uppercase;color:var(--cream);margin-bottom:.5rem;">Greenz <em style="font-family:'EB Garamond',serif;font-style:italic;color:var(--gold2)">by Danube</em></div>
-      <div style="font-size:.9rem;letter-spacing:.15em;color:rgba(237,232,223,.65);text-transform:uppercase;margin-bottom:3rem;">Dubai Academic City · Near Silicon Oasis · 700 Homes Only</div>
+      <div style="font-size:.9rem;letter-spacing:.15em;color:rgba(246,242,234,.82);text-transform:uppercase;margin-bottom:3rem;">Dubai Academic City · Near Silicon Oasis · 700 Homes Only</div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:start;">
         <div>
-          <p style="font-size:.9rem;line-height:2.2;color:rgba(237,232,223,.8);font-weight:300;margin-bottom:1.5rem;">
+          <p style="font-size:.9rem;line-height:2.2;color:rgba(246,242,234,.96);font-weight:300;margin-bottom:1.5rem;">
             Greenz by Danube is a landmark — Danube's first large-scale integrated villa community, unveiled at Coca-Cola Arena by H.E. Sheikh Nahyan bin Mubarak Al Nahyan to over 7,000 investors and business leaders. It marks a major strategic expansion for Danube, a developer renowned for pioneering the 1% payment plan.
           </p>
-          <p style="font-size:.9rem;line-height:2.2;color:rgba(237,232,223,.8);font-weight:300;margin-bottom:1.5rem;">
+          <p style="font-size:.9rem;line-height:2.2;color:rgba(246,242,234,.96);font-weight:300;margin-bottom:1.5rem;">
             Located in Dubai International Academic City — home to 100,000+ residents — near Silicon Oasis and the upcoming District IO technology hub. A limited collection of just 700 homes, fully furnished with Dolce Vita-branded interiors, private lifts, sky gardens, and high-end Italian fittings. Over 40–50% of land dedicated to greenery and parks.
           </p>
           <p style="font-size:.9rem;line-height:2.2;color:rgba(184,147,90,.6);font-style:italic;">
@@ -3064,19 +3064,19 @@ function closePage(id){
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2rem;">
             <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
               <div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">AED 3.5M</div>
-              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Starting Price</div>
+              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Starting Price</div>
             </div>
             <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
               <div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">Q4 2029</div>
-              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Handover</div>
+              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Handover</div>
             </div>
             <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
               <div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">3–5 BR</div>
-              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Townhouses & Villas</div>
+              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Townhouses & Villas</div>
             </div>
             <div style="padding:1.5rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
               <div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--gold2);">1%</div>
-              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(237,232,223,.6);text-transform:uppercase;margin-top:.3rem;">Monthly Payment Plan</div>
+              <div style="font-size:.9rem;letter-spacing:.3em;color:rgba(246,242,234,.78);text-transform:uppercase;margin-top:.3rem;">Monthly Payment Plan</div>
             </div>
           </div>
         </div>
@@ -3089,27 +3089,27 @@ function closePage(id){
           <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
             <div style="font-size:1.3rem;margin-bottom:.5rem;">🏖</div>
             <div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Beach</div>
-            <div style="font-size:.75rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.5;">Beach-inspired spaces & Crystal Lagoons</div>
+            <div style="font-size:.75rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.5;">Beach-inspired spaces & Crystal Lagoons</div>
           </div>
           <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
             <div style="font-size:1.3rem;margin-bottom:.5rem;">🏋</div>
             <div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Fitness</div>
-            <div style="font-size:.75rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.5;">Sports courts & Recovery zones</div>
+            <div style="font-size:.75rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.5;">Sports courts & Recovery zones</div>
           </div>
           <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
             <div style="font-size:1.3rem;margin-bottom:.5rem;">🌿</div>
             <div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Green</div>
-            <div style="font-size:.75rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.5;">3.75km jogging track · Parks</div>
+            <div style="font-size:.75rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.5;">3.75km jogging track · Parks</div>
           </div>
           <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
             <div style="font-size:1.3rem;margin-bottom:.5rem;">👨‍👩‍👧</div>
             <div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Family</div>
-            <div style="font-size:.75rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.5;">Kids zones · Schools nearby</div>
+            <div style="font-size:.75rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.5;">Kids zones · Schools nearby</div>
           </div>
           <div style="padding:1.5rem 1rem;border:1px solid rgba(184,147,90,.1);text-align:center;">
             <div style="font-size:1.3rem;margin-bottom:.5rem;">⛲</div>
             <div style="font-size:.86rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;">Leisure</div>
-            <div style="font-size:.75rem;color:rgba(237,232,223,.65);margin-top:.3rem;line-height:1.5;">Dancing fountain · Sky gardens</div>
+            <div style="font-size:.75rem;color:rgba(246,242,234,.82);margin-top:.3rem;line-height:1.5;">Dancing fountain · Sky gardens</div>
           </div>
         </div>
       </div>
@@ -3118,7 +3118,7 @@ function closePage(id){
       <div style="margin-top:2.5rem;padding:2rem;border:1px solid rgba(184,147,90,.2);background:rgba(184,147,90,.04);text-align:center;">
         <div style="font-size:1.5rem;margin-bottom:.5rem;">🛋</div>
         <div style="font-family:'Tenor Sans',sans-serif;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin-bottom:.4rem;">Fully Furnished · Dolce Vita Branded Interiors</div>
-        <div style="font-size:.86rem;color:rgba(237,232,223,.65);letter-spacing:.1em;">Private lifts · Sky gardens · Italian fittings · Smart home tech · 20% energy savings</div>
+        <div style="font-size:.86rem;color:rgba(246,242,234,.82);letter-spacing:.1em;">Private lifts · Sky gardens · Italian fittings · Smart home tech · 20% energy savings</div>
       </div>
     </div>
   </div>
@@ -3198,15 +3198,15 @@ function closePage(id){
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;">
         <div style="text-align:center;padding:1.5rem;border:1px solid rgba(184,147,90,.2);border-radius:4px;">
           <div style="font-family:'EB Garamond',serif;font-size:2rem;color:var(--gold);">20%</div>
-          <div style="font-size:.7rem;letter-spacing:.2em;color:rgba(237,232,223,.55);text-transform:uppercase;margin-top:.4rem;">On Booking</div>
+          <div style="font-size:.7rem;letter-spacing:.2em;color:rgba(246,242,234,.72);text-transform:uppercase;margin-top:.4rem;">On Booking</div>
         </div>
         <div style="text-align:center;padding:1.5rem;border:1px solid rgba(184,147,90,.2);border-radius:4px;">
           <div style="font-family:'EB Garamond',serif;font-size:2rem;color:var(--gold);">40%</div>
-          <div style="font-size:.7rem;letter-spacing:.2em;color:rgba(237,232,223,.55);text-transform:uppercase;margin-top:.4rem;">During Construction</div>
+          <div style="font-size:.7rem;letter-spacing:.2em;color:rgba(246,242,234,.72);text-transform:uppercase;margin-top:.4rem;">During Construction</div>
         </div>
         <div style="text-align:center;padding:1.5rem;border:1px solid rgba(184,147,90,.2);border-radius:4px;">
           <div style="font-family:'EB Garamond',serif;font-size:2rem;color:var(--gold);">40%</div>
-          <div style="font-size:.7rem;letter-spacing:.2em;color:rgba(237,232,223,.55);text-transform:uppercase;margin-top:.4rem;">On Handover</div>
+          <div style="font-size:.7rem;letter-spacing:.2em;color:rgba(246,242,234,.72);text-transform:uppercase;margin-top:.4rem;">On Handover</div>
         </div>
       </div>
     </div>
