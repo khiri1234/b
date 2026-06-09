@@ -294,7 +294,38 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 .proj-card-type{font-size:.74rem;color:rgba(184,147,90,.5);font-style:italic;font-family:'EB Garamond',serif;line-height:1.4;}
 @media(max-width:900px){.detail-proj-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:560px){.detail-proj-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ═══ DUBAI MAP SECTION ═══ */
+#dubai-map-section{padding:96px 0 112px;background:var(--black);position:relative;overflow:hidden;}
+.map-sec-inner{max-width:1200px;margin:0 auto;padding:0 40px;}
+.map-sec-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:.85;}
+.map-sec-title{font-size:clamp(26px,4vw,44px);font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:12px;}
+.map-sec-title em{font-style:italic;color:var(--gold2);}
+.map-sec-sub{font-size:13.5px;font-weight:300;color:var(--cream);opacity:.45;margin-bottom:48px;letter-spacing:.04em;}
+#dubai-map{width:100%;height:540px;border-radius:12px;border:1px solid rgba(184,147,90,.22);box-shadow:0 20px 60px rgba(0,0,0,.14);overflow:hidden;position:relative;}
+.leaflet-container{font-family:inherit!important;}
+.leaflet-control-zoom{border:1px solid rgba(184,147,90,.3)!important;border-radius:8px!important;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.1)!important;}
+.leaflet-control-zoom-in,.leaflet-control-zoom-out{background:rgba(214,236,248,.95)!important;color:#333!important;border-bottom:1px solid rgba(184,147,90,.2)!important;width:28px!important;height:28px!important;line-height:28px!important;}
+.leaflet-control-zoom-in:hover,.leaflet-control-zoom-out:hover{background:rgba(184,147,90,.15)!important;}
+.leaflet-popup-content-wrapper{background:rgba(17,17,17,.93)!important;border:1px solid rgba(184,147,90,.45)!important;border-radius:8px!important;box-shadow:0 8px 28px rgba(0,0,0,.3)!important;padding:0!important;backdrop-filter:blur(8px);}
+.leaflet-popup-content{margin:0!important;padding:14px 18px!important;min-width:190px;}
+.leaflet-popup-tip-container{display:none!important;}
+.leaflet-popup-close-button{color:rgba(184,147,90,.7)!important;font-size:17px!important;top:6px!important;right:8px!important;}
+.leaflet-popup-close-button:hover{color:var(--gold)!important;}
+.map-pop-district{font-size:15px;font-weight:600;color:var(--gold2,#d4b483);letter-spacing:.04em;margin-bottom:5px;}
+.map-pop-devs{font-size:11px;font-weight:300;color:rgba(30,40,60,.7);letter-spacing:.05em;line-height:1.5;}
+.map-mkr-wrap{position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:scale(0);transition:opacity .4s ease,transform .4s cubic-bezier(.34,1.56,.64,1);}
+.map-mkr-wrap.mkr-on{opacity:1;transform:scale(1);}
+.map-mkr-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;border:2px solid rgba(37,211,102,.65);animation:mapSonar 2.3s ease-out infinite;}
+.map-mkr-ring.r2{animation-delay:.8s;}
+.map-mkr-dot{width:12px;height:12px;background:var(--gold,#b8935a);border-radius:50%;border:2px solid rgba(255,255,255,.85);box-shadow:0 0 8px rgba(184,147,90,.55);position:relative;z-index:2;transition:transform .2s ease;}
+.map-mkr-wrap:hover .map-mkr-dot{transform:scale(1.3);}
+@keyframes mapSonar{0%{opacity:.8;transform:translate(-50%,-50%) scale(.5);}80%{opacity:.08;transform:translate(-50%,-50%) scale(2.4);}100%{opacity:0;transform:translate(-50%,-50%) scale(2.7);}}
+@media(max-width:900px){.map-sec-inner{padding:0 24px;}#dubai-map{height:420px;}}
+@media(max-width:660px){#dubai-map-section{padding:60px 0 72px;}.map-sec-inner{padding:0 18px;}#dubai-map{height:300px;border-radius:8px;}.map-sec-sub{margin-bottom:28px;}.leaflet-control-zoom{display:none!important;}}
 </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.min.css" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.min.js" crossorigin=""></script>
 </head>
 <body>
 
@@ -343,6 +374,17 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 </section>
 
 <!-- STATEMENT -->
+
+<!-- ═══ DUBAI MAP SECTION ═══ -->
+<section id="dubai-map-section">
+  <div class="map-sec-inner">
+    <div class="map-sec-label">— Property Hotspots</div>
+    <h2 class="map-sec-title">Discover Dubai &amp; Abu Dhabi's Most Coveted <em>Districts</em></h2>
+    <p class="map-sec-sub">Twelve prime locations · Handpicked by our advisors</p>
+    <div id="dubai-map"></div>
+  </div>
+</section>
+
 <section id="statement">
   <div class="statement-wrap">
     <div class="statement-label reveal-up">— Our Philosophy</div>
@@ -630,6 +672,206 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
         <div class="prop-name">DANUBE</div>
         <div class="prop-location">Arjan · 4 Bedrooms · 6,800 sq ft</div>
         <div class="prop-cta">Explore Estate</div>
+      </div>
+    </div>
+
+    <!-- No. 14 — MAG Developers -->
+    <div class="prop-item" data-status="Available" data-hover onclick="openPage('mag')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="MAG Developers" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 14</div>
+          <div class="prop-tag" data-status="Available">Available</div>
+        </div>
+        <div class="prop-name">MAG Developers</div>
+        <div class="prop-location">Keturah Resort · Dubai</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 15 — Select Group -->
+    <div class="prop-item" data-status="By Appointment" data-hover onclick="openPage('select-group')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/2119714/pexels-photo-2119714.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Select Group" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 15</div>
+          <div class="prop-tag" data-status="By Appointment">By Appointment</div>
+        </div>
+        <div class="prop-name">Select Group</div>
+        <div class="prop-location">Marina Gate · Dubai Marina</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 16 — Omniyat -->
+    <div class="prop-item" data-status="By Appointment" data-hover onclick="openPage('omniyat')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/3771836/pexels-photo-3771836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Omniyat" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 16</div>
+          <div class="prop-tag" data-status="By Appointment">By Appointment</div>
+        </div>
+        <div class="prop-name">Omniyat</div>
+        <div class="prop-location">AVA at Palm · Palm Jumeirah</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 17 — Deyaar Development -->
+    <div class="prop-item" data-status="Available" data-hover onclick="openPage('deyaar')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/2988232/pexels-photo-2988232.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Deyaar Development" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 17</div>
+          <div class="prop-tag" data-status="Available">Available</div>
+        </div>
+        <div class="prop-name">Deyaar Development</div>
+        <div class="prop-location">The Atria · Business Bay</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 18 — Samana Developers -->
+    <div class="prop-item" data-status="Available" data-hover onclick="openPage('samana')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Samana Developers" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 18</div>
+          <div class="prop-tag" data-status="Available">Available</div>
+        </div>
+        <div class="prop-name">Samana Developers</div>
+        <div class="prop-location">Golf Avenue · Jumeirah Village</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 19 — Tiger Properties -->
+    <div class="prop-item" data-status="Coming Soon" data-hover onclick="openPage('tiger')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Tiger Properties" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 19</div>
+          <div class="prop-tag" data-status="Coming Soon">Coming Soon</div>
+        </div>
+        <div class="prop-name">Tiger Properties</div>
+        <div class="prop-location">Tiger Sky Tower · JVC</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 20 — Aldar Properties -->
+    <div class="prop-item" data-status="Available" data-hover onclick="openPage('aldar')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/2121121/pexels-photo-2121121.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Aldar Properties" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 20</div>
+          <div class="prop-tag" data-status="Available">Available</div>
+        </div>
+        <div class="prop-name">Aldar Properties</div>
+        <div class="prop-location">Mamsha Al Saadiyat · Abu Dhabi</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 21 — Bloom Holding -->
+    <div class="prop-item" data-status="Available" data-hover onclick="openPage('bloom')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/3225528/pexels-photo-3225528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Bloom Holding" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 21</div>
+          <div class="prop-tag" data-status="Available">Available</div>
+        </div>
+        <div class="prop-name">Bloom Holding</div>
+        <div class="prop-location">Bloom Living Cordoba · Abu Dhabi</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 22 — IMKAN Properties -->
+    <div class="prop-item" data-status="By Appointment" data-hover onclick="openPage('imkan')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="IMKAN Properties" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 22</div>
+          <div class="prop-tag" data-status="By Appointment">By Appointment</div>
+        </div>
+        <div class="prop-name">IMKAN Properties</div>
+        <div class="prop-location">Makers District · Abu Dhabi</div>
+        <div class="prop-cta">Explore Portfolio</div>
+      </div>
+    </div>
+
+    <!-- No. 23 — Modon Properties -->
+    <div class="prop-item" data-status="Coming Soon" data-hover onclick="openPage('modon')" style="cursor:pointer;">
+      <div class="prop-reveal"></div>
+      <div class="prop-img-wrap">
+        <div class="prop-img">
+          <img src="https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Modon Properties" loading="lazy">
+        </div>
+        <div class="prop-fog"></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-meta">
+          <div class="prop-num">No. 23</div>
+          <div class="prop-tag" data-status="Coming Soon">Coming Soon</div>
+        </div>
+        <div class="prop-name">Modon Properties</div>
+        <div class="prop-location">Al Falah · Abu Dhabi</div>
+        <div class="prop-cta">Explore Portfolio</div>
       </div>
     </div>
   </div>
@@ -2200,6 +2442,365 @@ function closePage(id){
     </div>
   </div>
 </div>
+
+<!-- ═══ MAG DEVELOPERS DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-mag">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('mag')">← Back</button>
+    <div class="detail-topbar-title">MAG Developers</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Dubai · Est. 2003</div>
+      <h1 class="detail-h1">MAG Developers</h1>
+      <p class="detail-sub">From affordable excellence to ultra-luxury resorts — MAG redefines the full spectrum of Dubai living.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Founded in 2003 as part of the MAG Group Holding, MAG Property Development has grown into one of Dubai's most prolific and versatile developers, with a portfolio spanning affordable residences, mid-market communities, and flagship luxury resorts. Their landmark project Keturah Resort on Meydan Road redefines biophilic luxury in the heart of Dubai, blending wellness architecture with resort-style amenities across residences designed in partnership with world-renowned designers. MAG 5 Boulevard in Dubai South and MAG City in Mohammed Bin Zayed City demonstrate the group's commitment to providing integrated, self-sustaining communities for end-users and investors alike. With over AED 30 billion in assets under development, MAG continues to expand its footprint across the UAE and beyond.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20MAG%20Developers%20properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SELECT GROUP DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-select-group">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('select-group')">← Back</button>
+    <div class="detail-topbar-title">Select Group</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/2029611/pexels-photo-2029611.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Dubai · Est. 2002</div>
+      <h1 class="detail-h1">Select Group</h1>
+      <p class="detail-sub">The architects of Dubai's most audacious skyline statements — where engineering ambition meets uncompromising luxury.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Established in 2002, Select Group has built a reputation as one of Dubai's most ambitious and design-forward developers, delivering landmark mixed-use towers that consistently push the boundaries of what is architecturally and structurally possible. Their crown jewel, One Za'abeel, is home to The Link — the world's longest occupied cantilevered structure, housing sky-high restaurants, a pool, and wellness facilities suspended between two towers above Sheikh Zayed Road. The Marina Gate trilogy in Dubai Marina elevated the standard for waterfront living, offering residents concierge-level services and sweeping sea views. Select Group's projects are benchmarks not only for design quality but for their long-term investment performance, consistently attracting high-net-worth buyers from across Europe, Asia, and the GCC.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Select%20Group%20properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ OMNIYAT DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-omniyat">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('omniyat')">← Back</button>
+    <div class="detail-topbar-title">Omniyat</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/2462015/pexels-photo-2462015.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Dubai · Est. 2005</div>
+      <h1 class="detail-h1">Omniyat</h1>
+      <p class="detail-sub">Ultra-luxury residences conceived as art — where the world's finest architects sculpt homes for those who accept nothing less.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Founded in 2005, Omniyat occupies a singular position in the UAE property landscape as a purely ultra-luxury developer that consistently commissions some of the world's most celebrated architects to realise its vision. The One at Palm Jumeirah, branded by Dorchester Collection, set a new record for Dubai's residential property market and remains the gold standard for branded ultra-luxury living. AVA at Palm Jumeirah, designed by Zaha Hadid Architects, offers just 17 residences of staggering proportions with every surface a study in sculpted elegance. Omniyat's philosophy of creating fewer, more meaningful projects ensures that every development is a collector's piece — an asset that appreciates not just financially, but as a cultural artefact of its era.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Omniyat%20properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DEYAAR DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-deyaar">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('deyaar')">← Back</button>
+    <div class="detail-topbar-title">Deyaar Development</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/3119412/pexels-photo-3119412.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Dubai · Est. 2002</div>
+      <h1 class="detail-h1">Deyaar Development</h1>
+      <p class="detail-sub">A publicly listed force in Dubai real estate — building liveable, aspirational communities that stand the test of time.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Established in 2002 and listed on the Dubai Financial Market, Deyaar Development is a subsidiary of DEWA and one of the emirate's most established mid-to-premium tier property developers. The Atria in Business Bay stands as one of their flagship achievements — twin towers housing a five-star hotel alongside serviced and residential apartments with panoramic canal views. Their Midtown district in Dubai Production City offers an entirely self-contained urban neighbourhood, complete with retail, dining, and leisure facilities. Deyaar's Upper House in Jumeirah Village Triangle and The Tria in Dubai Silicon Oasis further demonstrate the developer's versatility across Dubai's most sought-after growth corridors, making them a consistently reliable choice for both investors and end-users.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Deyaar%20Development%20properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SAMANA DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-samana">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('samana')">← Back</button>
+    <div class="detail-topbar-title">Samana Developers</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/317155/pexels-photo-317155.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Dubai · Est. 2017</div>
+      <h1 class="detail-h1">Samana Developers</h1>
+      <p class="detail-sub">Pioneering the private pool apartment concept in Dubai — delivering resort-style living at accessible price points.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Samana Developers disrupted Dubai's mid-market sector by introducing private pools integrated directly into apartment balconies — a feature previously reserved for ultra-luxury villas — at accessible price points. Since 2017, the company has launched over 25 projects including Samana Hills, Samana Park Views, Samana Golf Avenue, and Samana Skyros, all drawing strong demand from international investors. Their projects in JVC, Arjan, and Dubai Studio City consistently achieve some of the best rental yields in their respective sub-markets. Samana's aggressive payment plans, quality finishes, and lifestyle-forward amenities have earned them a loyal investor following across Europe, Russia, and South Asia.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Samana%20Developers%20properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TIGER PROPERTIES DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-tiger">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('tiger')">← Back</button>
+    <div class="detail-topbar-title">Tiger Properties</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Dubai · Est. 2006</div>
+      <h1 class="detail-h1">Tiger Properties</h1>
+      <p class="detail-sub">Reaching for the sky — Tiger Properties is building the world's tallest residential tower at Jumeirah Village Circle.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Tiger Properties has established itself as one of Dubai's boldest developers, best known for the Tiger Sky Tower at JVC — upon completion, set to claim the title of the world's tallest residential building, soaring over 500 metres with more than 120 floors of residences, sky lounges, and hospitality facilities. The developer has carved a niche delivering high-specification, amenity-rich residential towers in emerging Dubai communities at competitive price points. With a portfolio spanning JVC, Dubai Silicon Oasis, and Sports City, Tiger Properties consistently delivers projects with strong rental yields and capital appreciation potential, attracting investors from across Europe, Asia, and the Americas.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Tiger%20Properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ALDAR PROPERTIES DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-aldar">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('aldar')">← Back</button>
+    <div class="detail-topbar-title">Aldar Properties</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Abu Dhabi · Est. 2005</div>
+      <h1 class="detail-h1">Aldar Properties</h1>
+      <p class="detail-sub">Abu Dhabi's leading developer — shaping the capital's most iconic islands, waterfronts, and lifestyle destinations.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Listed on the Abu Dhabi Securities Exchange since 2005, Aldar Properties is the UAE capital's largest and most influential developer, responsible for shaping entire islands and transforming Abu Dhabi's urban and coastal landscape. Their portfolio spans Yas Island — home to the Formula 1 circuit, theme parks, and Yas Bay waterfront — and Saadiyat Island with its world-class cultural district housing the Louvre Abu Dhabi. Mamsha Al Saadiyat, a beachfront walkway of curated residences, represents Aldar's finest expression of luxury coastal living, drawing high-net-worth buyers from across the globe. With an asset base exceeding AED 60 billion and an ever-expanding pipeline of landmark developments, Aldar has evolved into a pan-regional powerhouse.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Aldar%20Properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BLOOM HOLDING DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-bloom">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('bloom')">← Back</button>
+    <div class="detail-topbar-title">Bloom Holding</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/2836939/pexels-photo-2836939.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Abu Dhabi · Est. 2007</div>
+      <h1 class="detail-h1">Bloom Holding</h1>
+      <p class="detail-sub">Cultivating thoughtfully designed communities across Abu Dhabi — where lifestyle, nature, and architecture exist in seamless harmony.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Bloom Holding is an Abu Dhabi-based developer with a philosophy centred on creating sustainable, community-driven neighbourhoods that prioritise quality of life. Their flagship Bloom Gardens in Al Salam Street remains one of Abu Dhabi's most sought-after villa communities, characterised by tree-lined streets, parks, and meticulously maintained common areas. Bloom Towers in Jumeirah Village Circle brought the developer's community-focused ethos to Dubai. Their most ambitious project, Bloom Living Cordoba in Zayed City, is designed around Spanish-inspired architecture, academic institutions, healthcare, and retail — offering residents a genuinely complete lifestyle environment within Abu Dhabi's fastest-growing urban expansion zone.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Bloom%20Holding%20properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ IMKAN PROPERTIES DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-imkan">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('imkan')">← Back</button>
+    <div class="detail-topbar-title">IMKAN Properties</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/3209028/pexels-photo-3209028.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Abu Dhabi · Est. 2017</div>
+      <h1 class="detail-h1">IMKAN Properties</h1>
+      <p class="detail-sub">Design-led urban communities that challenge convention — where creativity, culture, and contemporary living converge.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">IMKAN Properties, established in 2017 as part of Abu Dhabi Capital Group, has rapidly distinguished itself as one of the region's most creatively ambitious developers, approaching real estate as urban placemaking. Their Makers District on Reem Island is conceived around a creative economy — a mixed-use waterfront quarter designed to attract artists, technologists, and entrepreneurs through flexible live-work lofts and curated retail. Pixel, their landmark residential tower, won multiple design awards for its boldly fragmented facade. Nudra on Saadiyat Island offers secluded beachfront villas with an emphasis on privacy and biophilic design, appealing to ultra-high-net-worth buyers seeking an alternative to conventional luxury in Abu Dhabi.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20IMKAN%20Properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODON PROPERTIES DETAIL PAGE ═══ -->
+<div class="detail-page" inert data-lenis-prevent id="page-modon">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closePage('modon')">← Back</button>
+    <div class="detail-topbar-title">Modon Properties</div>
+  </div>
+  <div class="detail-hero">
+    <div class="detail-hero-bg" style="background-image:url('https://images.pexels.com/photos/210017/pexels-photo-210017.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');"></div>
+    <div class="detail-hero-vig"></div>
+    <div class="detail-hero-content">
+      <div class="detail-eyebrow">Abu Dhabi · Est. 2013</div>
+      <h1 class="detail-h1">Modon Properties</h1>
+      <p class="detail-sub">Building the backbone of Abu Dhabi's future — delivering integrated cities-within-cities that inspire generations to come.</p>
+    </div>
+  </div>
+  <div class="detail-about">
+    <div class="detail-about-label">— About</div>
+    <h2 class="detail-about-title">Developer <em>Overview</em></h2>
+    <p class="detail-about-text">Modon Properties, established in 2013 as a wholly-owned Abu Dhabi government entity, operates at a scale that few developers globally can match — delivering entire urban districts rather than individual projects, each designed to house tens of thousands of residents within self-sufficient, infrastructure-rich environments. Al Shamkha and Al Falah are flagship examples of this masterplan-first philosophy: vast planned communities integrating villas, apartments, schools, mosques, healthcare, and retail into coherent, functional neighbourhoods. Their Khalifa City developments have played a central role in accommodating Abu Dhabi's growing population of Emirati families and expatriate professionals. Modon's mandate, backed by sovereign capital, ensures a level of infrastructure quality and long-term planning certainty that makes their communities among the most stable destinations for family buyers throughout Abu Dhabi.</p>
+  </div>
+  <div class="detail-cta">
+    <div class="detail-cta-pre">— Exclusively Listed by The H Property</div>
+    <div class="detail-cta-title">Begin Your <em>Journey</em></div>
+    <div class="detail-cta-btns">
+      <a href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20Modon%20Properties" class="detail-btn-primary" target="_blank">WhatsApp Us</a>
+      <a href="mailto:Hatef@hatef.cc" class="detail-btn-ghost">Send Email</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  var DISTRICTS=[
+    {lat:25.1972,lng:55.2744,district:'Downtown Dubai',devs:'Emaar · DAMAC · Ellington'},
+    {lat:25.0762,lng:55.1329,district:'Dubai Marina',devs:'Select Group · Emaar'},
+    {lat:25.1124,lng:55.1390,district:'Palm Jumeirah',devs:'Nakheel · Omniyat'},
+    {lat:25.1854,lng:55.2711,district:'Business Bay',devs:'Deyaar · Binghatti'},
+    {lat:25.2084,lng:55.3474,district:'Dubai Creek Harbour',devs:'Emaar'},
+    {lat:25.0570,lng:55.2068,district:'Jumeirah Village Circle',devs:'Azizi · Samana · Imtiaz'},
+    {lat:25.1245,lng:55.2337,district:'Dubai Hills Estate',devs:'Emaar · Ellington'},
+    {lat:25.1902,lng:55.3406,district:'Sobha Hartland',devs:'Sobha Realty'},
+    {lat:25.1521,lng:55.3124,district:'Meydan City',devs:'Meydan Group'},
+    {lat:24.5362,lng:54.4375,district:'Saadiyat Island',devs:'Aldar · IMKAN'},
+    {lat:24.4895,lng:54.6061,district:'Yas Island',devs:'Aldar'},
+    {lat:24.4983,lng:54.3941,district:'Al Reem Island',devs:'Aldar · Bloom'}
+  ];
+
+  function mkrIcon(){
+    return L.divIcon({
+      html:'<div class="map-mkr-wrap"><div class="map-mkr-ring"></div><div class="map-mkr-ring r2"></div><div class="map-mkr-dot"></div></div>',
+      className:'',iconSize:[36,36],iconAnchor:[18,18],popupAnchor:[0,-20]
+    });
+  }
+
+  function animateMkrs(){
+    document.querySelectorAll('.map-mkr-wrap').forEach(function(el,i){
+      setTimeout(function(){el.classList.add('mkr-on');},120+i*90);
+    });
+  }
+
+  function initDubaiMap(){
+    var el=document.getElementById('dubai-map');
+    if(!el||typeof L==='undefined') return;
+    var map=L.map('dubai-map',{center:[24.95,55.0],zoom:9,zoomControl:true,scrollWheelZoom:false});
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+      {maxZoom:19,maxNativeZoom:17,attribution:'Tiles &copy; Esri'}).addTo(map);
+    DISTRICTS.forEach(function(d){
+      L.marker([d.lat,d.lng],{icon:mkrIcon()})
+       .bindPopup('<div class="map-pop-district">'+d.district+'</div><div class="map-pop-devs">'+d.devs+'</div>',
+         {closeButton:true,maxWidth:240,minWidth:190})
+       .addTo(map);
+    });
+    setTimeout(animateMkrs,600);
+    var done=false;
+    function onScroll(){
+      if(done)return;
+      var r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight*.88){done=true;animateMkrs();window.removeEventListener('scroll',onScroll);}
+    }
+    window.addEventListener('scroll',onScroll,{passive:true});
+    setTimeout(function(){map.invalidateSize();},400);
+  }
+
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initDubaiMap);}
+  else{initDubaiMap();}
+}());
+</script>
 
 <!-- ── WhatsApp Live Chat Widget ── -->
 <style>
