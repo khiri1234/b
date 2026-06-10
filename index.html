@@ -882,15 +882,6 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
   <video id="heroVid" class="hero-video" autoplay muted loop playsinline preload="auto">
     <source src="images/hero.mp4" type="video/mp4">
   </video>
-  <script>
-    (function(){
-      var v=document.getElementById('heroVid');
-      if(!v)return;
-      v.muted=true;
-      var p=v.play();
-      if(p!==undefined){p.catch(function(){});}
-    })();
-  </script>
 </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -1661,6 +1652,23 @@ function closePage(id){
 }
 </script>
 <script>
+// ── HERO VIDEO AUTOPLAY (runs before anything else) ──────
+(function(){
+  function tryPlay(){
+    var v=document.getElementById('heroVid');
+    if(!v)return;
+    v.muted=true;
+    v.play().catch(function(){});
+  }
+  // Fire immediately, then again at DOMContentLoaded
+  tryPlay();
+  document.addEventListener('DOMContentLoaded', tryPlay);
+  // Also retry on first user gesture in case browser blocked it
+  ['touchstart','pointerdown','keydown'].forEach(function(e){
+    document.addEventListener(e, tryPlay, {once:true});
+  });
+})();
+
 gsap.registerPlugin(ScrollTrigger);
 
 // ── CURSOR ──────────────────────────────────────────────
@@ -1710,7 +1718,18 @@ ScrollTrigger.create({
 
 // ── INIT ALL ANIMATIONS ─────────────────────────────────
 function initAnimations(){
-  const hv=document.querySelector('.hero-video');if(hv){hv.muted=true;hv.play().catch(()=>{});}
+  // Retry video play after preloader — some browsers suspend off-screen videos
+  (function(){
+    var v=document.getElementById('heroVid');
+    if(!v)return;
+    v.muted=true;
+    function attempt(n){
+      v.play().then(function(){}).catch(function(){
+        if(n<5)setTimeout(function(){attempt(n+1);},n*300);
+      });
+    }
+    attempt(1);
+  })();
 
   // NAV LOGO entrance — fades in with a brief gold glow
   gsap.from('.nav-logo img',{
