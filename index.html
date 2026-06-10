@@ -1723,57 +1723,174 @@ function closePage(id){
 
 <!-- ── WHATSAPP LIVE CHAT WIDGET ── -->
 <style>
-#wa-widget{position:fixed;bottom:2rem;right:2rem;z-index:9000;display:flex;flex-direction:column;align-items:flex-end;gap:.75rem;}
+/* ── Widget container ── */
+#wa-widget{position:fixed;bottom:2rem;right:2rem;z-index:9000;display:flex;flex-direction:column;align-items:flex-end;gap:.85rem;}
 
-/* Floating button */
-.wa-fab-wrap{position:relative;display:flex;align-items:center;gap:.75rem;}
-.wa-fab{width:60px;height:60px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;position:relative;z-index:2;}
-.wa-fab:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.6);}
-.wa-fab svg{width:32px;height:32px;fill:#fff;transition:transform .3s ease;}
-.wa-fab.open svg.wa-icon-wa{transform:scale(0) rotate(45deg);}
-.wa-fab.open svg.wa-icon-x{transform:scale(1) rotate(0deg);}
-.wa-fab svg.wa-icon-x{position:absolute;transform:scale(0) rotate(-45deg);}
-.wa-tip{font-family:'Montserrat',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(10,12,18,.88);padding:.4rem .85rem;border-radius:20px;white-space:nowrap;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);opacity:0;transform:translateX(8px);transition:opacity .3s ease,transform .3s ease;pointer-events:none;}
-#wa-widget:hover .wa-tip{opacity:1;transform:translateX(0);}
+/* ── FAB wrap + entrance ── */
+.wa-fab-wrap{position:relative;display:flex;align-items:center;gap:.85rem;animation:waFabIn .6s 1.2s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes waFabIn{0%{opacity:0;transform:scale(0) rotate(-180deg) translateY(30px);}100%{opacity:1;transform:scale(1) rotate(0deg) translateY(0);}}
 
-/* Sonar rings */
-.wa-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(37,211,102,.5);animation:waSonar 2.4s ease-out infinite;pointer-events:none;}
-.wa-ring:nth-child(2){animation-delay:.8s;}
-.wa-ring:nth-child(3){animation-delay:1.6s;}
-@keyframes waSonar{0%{opacity:.8;transform:scale(1);}100%{opacity:0;transform:scale(2.2);}}
+/* ── FAB button ── */
+.wa-fab{
+  width:62px;height:62px;border-radius:50%;background:linear-gradient(145deg,#2de070,#25D366,#128C7E);
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 28px rgba(37,211,102,.5),0 2px 8px rgba(0,0,0,.3);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease;
+  position:relative;z-index:2;outline:none;
+  animation:waBreath 3s 2.5s ease-in-out infinite;
+}
+@keyframes waBreath{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.5),0 2px 8px rgba(0,0,0,.3);}50%{box-shadow:0 8px 40px rgba(37,211,102,.75),0 2px 12px rgba(0,0,0,.3);}}
+.wa-fab:hover{transform:scale(1.14) translateY(-3px);box-shadow:0 12px 44px rgba(37,211,102,.7),0 4px 16px rgba(0,0,0,.4);}
+.wa-fab:active{transform:scale(.96);}
 
-/* FAB entrance */
-@keyframes waFabIn{from{opacity:0;transform:scale(0) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
-.wa-fab-wrap{animation:waFabIn .5s 1.5s cubic-bezier(.34,1.56,.64,1) both;}
+/* Icon swap */
+.wa-fab svg{width:32px;height:32px;fill:#fff;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s ease;position:absolute;}
+.wa-fab svg.wa-icon-wa{transform:scale(1) rotate(0deg);opacity:1;}
+.wa-fab svg.wa-icon-x{transform:scale(0) rotate(-90deg);opacity:0;}
+.wa-fab.open svg.wa-icon-wa{transform:scale(0) rotate(90deg);opacity:0;}
+.wa-fab.open svg.wa-icon-x{transform:scale(1) rotate(0deg);opacity:1;}
 
-/* Chat bubble */
-.wa-chat{background:rgba(10,12,18,.96);border:1px solid rgba(37,211,102,.2);border-radius:18px 18px 4px 18px;width:320px;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5);animation:waChatIn .35s cubic-bezier(.34,1.56,.64,1);}
-@keyframes waChatIn{from{opacity:0;transform:scale(.88) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
-.wa-ch-head{background:linear-gradient(135deg,#075E54,#128C7E);padding:1rem 1.25rem;display:flex;align-items:center;gap:.85rem;}
-.wa-ch-avatar{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* Attention shake */
+@keyframes waShake{0%,100%{transform:translateX(0) rotate(0);}15%{transform:translateX(-5px) rotate(-8deg);}30%{transform:translateX(5px) rotate(8deg);}45%{transform:translateX(-4px) rotate(-5deg);}60%{transform:translateX(4px) rotate(5deg);}75%{transform:translateX(-2px) rotate(-3deg);}90%{transform:translateX(2px) rotate(3deg);}}
+.wa-fab.shake{animation:waShake .55s cubic-bezier(.36,.07,.19,.97) both;}
+
+/* Notification badge */
+.wa-badge{
+  position:absolute;top:-3px;right:-3px;width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;
+  font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid rgba(10,12,18,.9);z-index:3;
+  animation:waBadgeIn .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes waBadgeIn{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
+.wa-badge.hide{animation:waBadgeOut .25s ease forwards;}
+@keyframes waBadgeOut{to{opacity:0;transform:scale(0);}}
+
+/* ── Sonar rings ── */
+.wa-ring{position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(37,211,102,.55);animation:waSonar 2.6s ease-out infinite;pointer-events:none;}
+.wa-ring:nth-child(2){animation-delay:.87s;border-color:rgba(37,211,102,.35);}
+.wa-ring:nth-child(3){animation-delay:1.74s;border-color:rgba(37,211,102,.2);}
+@keyframes waSonar{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(2.5);}}
+
+/* ── Tooltip ── */
+.wa-tip{
+  font-family:'Montserrat',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;background:rgba(7,10,16,.92);padding:.42rem .9rem;border-radius:22px;
+  white-space:nowrap;backdrop-filter:blur(12px);
+  border:1px solid rgba(37,211,102,.25);
+  opacity:0;transform:translateX(10px) scale(.95);
+  transition:opacity .3s ease,transform .35s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.35);
+}
+#wa-widget:not(.chat-open):hover .wa-tip{opacity:1;transform:translateX(0) scale(1);}
+
+/* ── Chat panel ── */
+.wa-chat{
+  background:rgba(8,11,18,.97);
+  border:1px solid rgba(37,211,102,.18);
+  border-radius:20px 20px 4px 20px;
+  width:330px;overflow:hidden;
+  backdrop-filter:blur(24px);
+  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);
+  transform-origin:bottom right;
+}
+/* Open animation */
+.wa-chat.wa-entering{animation:waChatOpen .45s cubic-bezier(.34,1.56,.64,1) forwards;}
+@keyframes waChatOpen{0%{opacity:0;transform:scale(.7) translateY(20px) translateX(10px);}100%{opacity:1;transform:scale(1) translateY(0) translateX(0);}}
+/* Close animation */
+.wa-chat.wa-leaving{animation:waChatClose .28s cubic-bezier(.55,.06,.68,.19) forwards;}
+@keyframes waChatClose{0%{opacity:1;transform:scale(1) translateY(0);}100%{opacity:0;transform:scale(.75) translateY(16px) translateX(8px);}}
+
+/* Header */
+.wa-ch-head{
+  background:linear-gradient(135deg,#054c43 0%,#075E54 45%,#0a7a6a 100%);
+  padding:1rem 1.2rem;display:flex;align-items:center;gap:.9rem;
+  position:relative;overflow:hidden;
+}
+.wa-ch-head::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.07) 50%,transparent 100%);
+  transform:translateX(-100%);
+  animation:waHeaderShimmer 3s 1s ease-in-out infinite;
+}
+@keyframes waHeaderShimmer{0%,100%{transform:translateX(-100%);}50%{transform:translateX(100%);}}
+
+.wa-ch-avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  border:2px solid rgba(255,255,255,.2);
+  position:relative;
+}
+.wa-ch-avatar::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid rgba(37,211,102,.6);animation:waAvatarPulse 2s ease-in-out infinite;}
+@keyframes waAvatarPulse{0%,100%{opacity:0;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
 .wa-ch-avatar svg{width:26px;height:26px;fill:#fff;}
-.wa-ch-info{}
+
 .wa-ch-name{font-family:'Montserrat',sans-serif;font-size:.88rem;font-weight:600;color:#fff;letter-spacing:.04em;}
-.wa-ch-status{font-family:'Montserrat',sans-serif;font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.15rem;display:flex;align-items:center;gap:.35rem;}
-.wa-ch-status::before{content:'';width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;box-shadow:0 0 6px #4ade80;}
-.wa-ch-body{padding:1.25rem;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E"),rgba(10,12,18,.0);min-height:90px;}
-.wa-bubble{background:#1b2e1a;border-radius:4px 14px 14px 14px;padding:.75rem 1rem;color:rgba(240,235,226,.92);font-family:'Montserrat',sans-serif;font-size:.82rem;line-height:1.6;max-width:85%;opacity:0;animation:waBubIn .4s ease forwards;}
-@keyframes waBubIn{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:translateX(0);}}
-.wa-bubble+.wa-bubble{margin-top:.5rem;animation-delay:.6s;}
-.wa-time{font-size:.65rem;color:rgba(255,255,255,.3);text-align:right;margin-top:.25rem;}
-.wa-typing{display:flex;gap:4px;align-items:center;padding:.75rem 1rem;background:#1b2e1a;border-radius:4px 14px 14px 14px;width:fit-content;}
-.wa-typing span{width:7px;height:7px;border-radius:50%;background:rgba(240,235,226,.5);animation:waTyp 1.2s ease-in-out infinite;}
-.wa-typing span:nth-child(2){animation-delay:.2s;}
-.wa-typing span:nth-child(3){animation-delay:.4s;}
-@keyframes waTyp{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
-.wa-ch-foot{padding:.85rem 1.25rem;border-top:1px solid rgba(255,255,255,.06);}
-.wa-send{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;padding:.75rem 1rem;background:#25D366;border-radius:10px;text-decoration:none;color:#fff;font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:background .25s ease,transform .2s ease;border:none;}
-.wa-send:hover{background:#1ebe5d;transform:translateY(-1px);}
-.wa-send svg{width:18px;height:18px;fill:#fff;}
+.wa-ch-status{font-family:'Montserrat',sans-serif;font-size:.7rem;color:rgba(255,255,255,.7);margin-top:.2rem;display:flex;align-items:center;gap:.38rem;}
+.wa-status-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;flex-shrink:0;animation:waStatusPulse 1.8s ease-in-out infinite;}
+@keyframes waStatusPulse{0%,100%{box-shadow:0 0 4px #4ade80;}50%{box-shadow:0 0 12px #4ade80,0 0 24px rgba(74,222,128,.4);}}
+
+/* Body */
+.wa-ch-body{
+  padding:1.2rem;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  min-height:100px;display:flex;flex-direction:column;gap:.5rem;
+}
+
+/* Typing indicator */
+.wa-typing{display:inline-flex;gap:5px;align-items:center;padding:.7rem .95rem;background:rgba(30,50,28,.85);border-radius:5px 15px 15px 15px;width:fit-content;border:1px solid rgba(37,211,102,.08);}
+.wa-typing span{width:8px;height:8px;border-radius:50%;background:rgba(74,222,128,.6);animation:waTyp 1.1s ease-in-out infinite;}
+.wa-typing span:nth-child(2){animation-delay:.18s;}
+.wa-typing span:nth-child(3){animation-delay:.36s;}
+@keyframes waTyp{0%,60%,100%{transform:translateY(0) scale(1);opacity:.6;}30%{transform:translateY(-7px) scale(1.1);opacity:1;}}
+
+/* Message bubbles */
+.wa-bubble{
+  background:rgba(25,45,23,.9);
+  border-radius:5px 16px 16px 16px;
+  padding:.78rem 1rem;
+  color:rgba(240,235,226,.92);
+  font-family:'Montserrat',sans-serif;font-size:.82rem;line-height:1.65;
+  max-width:90%;
+  border:1px solid rgba(37,211,102,.1);
+  opacity:0;
+  transform:translateX(-16px) scale(.96);
+  animation:waBubIn .45s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes waBubIn{0%{opacity:0;transform:translateX(-16px) scale(.94);}70%{transform:translateX(2px) scale(1.01);}100%{opacity:1;transform:translateX(0) scale(1);}}
+.wa-time{font-size:.62rem;color:rgba(255,255,255,.28);text-align:right;margin-top:.3rem;}
+
+/* Footer */
+.wa-ch-foot{padding:.85rem 1.2rem;border-top:1px solid rgba(255,255,255,.06);}
+.wa-send{
+  display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;
+  padding:.78rem 1rem;
+  background:linear-gradient(135deg,#2de070,#25D366,#1db954);
+  border-radius:12px;text-decoration:none;color:#fff;
+  font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  border:none;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease;
+  box-shadow:0 4px 18px rgba(37,211,102,.4);
+}
+.wa-send::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+  transform:skewX(-20deg);
+  transition:left .5s ease;
+}
+.wa-send:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 28px rgba(37,211,102,.6);}
+.wa-send:hover::after{left:160%;}
+.wa-send:active{transform:scale(.97);}
+.wa-send svg{width:18px;height:18px;fill:#fff;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.wa-send:hover svg{transform:translateX(3px) scale(1.1);}
 </style>
 
 <div id="wa-widget">
-  <!-- Chat panel (hidden initially) -->
+  <!-- Chat panel -->
   <div class="wa-chat" id="wa-chat" style="display:none;">
     <div class="wa-ch-head">
       <div class="wa-ch-avatar">
@@ -1781,7 +1898,7 @@ function closePage(id){
       </div>
       <div class="wa-ch-info">
         <div class="wa-ch-name">The H Property</div>
-        <div class="wa-ch-status">Online now</div>
+        <div class="wa-ch-status"><span class="wa-status-dot"></span>Online now</div>
       </div>
     </div>
     <div class="wa-ch-body" id="wa-ch-body"></div>
@@ -1793,16 +1910,15 @@ function closePage(id){
     </div>
   </div>
 
-  <!-- FAB button -->
+  <!-- FAB -->
   <div class="wa-fab-wrap">
     <span class="wa-ring"></span>
     <span class="wa-ring"></span>
     <span class="wa-ring"></span>
     <button class="wa-fab" id="wa-fab" aria-label="Chat on WhatsApp" onclick="toggleWaChat()">
-      <!-- WhatsApp icon -->
       <svg class="wa-icon-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
-      <!-- Close icon -->
       <svg class="wa-icon-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+      <span class="wa-badge" id="wa-badge">1</span>
     </button>
     <span class="wa-tip">Chat with us</span>
   </div>
@@ -1810,61 +1926,96 @@ function closePage(id){
 
 <script>
 (function(){
-  const fab  = document.getElementById('wa-fab');
-  const chat = document.getElementById('wa-chat');
-  const body = document.getElementById('wa-ch-body');
-  let opened = false;
+  const widget = document.getElementById('wa-widget');
+  const fab    = document.getElementById('wa-fab');
+  const chat   = document.getElementById('wa-chat');
+  const body   = document.getElementById('wa-ch-body');
+  const badge  = document.getElementById('wa-badge');
+  let opened = false, msgShown = false;
 
   const messages = [
     "👋 Welcome to <strong>The H Property</strong>!",
-    "Looking for your dream luxury home in Dubai? We're here to help — browse our exclusive off-plan & ready collections.",
-    "Tap below to connect with an advisor instantly on WhatsApp. ✨"
+    "Looking for your dream luxury home in Dubai? We're here to help.",
+    "Tap below to connect with an advisor instantly. ✨"
   ];
 
-  function showMessages(){
-    body.innerHTML = '<div class="wa-typing" id="wa-typing"><span></span><span></span><span></span></div>';
-    let delay = 800;
-    messages.forEach((msg, i) => {
+  function addBubble(html, delay){
+    return new Promise(res => {
       setTimeout(() => {
-        const typing = document.getElementById('wa-typing');
-        if(i < messages.length - 1 && typing) {
-          // keep typing dots until last message
-        } else if(typing) {
-          typing.remove();
-        }
-        const div = document.createElement('div');
-        div.className = 'wa-bubble';
-        div.style.animationDelay = '0s';
-        div.innerHTML = msg;
-        const time = document.createElement('div');
-        time.className = 'wa-time';
+        const bub = document.createElement('div');
+        bub.className = 'wa-bubble';
+        bub.innerHTML = html;
+        const t = document.createElement('div');
+        t.className = 'wa-time';
         const now = new Date();
-        time.textContent = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-        div.appendChild(time);
-        body.appendChild(div);
-        if(i === messages.length - 1){
-          const typing2 = document.getElementById('wa-typing');
-          if(typing2) typing2.remove();
-        }
-      }, delay + i * 900);
+        t.textContent = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+        bub.appendChild(t);
+        body.appendChild(bub);
+        res();
+      }, delay);
     });
+  }
+
+  async function showMessages(){
+    if(msgShown) return;
+    msgShown = true;
+    // Show typing, then add each bubble
+    const typing = document.createElement('div');
+    typing.className = 'wa-typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(typing);
+    for(let i = 0; i < messages.length; i++){
+      await addBubble(messages[i], 900 + i * 950);
+      if(i === messages.length - 1) typing.remove();
+    }
+  }
+
+  function openChat(){
+    chat.style.display = 'block';
+    chat.classList.remove('wa-leaving');
+    void chat.offsetWidth; // reflow
+    chat.classList.add('wa-entering');
+    widget.classList.add('chat-open');
+    fab.classList.add('open');
+    // dismiss badge
+    if(badge){ badge.classList.add('hide'); setTimeout(()=>badge.remove(), 300); }
+    showMessages();
+  }
+
+  function closeChat(){
+    chat.classList.remove('wa-entering');
+    chat.classList.add('wa-leaving');
+    widget.classList.remove('chat-open');
+    fab.classList.remove('open');
+    setTimeout(() => { chat.style.display = 'none'; chat.classList.remove('wa-leaving'); }, 280);
   }
 
   window.toggleWaChat = function(){
     opened = !opened;
-    fab.classList.toggle('open', opened);
-    if(opened){
-      chat.style.display = 'block';
-      if(!body.hasChildNodes()) showMessages();
-    } else {
-      chat.style.display = 'none';
-    }
+    opened ? openChat() : closeChat();
   };
 
-  // Auto-open after 6 seconds
+  // Magnetic hover on FAB
+  fab.addEventListener('mousemove', e => {
+    const r = fab.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width  - .5) * 14;
+    const y = ((e.clientY - r.top)  / r.height - .5) * 14;
+    if(!opened) fab.style.transform = `translate(${x}px,${y}px) scale(1.08)`;
+  });
+  fab.addEventListener('mouseleave', () => {
+    if(!opened) fab.style.transform = '';
+  });
+
+  // Attention shake + badge after 3.5s
   setTimeout(() => {
-    if(!opened) toggleWaChat();
-  }, 6000);
+    if(!opened){
+      fab.classList.add('shake');
+      setTimeout(() => fab.classList.remove('shake'), 600);
+    }
+  }, 3500);
+
+  // Auto-open after 7s
+  setTimeout(() => { if(!opened) toggleWaChat(); }, 7000);
 })();
 </script>
 </body>
