@@ -5537,366 +5537,131 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
 })();
 </script>
 
-<!-- ══════════════════════════════════════
-     WHATSAPP SLOW-MOTION LIVE CHAT WIDGET
-     ══════════════════════════════════════ -->
+<!-- ── WHATSAPP MINIMAL CHAT ── -->
 <style>
-/* ── Root widget ── */
-#wa{position:fixed;bottom:1.8rem;right:1.8rem;z-index:9500;display:flex;flex-direction:column;align-items:flex-end;gap:1rem;font-family:'Montserrat',sans-serif;}
+#wa{position:fixed;bottom:1.6rem;right:1.6rem;z-index:9500;font-family:'Montserrat',sans-serif;display:flex;flex-direction:column;align-items:flex-end;gap:.8rem;}
 
-/* ── FAB entrance ── */
-@keyframes waPopIn{
-  0%  {opacity:0;transform:scale(0) rotate(-200deg) translateY(40px);}
-  65% {transform:scale(1.12) rotate(8deg) translateY(-4px);}
-  80% {transform:scale(.95) rotate(-3deg);}
-  100%{opacity:1;transform:scale(1) rotate(0deg) translateY(0);}
-}
-.wa-wrap{position:relative;display:flex;align-items:center;gap:.9rem;animation:waPopIn .9s 1.4s cubic-bezier(.34,1.56,.64,1) both;}
-
-/* ── FAB button ── */
+/* FAB */
 .wa-btn{
-  width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;
-  background:conic-gradient(from 180deg,#25D366,#128C7E,#075E54,#25D366);
+  width:52px;height:52px;border-radius:50%;
+  background:#25D366;border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  position:relative;z-index:2;outline:none;
-  box-shadow:0 6px 30px rgba(37,211,102,.55),0 2px 10px rgba(0,0,0,.35);
-  animation:waBtnBreathe 3.5s 2.5s ease-in-out infinite;
-  transition:transform .6s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease;
+  box-shadow:0 4px 16px rgba(37,211,102,.4);
+  transition:transform .25s ease,box-shadow .25s ease;
 }
-@keyframes waBtnBreathe{
-  0%,100%{box-shadow:0 6px 30px rgba(37,211,102,.5),0 2px 10px rgba(0,0,0,.3);}
-  50%    {box-shadow:0 10px 50px rgba(37,211,102,.85),0 0 0 8px rgba(37,211,102,.08);}
-}
-.wa-btn:hover{transform:scale(1.13) translateY(-4px);box-shadow:0 14px 50px rgba(37,211,102,.75);}
+.wa-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(37,211,102,.55);}
 .wa-btn:active{transform:scale(.95);}
-.wa-btn svg{width:33px;height:33px;fill:#fff;position:absolute;transition:transform .55s cubic-bezier(.34,1.56,.64,1),opacity .3s ease;}
-.wa-btn .ico-wa {transform:scale(1)  rotate(0deg);  opacity:1;}
-.wa-btn .ico-x  {transform:scale(0)  rotate(-120deg);opacity:0;}
-.wa-btn.open .ico-wa{transform:scale(0)  rotate(120deg); opacity:0;}
-.wa-btn.open .ico-x {transform:scale(1)  rotate(0deg);   opacity:1;}
+.wa-btn svg{width:26px;height:26px;fill:#fff;transition:transform .25s ease,opacity .25s ease;}
+.wa-btn .ico-wa{position:absolute;}
+.wa-btn .ico-x{position:absolute;opacity:0;transform:scale(0) rotate(-90deg);}
+.wa-btn.open .ico-wa{opacity:0;transform:scale(0) rotate(90deg);}
+.wa-btn.open .ico-x{opacity:1;transform:scale(1) rotate(0);}
 
-/* ── Shake attention ── */
-@keyframes waShake{
-  0%,100%{transform:translate(0,0) rotate(0);}
-  12%{transform:translate(-5px,-2px) rotate(-10deg);}
-  24%{transform:translate(5px,2px)  rotate(10deg);}
-  36%{transform:translate(-4px,0)   rotate(-6deg);}
-  48%{transform:translate(4px,1px)  rotate(6deg);}
-  60%{transform:translate(-2px,0)   rotate(-3deg);}
-  72%{transform:translate(2px,0)    rotate(3deg);}
-}
-.wa-btn.shake{animation:waShake .7s cubic-bezier(.36,.07,.19,.97);}
-
-/* ── Notification badge ── */
-.wa-badge{
-  position:absolute;top:-4px;right:-4px;
-  width:22px;height:22px;border-radius:50%;
-  background:linear-gradient(135deg,#ff3b3b,#c80000);
-  color:#fff;font-size:.58rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  border:2.5px solid rgba(6,8,15,.9);z-index:3;
-  animation:waBadgePop .5s 2.6s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes waBadgePop{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
-.wa-badge.gone{animation:waBadgeGone .25s forwards;}
-@keyframes waBadgeGone{to{opacity:0;transform:scale(0);}}
-
-/* ── Sonar rings ── */
-.wa-ring{position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(37,211,102,.5);pointer-events:none;animation:waSonar 2.8s ease-out infinite;}
-.wa-ring:nth-child(2){animation-delay:.93s;border-color:rgba(37,211,102,.32);}
-.wa-ring:nth-child(3){animation-delay:1.86s;border-color:rgba(37,211,102,.18);}
-@keyframes waSonar{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(2.6);}}
-
-/* ── Tooltip ── */
-.wa-tip{
-  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
-  color:#fff;background:rgba(6,8,15,.9);
-  padding:.44rem 1rem;border-radius:24px;white-space:nowrap;
-  backdrop-filter:blur(14px);border:1px solid rgba(37,211,102,.28);
-  box-shadow:0 4px 18px rgba(0,0,0,.4);
-  opacity:0;transform:translateX(12px) scale(.93);pointer-events:none;
-  transition:opacity .5s ease,transform .55s cubic-bezier(.34,1.56,.64,1);
-}
-#wa:not(.is-open):hover .wa-tip{opacity:1;transform:translateX(0) scale(1);}
-
-/* ── Chat panel ── */
+/* Panel */
 .wa-panel{
-  width:340px;
-  background:rgba(7,9,16,.97);
-  border:1px solid rgba(37,211,102,.2);
-  border-radius:22px 22px 5px 22px;
+  width:280px;
+  background:#0f1117;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
   overflow:hidden;
-  backdrop-filter:blur(28px);
-  box-shadow:0 36px 90px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);
-  transform-origin:bottom right;
+  box-shadow:0 12px 40px rgba(0,0,0,.5);
   display:none;
+  transform-origin:bottom right;
 }
-/* Open */
-.wa-panel.opening{
-  display:block;
-  animation:waPanelOpen .7s cubic-bezier(.34,1.56,.64,1) forwards;
-}
-@keyframes waPanelOpen{
-  0%  {opacity:0;transform:scale(.6) translate(20px,24px);}
-  60% {transform:scale(1.03) translate(-2px,-3px);}
-  80% {transform:scale(.98);}
-  100%{opacity:1;transform:scale(1) translate(0,0);}
-}
-/* Close */
-.wa-panel.closing{
-  animation:waPanelClose .45s cubic-bezier(.55,.06,.68,.19) forwards;
-}
-@keyframes waPanelClose{
-  0%  {opacity:1;transform:scale(1);}
-  100%{opacity:0;transform:scale(.65) translate(18px,20px);}
-}
+.wa-panel.opening{display:block;animation:waOpen .3s cubic-bezier(.34,1.4,.64,1) forwards;}
+.wa-panel.closing{animation:waClose .2s ease-in forwards;}
+@keyframes waOpen{from{opacity:0;transform:scale(.9) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
+@keyframes waClose{from{opacity:1;transform:scale(1);}to{opacity:0;transform:scale(.9) translateY(8px);}}
 
-/* ── Header ── */
+/* Header */
 .wa-head{
-  background:linear-gradient(135deg,#043d35 0%,#065e52 50%,#0b7a6b 100%);
-  padding:1.1rem 1.3rem;
-  display:flex;align-items:center;gap:1rem;
-  position:relative;overflow:hidden;
+  padding:1rem 1.1rem;
+  display:flex;align-items:center;gap:.75rem;
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
-/* Slow shimmer */
-.wa-head::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.09) 50%,transparent 70%);
-  transform:translateX(-120%);
-  animation:waHeadShimmer 4s 1.5s ease-in-out infinite;
-}
-@keyframes waHeadShimmer{0%,100%{transform:translateX(-120%);}45%,55%{transform:translateX(120%);}}
-
 .wa-av{
-  width:48px;height:48px;border-radius:50%;
-  background:rgba(255,255,255,.1);
-  border:2px solid rgba(255,255,255,.22);
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(37,211,102,.12);
+  border:1px solid rgba(37,211,102,.3);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  position:relative;
 }
-.wa-av svg{width:27px;height:27px;fill:#fff;}
-.wa-av::after{
-  content:'';position:absolute;inset:-3px;border-radius:50%;
-  border:2px solid rgba(37,211,102,.6);
-  animation:waAvRing 2.2s ease-in-out infinite;
-}
-@keyframes waAvRing{0%,100%{opacity:0;transform:scale(1);}50%{opacity:1;transform:scale(1.18);}}
+.wa-av svg{width:20px;height:20px;fill:#25D366;}
+.wa-head-name{font-size:.8rem;font-weight:600;color:#f0ece2;letter-spacing:.04em;}
+.wa-head-status{font-size:.65rem;color:rgba(255,255,255,.45);margin-top:.15rem;display:flex;align-items:center;gap:.35rem;}
+.wa-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;}
 
-.wa-head-name{font-size:.9rem;font-weight:600;color:#fff;letter-spacing:.05em;}
-.wa-head-status{font-size:.7rem;color:rgba(255,255,255,.65);margin-top:.18rem;display:flex;align-items:center;gap:.4rem;}
-.wa-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0;
-  animation:waDotGlow 1.9s ease-in-out infinite;}
-@keyframes waDotGlow{0%,100%{box-shadow:0 0 4px #4ade80;}50%{box-shadow:0 0 14px #4ade80,0 0 28px rgba(74,222,128,.45);}}
+/* Body */
+.wa-body{padding:.9rem 1.1rem;}
+.wa-body p{font-size:.75rem;color:rgba(240,236,226,.65);line-height:1.6;margin:0 0 .9rem;}
 
-/* ── Body / messages ── */
-.wa-body{
-  padding:1.3rem;min-height:110px;
-  display:flex;flex-direction:column;gap:.6rem;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
-}
-
-/* Typing dots */
-.wa-typing{
-  display:inline-flex;gap:5px;align-items:center;
-  padding:.72rem 1rem;
-  background:rgba(22,42,20,.88);
-  border-radius:6px 16px 16px 16px;
-  border:1px solid rgba(37,211,102,.1);
-  width:fit-content;
-}
-.wa-typing span{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(74,222,128,.65);
-  animation:waDots 1.3s ease-in-out infinite;
-}
-.wa-typing span:nth-child(2){animation-delay:.22s;}
-.wa-typing span:nth-child(3){animation-delay:.44s;}
-@keyframes waDots{
-  0%,60%,100%{transform:translateY(0) scale(1);opacity:.55;}
-  30%{transform:translateY(-8px) scale(1.15);opacity:1;}
-}
-
-/* Message bubbles */
-.wa-msg{
-  background:rgba(20,40,18,.92);
-  border-radius:6px 18px 18px 18px;
-  padding:.82rem 1.05rem;
-  color:rgba(242,238,228,.93);
-  font-size:.83rem;line-height:1.7;
-  max-width:92%;
-  border:1px solid rgba(37,211,102,.1);
-  opacity:0;
-  animation:waMsgIn .7s cubic-bezier(.34,1.56,.64,1) forwards;
-}
-/* slow-motion enter: drifts up gently */
-@keyframes waMsgIn{
-  0%  {opacity:0;transform:translateX(-20px) translateY(8px) scale(.93);}
-  55% {transform:translateX(3px) translateY(-2px) scale(1.02);}
-  75% {transform:translateX(-1px) scale(.995);}
-  100%{opacity:1;transform:translateX(0) translateY(0) scale(1);}
-}
-.wa-msg-time{font-size:.6rem;color:rgba(255,255,255,.26);text-align:right;margin-top:.32rem;}
-/* emoji float inside message */
-.wa-emoji{display:inline-block;animation:waEmojiFloat 2.5s ease-in-out infinite;}
-@keyframes waEmojiFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
-
-/* ── Footer / CTA ── */
-.wa-foot{padding:.9rem 1.3rem;border-top:1px solid rgba(255,255,255,.06);}
+/* CTA */
 .wa-cta{
-  display:flex;align-items:center;justify-content:center;gap:.65rem;
-  width:100%;padding:.82rem 1rem;
-  background:linear-gradient(135deg,#2de070,#25D366,#128C7E);
-  border-radius:14px;text-decoration:none;color:#fff;
-  font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  border:none;cursor:pointer;
-  position:relative;overflow:hidden;
-  box-shadow:0 5px 22px rgba(37,211,102,.45);
-  transition:transform .55s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  width:100%;padding:.7rem;
+  background:#25D366;border-radius:8px;
+  text-decoration:none;color:#fff;
+  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  transition:background .2s ease;
 }
-/* slow shimmer sweep */
-.wa-cta::before{
-  content:'';position:absolute;top:-50%;left:-80%;
-  width:50%;height:200%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
-  transform:skewX(-20deg);
-  animation:waCtaShimmer 3s 2s ease-in-out infinite;
-}
-@keyframes waCtaShimmer{0%,100%{left:-80%;}50%{left:140%;}}
-.wa-cta:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 36px rgba(37,211,102,.7);}
-.wa-cta:active{transform:scale(.96);}
-.wa-cta svg{width:19px;height:19px;fill:#fff;transition:transform .55s cubic-bezier(.34,1.56,.64,1);}
-.wa-cta:hover svg{transform:translateX(5px) scale(1.15) rotate(-10deg);}
+.wa-cta:hover{background:#2de070;}
+.wa-cta svg{width:16px;height:16px;fill:#fff;}
 </style>
 
 <div id="wa">
-  <!-- Chat panel -->
   <div class="wa-panel" id="wa-panel">
     <div class="wa-head">
       <div class="wa-av">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
       </div>
       <div>
-        <div class="wa-head-name">The H Property ✨</div>
-        <div class="wa-head-status"><span class="wa-dot"></span>Online — replies instantly</div>
+        <div class="wa-head-name">The H Property</div>
+        <div class="wa-head-status"><span class="wa-dot"></span>Online · replies instantly</div>
       </div>
     </div>
-    <div class="wa-body" id="wa-body"></div>
-    <div class="wa-foot">
-      <a class="wa-cta" href="https://wa.me/971555044482?text=Hello%21%20%F0%9F%8F%A1%20I%27m%20interested%20in%20a%20luxury%20property%20in%20Dubai.%20Can%20you%20help%3F" target="_blank" rel="noopener">
+    <div class="wa-body">
+      <p>Looking for your next luxury home in Dubai? We're here to help.</p>
+      <a class="wa-cta" href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20a%20luxury%20property%20in%20Dubai." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
-        💬 Chat on WhatsApp
+        Chat on WhatsApp
       </a>
     </div>
   </div>
 
-  <!-- FAB -->
-  <div class="wa-wrap">
-    <span class="wa-ring"></span>
-    <span class="wa-ring"></span>
-    <span class="wa-ring"></span>
-    <button class="wa-btn" id="wa-btn" aria-label="Open WhatsApp chat" onclick="waToggle()">
-      <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
-      <svg class="ico-x" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
-      <span class="wa-badge" id="wa-badge">1</span>
-    </button>
-    <span class="wa-tip">💬 Chat with us</span>
-  </div>
+  <button class="wa-btn" id="wa-btn" aria-label="Chat on WhatsApp" onclick="waToggle()">
+    <svg class="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
+    <svg class="ico-x" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
+  </button>
 </div>
 
 <script>
 (function(){
-  const root  = document.getElementById('wa');
   const btn   = document.getElementById('wa-btn');
   const panel = document.getElementById('wa-panel');
-  const body  = document.getElementById('wa-body');
-  const badge = document.getElementById('wa-badge');
-  let open = false, loaded = false;
-
-  /* Conversation — slow-paced with emoji */
-  const conv = [
-    { delay: 0,    text: '👋 <strong>Marhaba!</strong> Welcome to The H Property.' },
-    { delay: 1400, text: '🏙️ We specialise in Dubai\'s most <strong>exclusive</strong> off-plan & ready residences.' },
-    { delay: 2900, text: '🌟 From <strong>AED 800K</strong> studios to <strong>AED 50M+</strong> penthouses — we find exactly what you\'re looking for.' },
-    { delay: 4500, text: '💎 Tap below and an advisor will reply <strong>instantly</strong>. ✨' },
-  ];
-
-  /* Slow-type each message in sequence */
-  async function loadMessages(){
-    if(loaded) return;
-    loaded = true;
-
-    const typing = document.createElement('div');
-    typing.className = 'wa-typing';
-    typing.innerHTML = '<span></span><span></span><span></span>';
-    body.appendChild(typing);
-
-    for(let i = 0; i < conv.length; i++){
-      const {delay, text} = conv[i];
-      await pause(i === 0 ? 700 : delay - conv[i-1].delay);
-
-      /* Add bubble */
-      const bub = document.createElement('div');
-      bub.className = 'wa-msg';
-      /* Wrap standalone emojis so they float */
-      bub.innerHTML = '<span>' + text + '</span>';
-      const t = document.createElement('div');
-      t.className = 'wa-msg-time';
-      const now = new Date();
-      t.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes());
-      bub.appendChild(t);
-      body.appendChild(bub);
-
-      /* Keep typing dots visible between messages except last */
-      if(i < conv.length - 1){
-        await pause(520);
-      } else {
-        typing.remove();
-      }
-    }
-  }
-
-  function pause(ms){ return new Promise(r => setTimeout(r, ms)); }
-  function pad(n){ return String(n).padStart(2,'0'); }
+  let open = false;
 
   function openPanel(){
     open = true;
-    root.classList.add('is-open');
     btn.classList.add('open');
     panel.style.display = 'block';
     panel.classList.remove('closing');
     void panel.offsetWidth;
     panel.classList.add('opening');
-    /* dismiss badge */
-    if(badge){ badge.classList.add('gone'); setTimeout(()=>badge.remove(),300); }
-    loadMessages();
   }
 
   function closePanel(){
     open = false;
-    root.classList.remove('is-open');
     btn.classList.remove('open');
     panel.classList.remove('opening');
     panel.classList.add('closing');
-    setTimeout(()=>{ panel.style.display='none'; panel.classList.remove('closing'); }, 450);
+    panel.addEventListener('animationend', ()=>{ panel.style.display='none'; panel.classList.remove('closing'); }, {once:true});
   }
 
   window.waToggle = function(){ open ? closePanel() : openPanel(); };
 
-  /* Magnetic hover */
-  btn.addEventListener('mousemove', e => {
-    if(open) return;
-    const r = btn.getBoundingClientRect();
-    const x = ((e.clientX - r.left)/r.width  - .5) * 16;
-    const y = ((e.clientY - r.top) /r.height - .5) * 16;
-    btn.style.transform = `translate(${x}px,${y}px) scale(1.1)`;
+  // Close on outside click
+  document.addEventListener('click', e=>{
+    if(open && !document.getElementById('wa').contains(e.target)) closePanel();
   });
-  btn.addEventListener('mouseleave', ()=>{ if(!open) btn.style.transform=''; });
-
-  /* Attention shake at 3s */
-  setTimeout(()=>{ if(!open){ btn.classList.add('shake'); setTimeout(()=>btn.classList.remove('shake'),750); } }, 3000);
-
-  /* Auto-open at 8s */
-  setTimeout(()=>{ if(!open) openPanel(); }, 8000);
 })();
 </script>
 </body>
