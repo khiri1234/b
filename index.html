@@ -879,9 +879,18 @@ footer{padding:3rem 6vw;border-top:1px solid rgba(184,147,90,.08);display:flex;j
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg" id="hero-bg">
-  <video class="hero-video" autoplay muted loop playsinline>
+  <video id="heroVid" class="hero-video" autoplay muted loop playsinline preload="auto">
     <source src="images/hero.mp4" type="video/mp4">
   </video>
+  <script>
+    (function(){
+      var v=document.getElementById('heroVid');
+      if(!v)return;
+      v.muted=true;
+      var p=v.play();
+      if(p!==undefined){p.catch(function(){});}
+    })();
+  </script>
 </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -1672,9 +1681,6 @@ function closePage(id){
 }
 </script>
 <script>
-// Start hero video immediately — don't wait for preloader
-document.addEventListener('DOMContentLoaded',()=>{const hv=document.querySelector('.hero-video');if(hv){hv.muted=true;hv.play().catch(()=>{});}});
-
 gsap.registerPlugin(ScrollTrigger);
 
 // ── CURSOR ──────────────────────────────────────────────
