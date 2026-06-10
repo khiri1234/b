@@ -1525,6 +1525,9 @@ function initAnimations(){
 
   // STAT suffix
   document.querySelector('[data-count="98"]').dataset.suffix='%';
+
+  // Recalculate all trigger positions after layout settles
+  ScrollTrigger.refresh();
 }
 
 function openPage(id){
@@ -1611,26 +1614,6 @@ document.addEventListener('mousemove', e => {
   if (orb2) orb2.style.transform = `translate(${-x * 0.4}px,${-y * 0.4}px)`;
 });
 
-// ── STAGGERED CARD REVEAL ─────────────────────────────────
-gsap.utils.toArray('.prop-item').forEach((card, i) => {
-  gsap.fromTo(card,
-    { opacity: 0, y: 40 },
-    { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-      delay: (i % 3) * 0.1,
-      scrollTrigger: { trigger: card, start: 'top 88%', once: true }
-    }
-  );
-});
-
-// ── GOLD LINE REVEAL ──────────────────────────────────────
-gsap.utils.toArray('.map-sec-label,.detail-about-label,.s-label').forEach(el => {
-  gsap.fromTo(el,
-    { opacity: 0, x: -20 },
-    { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-    }
-  );
-});
 </script>
 
 <!-- ── EMAAR DETAIL PAGE ── -->
