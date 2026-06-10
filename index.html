@@ -1720,5 +1720,152 @@ function closePage(id){
     </div>
   </div>
 </div>
+
+<!-- ── WHATSAPP LIVE CHAT WIDGET ── -->
+<style>
+#wa-widget{position:fixed;bottom:2rem;right:2rem;z-index:9000;display:flex;flex-direction:column;align-items:flex-end;gap:.75rem;}
+
+/* Floating button */
+.wa-fab-wrap{position:relative;display:flex;align-items:center;gap:.75rem;}
+.wa-fab{width:60px;height:60px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;position:relative;z-index:2;}
+.wa-fab:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.6);}
+.wa-fab svg{width:32px;height:32px;fill:#fff;transition:transform .3s ease;}
+.wa-fab.open svg.wa-icon-wa{transform:scale(0) rotate(45deg);}
+.wa-fab.open svg.wa-icon-x{transform:scale(1) rotate(0deg);}
+.wa-fab svg.wa-icon-x{position:absolute;transform:scale(0) rotate(-45deg);}
+.wa-tip{font-family:'Montserrat',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(10,12,18,.88);padding:.4rem .85rem;border-radius:20px;white-space:nowrap;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);opacity:0;transform:translateX(8px);transition:opacity .3s ease,transform .3s ease;pointer-events:none;}
+#wa-widget:hover .wa-tip{opacity:1;transform:translateX(0);}
+
+/* Sonar rings */
+.wa-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(37,211,102,.5);animation:waSonar 2.4s ease-out infinite;pointer-events:none;}
+.wa-ring:nth-child(2){animation-delay:.8s;}
+.wa-ring:nth-child(3){animation-delay:1.6s;}
+@keyframes waSonar{0%{opacity:.8;transform:scale(1);}100%{opacity:0;transform:scale(2.2);}}
+
+/* FAB entrance */
+@keyframes waFabIn{from{opacity:0;transform:scale(0) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.wa-fab-wrap{animation:waFabIn .5s 1.5s cubic-bezier(.34,1.56,.64,1) both;}
+
+/* Chat bubble */
+.wa-chat{background:rgba(10,12,18,.96);border:1px solid rgba(37,211,102,.2);border-radius:18px 18px 4px 18px;width:320px;overflow:hidden;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5);animation:waChatIn .35s cubic-bezier(.34,1.56,.64,1);}
+@keyframes waChatIn{from{opacity:0;transform:scale(.88) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.wa-ch-head{background:linear-gradient(135deg,#075E54,#128C7E);padding:1rem 1.25rem;display:flex;align-items:center;gap:.85rem;}
+.wa-ch-avatar{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wa-ch-avatar svg{width:26px;height:26px;fill:#fff;}
+.wa-ch-info{}
+.wa-ch-name{font-family:'Montserrat',sans-serif;font-size:.88rem;font-weight:600;color:#fff;letter-spacing:.04em;}
+.wa-ch-status{font-family:'Montserrat',sans-serif;font-size:.72rem;color:rgba(255,255,255,.7);margin-top:.15rem;display:flex;align-items:center;gap:.35rem;}
+.wa-ch-status::before{content:'';width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;box-shadow:0 0 6px #4ade80;}
+.wa-ch-body{padding:1.25rem;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E"),rgba(10,12,18,.0);min-height:90px;}
+.wa-bubble{background:#1b2e1a;border-radius:4px 14px 14px 14px;padding:.75rem 1rem;color:rgba(240,235,226,.92);font-family:'Montserrat',sans-serif;font-size:.82rem;line-height:1.6;max-width:85%;opacity:0;animation:waBubIn .4s ease forwards;}
+@keyframes waBubIn{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:translateX(0);}}
+.wa-bubble+.wa-bubble{margin-top:.5rem;animation-delay:.6s;}
+.wa-time{font-size:.65rem;color:rgba(255,255,255,.3);text-align:right;margin-top:.25rem;}
+.wa-typing{display:flex;gap:4px;align-items:center;padding:.75rem 1rem;background:#1b2e1a;border-radius:4px 14px 14px 14px;width:fit-content;}
+.wa-typing span{width:7px;height:7px;border-radius:50%;background:rgba(240,235,226,.5);animation:waTyp 1.2s ease-in-out infinite;}
+.wa-typing span:nth-child(2){animation-delay:.2s;}
+.wa-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes waTyp{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+.wa-ch-foot{padding:.85rem 1.25rem;border-top:1px solid rgba(255,255,255,.06);}
+.wa-send{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;padding:.75rem 1rem;background:#25D366;border-radius:10px;text-decoration:none;color:#fff;font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:background .25s ease,transform .2s ease;border:none;}
+.wa-send:hover{background:#1ebe5d;transform:translateY(-1px);}
+.wa-send svg{width:18px;height:18px;fill:#fff;}
+</style>
+
+<div id="wa-widget">
+  <!-- Chat panel (hidden initially) -->
+  <div class="wa-chat" id="wa-chat" style="display:none;">
+    <div class="wa-ch-head">
+      <div class="wa-ch-avatar">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
+      </div>
+      <div class="wa-ch-info">
+        <div class="wa-ch-name">The H Property</div>
+        <div class="wa-ch-status">Online now</div>
+      </div>
+    </div>
+    <div class="wa-ch-body" id="wa-ch-body"></div>
+    <div class="wa-ch-foot">
+      <a class="wa-send" href="https://wa.me/971555044482?text=Hello%21%20I%27m%20interested%20in%20a%20luxury%20property%20in%20Dubai." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
+        Start Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- FAB button -->
+  <div class="wa-fab-wrap">
+    <span class="wa-ring"></span>
+    <span class="wa-ring"></span>
+    <span class="wa-ring"></span>
+    <button class="wa-fab" id="wa-fab" aria-label="Chat on WhatsApp" onclick="toggleWaChat()">
+      <!-- WhatsApp icon -->
+      <svg class="wa-icon-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.863L.054 23.5l5.83-1.452A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.36-.213-3.712.924.992-3.61-.234-.371A9.818 9.818 0 1112 21.818z"/></svg>
+      <!-- Close icon -->
+      <svg class="wa-icon-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <span class="wa-tip">Chat with us</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const fab  = document.getElementById('wa-fab');
+  const chat = document.getElementById('wa-chat');
+  const body = document.getElementById('wa-ch-body');
+  let opened = false;
+
+  const messages = [
+    "👋 Welcome to <strong>The H Property</strong>!",
+    "Looking for your dream luxury home in Dubai? We're here to help — browse our exclusive off-plan & ready collections.",
+    "Tap below to connect with an advisor instantly on WhatsApp. ✨"
+  ];
+
+  function showMessages(){
+    body.innerHTML = '<div class="wa-typing" id="wa-typing"><span></span><span></span><span></span></div>';
+    let delay = 800;
+    messages.forEach((msg, i) => {
+      setTimeout(() => {
+        const typing = document.getElementById('wa-typing');
+        if(i < messages.length - 1 && typing) {
+          // keep typing dots until last message
+        } else if(typing) {
+          typing.remove();
+        }
+        const div = document.createElement('div');
+        div.className = 'wa-bubble';
+        div.style.animationDelay = '0s';
+        div.innerHTML = msg;
+        const time = document.createElement('div');
+        time.className = 'wa-time';
+        const now = new Date();
+        time.textContent = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+        div.appendChild(time);
+        body.appendChild(div);
+        if(i === messages.length - 1){
+          const typing2 = document.getElementById('wa-typing');
+          if(typing2) typing2.remove();
+        }
+      }, delay + i * 900);
+    });
+  }
+
+  window.toggleWaChat = function(){
+    opened = !opened;
+    fab.classList.toggle('open', opened);
+    if(opened){
+      chat.style.display = 'block';
+      if(!body.hasChildNodes()) showMessages();
+    } else {
+      chat.style.display = 'none';
+    }
+  };
+
+  // Auto-open after 6 seconds
+  setTimeout(() => {
+    if(!opened) toggleWaChat();
+  }, 6000);
+})();
+</script>
 </body>
 </html>
