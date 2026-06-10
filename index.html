@@ -506,6 +506,100 @@ a:focus-visible,button:focus-visible{outline:1px solid var(--gold);outline-offse
 
 /* ── MAP POPUP DARK ── */
 .map-pop-devs{color:rgba(237,232,223,.5)!important;}
+
+/* ═══════════════════════════════════════════════════
+   BUG FIXES — dark-on-dark text, light backgrounds,
+   missing dark-theme overrides
+═══════════════════════════════════════════════════ */
+
+/* Text elements with hardcoded dark color → now invisible on dark bg */
+.scroll-hint span{color:rgba(237,232,223,.28)!important;}
+.coll-filter-btn{color:rgba(237,232,223,.38)!important;border-color:rgba(201,169,110,.15)!important;background:transparent!important;}
+.pillar-desc{color:rgba(237,232,223,.42)!important;}
+.stat-label{color:rgba(237,232,223,.38)!important;}
+.c-card:hover .c-card-type,
+.c-card:hover .c-card-val{color:rgba(237,232,223,.65)!important;}
+.foot-copy,.footer-copy{color:rgba(237,232,223,.18)!important;}
+.feat-lbl{color:rgba(237,232,223,.42)!important;}
+.detail-cta-sub{color:rgba(237,232,223,.38)!important;}
+.proj-card-loc{color:rgba(237,232,223,.32)!important;}
+
+/* Sections and cards that had light/white backgrounds */
+.c-card{background:rgba(13,19,24,.7)!important;border-color:rgba(201,169,110,.12)!important;transition:border-color .35s ease,transform .35s ease!important;}
+.c-card:hover{border-color:rgba(201,169,110,.32)!important;transform:translateY(-4px)!important;}
+.c-card-val{color:var(--gold2)!important;}
+.c-card-type{color:rgba(237,232,223,.4)!important;}
+#featured{background:var(--black)!important;}
+.feat-img-wrap{border:1px solid rgba(201,169,110,.1)!important;}
+
+/* Stats section */
+.stat-num{color:var(--gold2)!important;}
+#stats{background:var(--dark)!important;}
+.stats-grid{border-color:rgba(201,169,110,.08)!important;}
+.stat-item{border-color:rgba(201,169,110,.08)!important;}
+
+/* Collection count badge */
+.coll-count{color:rgba(201,169,110,.32)!important;}
+
+/* Project panel inner elements */
+.pp-head{background:var(--dark)!important;}
+.pp-name{color:var(--cream)!important;}
+.pp-dev{color:rgba(201,169,110,.6)!important;}
+.pp-tagline{color:rgba(237,232,223,.5)!important;}
+.pp-stat-num{color:var(--gold2)!important;}
+.pp-stat-lbl{color:rgba(237,232,223,.38)!important;}
+.pp-desc{color:rgba(237,232,223,.58)!important;line-height:1.85!important;}
+.pp-section-title{color:var(--gold)!important;}
+.pp-feat-ico{color:var(--gold)!important;}
+.pp-feat-lbl{color:rgba(237,232,223,.4)!important;}
+.pp-feat-val{color:var(--cream)!important;}
+.pp-close,.pp-back{color:var(--gold)!important;}
+.pp-close:hover,.pp-back:hover{background:rgba(201,169,110,.1)!important;}
+
+/* Detail page gallery images */
+.ppg-img{border:1px solid rgba(201,169,110,.08)!important;}
+
+/* Nav logo text */
+.nav-logo,.nav-logo-wrap{color:var(--gold2)!important;}
+
+/* Hero scroll hint dot */
+.hint-dot{background:var(--gold)!important;}
+.hint-line{background:linear-gradient(to bottom,var(--gold),transparent)!important;}
+
+/* Footer */
+footer{background:var(--black)!important;border-top:1px solid rgba(201,169,110,.07)!important;}
+.foot-logo{color:var(--gold2)!important;}
+.foot-link{color:rgba(237,232,223,.28)!important;}
+.foot-link:hover{color:var(--gold)!important;}
+.foot-divider{background:rgba(201,169,110,.15)!important;}
+
+/* Section dividers / hr */
+hr,.divider{border-color:rgba(201,169,110,.1)!important;}
+
+/* Contact input fields if any */
+input,textarea{background:rgba(13,19,24,.8)!important;border-color:rgba(201,169,110,.18)!important;color:var(--cream)!important;}
+input::placeholder,textarea::placeholder{color:rgba(237,232,223,.3)!important;}
+
+/* Proj panel stats background */
+.pp-stats{border-top:1px solid rgba(201,169,110,.08)!important;border-bottom:1px solid rgba(201,169,110,.08)!important;}
+.pp-feats{background:rgba(7,10,16,.5)!important;}
+.proj-card{background:rgba(13,19,24,.8)!important;border-color:rgba(201,169,110,.1)!important;}
+.proj-card:hover{border-color:rgba(201,169,110,.28)!important;}
+.proj-card-name{color:var(--cream)!important;}
+.proj-card-type{color:rgba(201,169,110,.55)!important;}
+.proj-card-status{color:rgba(237,232,223,.38)!important;}
+
+/* Detail hero content elements */
+.detail-hero-title{color:var(--cream)!important;}
+.detail-projects-title{color:var(--cream)!important;}
+.detail-projects-label{color:var(--gold)!important;}
+
+/* Topbar back button background */
+.detail-back{background:transparent!important;border:1px solid rgba(201,169,110,.18)!important;}
+.detail-back:hover{background:rgba(201,169,110,.08)!important;}
+
+/* Close button on topbar */
+.pp-close{background:transparent!important;}
 </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.min.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.min.js" crossorigin=""></script>
