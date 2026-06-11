@@ -5721,6 +5721,10 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
 #musicBtn:hover::after{opacity:.7;}
 </style>
 
+<audio id="bgMusic" loop preload="auto">
+  <source src="images/music.mp3" type="audio/mpeg">
+</audio>
+
 <div style="position:fixed;bottom:1.8rem;left:1.8rem;z-index:9000;">
   <button id="musicBtn" data-tip="AMBIENT" onclick="musicToggle()" aria-label="Toggle ambient music">
     <div class="music-ring"></div>
@@ -5739,88 +5743,43 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
 
 <script>
 (function(){
-  let ctx, master, sources = [], lfos = [], playing = false, built = false;
+  const audio = document.getElementById('bgMusic');
+  const btn   = document.getElementById('musicBtn');
+  let playing = false;
 
-  function buildAmbient(){
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
-    master = ctx.createGain();
-    master.gain.setValueAtTime(0, ctx.currentTime);
-    master.connect(ctx.destination);
+  audio.volume = 0;
 
-    // A-minor ambient pad — Am7 chord across 3 octaves
-    const voices = [
-      { freq:55.0,  type:'sine',     gain:.10, lfo:.06,  depth:.028 },
-      { freq:110.0, type:'sine',     gain:.09, lfo:.09,  depth:.022 },
-      { freq:165.0, type:'triangle', gain:.07, lfo:.12,  depth:.018 },
-      { freq:220.0, type:'triangle', gain:.07, lfo:.07,  depth:.016 },
-      { freq:261.6, type:'sine',     gain:.05, lfo:.15,  depth:.013 },
-      { freq:330.0, type:'triangle', gain:.04, lfo:.11,  depth:.010 },
-      { freq:392.0, type:'sine',     gain:.03, lfo:.18,  depth:.008 },
-      { freq:440.0, type:'sine',     gain:.025,lfo:.08,  depth:.006 },
-      { freq:523.2, type:'triangle', gain:.015,lfo:.22,  depth:.005 },
-    ];
+  function fadeIn(){
+    audio.volume = 0;
+    audio.play().catch(()=>{});
+    const step = () => {
+      if(audio.volume < 0.72){ audio.volume = Math.min(0.72, audio.volume + 0.02); requestAnimationFrame(step); }
+    };
+    requestAnimationFrame(step);
+  }
 
-    // Delay node for pseudo-reverb
-    const delay = ctx.createDelay(1.0);
-    const delayGain = ctx.createGain();
-    delay.delayTime.value = 0.34;
-    delayGain.gain.value = 0.28;
-    delay.connect(delayGain);
-    delayGain.connect(master);
-    delayGain.connect(delay); // feedback loop
-
-    voices.forEach((v, i) => {
-      const osc = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      const lfoOsc = ctx.createOscillator();
-      const lfoGain = ctx.createGain();
-
-      osc.type = v.type;
-      osc.frequency.value = v.freq;
-      // slight detune per voice for chorus warmth
-      osc.detune.value = (i % 2 === 0 ? 1 : -1) * (i * 1.7);
-
-      gainNode.gain.value = v.gain;
-
-      lfoOsc.type = 'sine';
-      lfoOsc.frequency.value = v.lfo;
-      lfoGain.gain.value = v.depth;
-
-      lfoOsc.connect(lfoGain);
-      lfoGain.connect(gainNode.gain);
-      osc.connect(gainNode);
-      gainNode.connect(master);
-      gainNode.connect(delay);
-
-      osc.start();
-      lfoOsc.start();
-      sources.push({ osc, gainNode, lfoOsc });
-    });
-
-    built = true;
+  function fadeOut(){
+    const step = () => {
+      if(audio.volume > 0.01){ audio.volume = Math.max(0, audio.volume - 0.02); requestAnimationFrame(step); }
+      else { audio.pause(); audio.volume = 0; }
+    };
+    requestAnimationFrame(step);
   }
 
   window.musicToggle = function(){
-    const btn = document.getElementById('musicBtn');
-    if(!built) buildAmbient();
-    if(ctx.state === 'suspended') ctx.resume();
-
     if(!playing){
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0.72, ctx.currentTime + 2.8);
+      fadeIn();
       playing = true;
       btn.classList.add('playing');
     } else {
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.8);
+      fadeOut();
       playing = false;
       btn.classList.remove('playing');
     }
   };
 })();
 </script>
+
 
 <!-- ── WHATSAPP LIVE CHAT · CINEMATIC EDITION ── -->
 <style>
