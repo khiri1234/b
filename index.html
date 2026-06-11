@@ -5747,8 +5747,6 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
   const btn   = document.getElementById('musicBtn');
   let playing = false;
 
-  audio.volume = 0;
-
   function fadeIn(){
     audio.volume = 0;
     audio.play().catch(()=>{});
@@ -5765,6 +5763,32 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
     };
     requestAnimationFrame(step);
   }
+
+  function startAudio(){
+    if(!playing){
+      fadeIn();
+      playing = true;
+      btn.classList.add('playing');
+    }
+  }
+
+  // Try autoplay immediately; if browser blocks it, play on first interaction
+  audio.volume = 0;
+  audio.play().then(() => {
+    playing = true;
+    btn.classList.add('playing');
+    const step = () => {
+      if(audio.volume < 0.72){ audio.volume = Math.min(0.72, audio.volume + 0.02); requestAnimationFrame(step); }
+    };
+    requestAnimationFrame(step);
+  }).catch(() => {
+    // Autoplay blocked — start on first user gesture
+    const unlock = () => {
+      startAudio();
+      ['click','touchstart','keydown','scroll'].forEach(e => document.removeEventListener(e, unlock));
+    };
+    ['click','touchstart','keydown','scroll'].forEach(e => document.addEventListener(e, unlock, {once:true, passive:true}));
+  });
 
   window.musicToggle = function(){
     if(!playing){
