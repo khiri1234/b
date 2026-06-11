@@ -942,6 +942,12 @@ html[lang="fa"] body,html[lang="fa"] .pillar-desc,html[lang="fa"] .statement-tex
 html[lang="fa"] .prop-location,html[lang="fa"] .dmap-sub{
   font-family:'Vazirmatn','Noto Kufi Arabic','Montserrat',sans-serif;
 }
+html[lang="hi"] body,html[lang="hi"] .pillar-desc,html[lang="hi"] .statement-text{
+  font-family:'Noto Sans Devanagari','Montserrat',sans-serif;
+}
+html[lang="zh"] body,html[lang="zh"] .pillar-desc,html[lang="zh"] .statement-text{
+  font-family:'Noto Sans SC','Montserrat',sans-serif;
+}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -979,6 +985,10 @@ html[lang="fa"] .prop-location,html[lang="fa"] .dmap-sub{
         <button onclick="setLang('fa')" data-lang="fa"><span>فا</span>فارسی</button>
         <button onclick="setLang('ru')" data-lang="ru"><span>RU</span>Русский</button>
         <button onclick="setLang('fr')" data-lang="fr"><span>FR</span>Français</button>
+        <button onclick="setLang('es')" data-lang="es"><span>ES</span>Español</button>
+        <button onclick="setLang('zh')" data-lang="zh"><span>中文</span>中文</button>
+        <button onclick="setLang('tr')" data-lang="tr"><span>TR</span>Türkçe</button>
+        <button onclick="setLang('hi')" data-lang="hi"><span>हि</span>हिन्दी</button>
       </div>
     </div>
   </div>
@@ -6495,6 +6505,154 @@ fr:{
   'office.hours.label':"Heures d'Ouverture",
   'office.hours.val':'Lun – Sam &nbsp;·&nbsp; 9h00 – 19h00',
   'office.phone.label':'Téléphone / WhatsApp','office.directions':"Obtenir l'Itinéraire",
+},,
+es:{
+  'nav.collection':'Colección','nav.experience':'Experiencia','nav.enquire':'Consultar',
+  'hero.eyebrow':'Fund. 2020 · Residencias Privadas',
+  'hero.sub':'Propiedades Ultra-Lujo · Seleccionadas para los Pocos','hero.scroll':'Explorar',
+  'phil.label':'— Nuestra Filosofía',
+  'phil.text':'No vendemos propiedades. Situamos a las personas dentro de una arquitectura que las conmueve. Cada propiedad de nuestra colección es una obra viva — formada por la luz, los materiales y una mirada obsesiva por lo extraordinario.',
+  'phil.author':'— The H Property · Desde 2020',
+  'ticker.label':'— Principales Socios Promotores · Dubái y Abu Dabi',
+  'map.label':'— Nuestra Presencia',
+  'map.title':'Las Zonas Inmobiliarias <em>Premium</em> de Dubái',
+  'map.sub':'De Palm Jebel Ali al Centro — cada distrito emblemático, trazado en el mapa.',
+  'coll.label':'<span class="s-num">01</span> La Colección',
+  'coll.title':'Nuestras <em>Propiedades</em>',
+  'filter.all':'Todas','filter.available':'Disponible',
+  'filter.appointment':'Con Cita Previa','filter.soon':'Próximamente',
+  'card.cta':'Explorar',
+  'exp.label':'<span class="s-num">02</span> La Experiencia',
+  'exp.title':'Lo Que <em>Ofrecemos</em>',
+  'pillar1.title':'Arquitectura',
+  'pillar1.desc':'Cada estructura es un diálogo entre la luz y la masa — diseñada por arquitectos galardonados que se niegan a repetirse.',
+  'pillar2.title':'Interiorismo',
+  'pillar2.desc':'Materiales seleccionados — travertino, roble blanqueado, latón forjado a mano — ensamblados en espacios que se sienten a la vez opulentos y vivos.',
+  'pillar3.title':'Los Jardines',
+  'pillar3.desc':'Los arquitectos paisajistas crean jardines vivos, piscinas infinity y terrazas privadas — cada una como una extensión del hogar hacia la naturaleza.',
+  'stat1.label':'Propiedades Seleccionadas','stat2.label':'Satisfacción del Cliente',
+  'stat3.label':'Años de Excelencia','stat4.label':'Diseños Premiados',
+  'contact.pre':'— Contáctenos','contact.title':'Comience Su<br><em>Viaje</em>',
+  'contact.cta':'Solicitar Visita Privada',
+  'ccard.whatsapp':'WhatsApp','ccard.instagram':'Instagram',
+  'ccard.email':'Correo','ccard.website':'Sitio Web','ccard.office':'Oficina',
+  'office.label':'— Encuéntrenos','office.title':'Nuestra <em>Oficina</em>',
+  'office.addr.label':'Dirección',
+  'office.addr.val':'World Trade Center Tower, Planta 30<br>Sheikh Zayed Road, Apt. 63607<br>Dubái, Emiratos Árabes Unidos',
+  'office.hours.label':'Horario de Atención',
+  'office.hours.val':'Lun – Sáb &nbsp;·&nbsp; 9:00 – 19:00',
+  'office.phone.label':'Teléfono / WhatsApp','office.directions':'Cómo Llegar',
+},
+zh:{
+  'nav.collection':'精选项目','nav.experience':'服务体验','nav.enquire':'立即咨询',
+  'hero.eyebrow':'创立于 2020 · 私人住宅',
+  'hero.sub':'超豪华房产 · 专为少数人甄选','hero.scroll':'探索',
+  'phil.label':'— 我们的理念',
+  'phil.text':'我们不仅仅是出售房产。我们将人们置于令他们心动的建筑之中。我们精选系列中的每一处庄园都是一件鲜活的作品 — 由光线、材质和对非凡事物的极致追求所塑造。',
+  'phil.author':'— The H Property · 自 2020 年',
+  'ticker.label':'— 主要开发合作伙伴 · 迪拜及阿布扎比',
+  'map.label':'— 我们的布局',
+  'map.title':'迪拜<em>核心房产区域</em>全览',
+  'map.sub':'从棕榈杰贝阿里到市中心 — 每一个标志性地区，尽在地图之上。',
+  'coll.label':'<span class="s-num">01</span> 精选系列',
+  'coll.title':'我们的<em>房产</em>',
+  'filter.all':'全部','filter.available':'可售',
+  'filter.appointment':'预约参观','filter.soon':'即将推出',
+  'card.cta':'了解详情',
+  'exp.label':'<span class="s-num">02</span> 服务体验',
+  'exp.title':'我们<em>提供什么</em>',
+  'pillar1.title':'建筑设计',
+  'pillar1.desc':'每一个建筑结构都是光与体量之间的对话 — 由屡获殊荣的建筑师精心设计，他们拒绝重复自我。',
+  'pillar2.title':'室内设计',
+  'pillar2.desc':'精选材料 — 洞石、漂白橡木、手工锻造黄铜 — 组合成既富丽堂皇又充满活力的空间。',
+  'pillar3.title':'庭院景观',
+  'pillar3.desc':'景观建筑师精心打造生态花园、无边泳池和私人露台 — 每一处都是家园向自然的延伸。',
+  'stat1.label':'精选房产','stat2.label':'客户满意度',
+  'stat3.label':'年卓越历史','stat4.label':'获奖设计',
+  'contact.pre':'— 联系我们','contact.title':'开启您的<br><em>尊享之旅</em>',
+  'contact.cta':'预约私人参观',
+  'ccard.whatsapp':'WhatsApp','ccard.instagram':'Instagram',
+  'ccard.email':'电子邮件','ccard.website':'官方网站','ccard.office':'办公室',
+  'office.label':'— 找到我们','office.title':'我们的<em>办公室</em>',
+  'office.addr.label':'地址',
+  'office.addr.val':'世界贸易中心大厦，30楼<br>谢赫扎耶德路，邮箱 63607<br>迪拜，阿联酋',
+  'office.hours.label':'办公时间',
+  'office.hours.val':'周一 – 周六 &nbsp;·&nbsp; 上午9:00 – 下午7:00',
+  'office.phone.label':'电话 / WhatsApp','office.directions':'获取导航',
+},
+tr:{
+  'nav.collection':'Koleksiyon','nav.experience':'Deneyim','nav.enquire':'Bilgi Al',
+  'hero.eyebrow':'Kur. 2020 · Özel Rezidanslar',
+  'hero.sub':'Ultra Lüks Gayrimenkuller · Seçkinler İçin Seçildi','hero.scroll':'Keşfet',
+  'phil.label':'— Felsefemiz',
+  'phil.text':'Biz mülk satmıyoruz. İnsanları onları derinden etkileyen bir mimarinin içine yerleştiriyoruz. Koleksiyonumuzdaki her mülk yaşayan bir eser — ışık, malzeme ve olağanüstü olana yönelik obsesif bir gözle şekillendirilmiş.',
+  'phil.author':'— The H Property · 2020'den Beri',
+  'ticker.label':'— Önde Gelen Geliştirici Ortaklar · Dubai ve Abu Dabi',
+  'map.label':'— Faaliyet Alanımız',
+  'map.title':'Dubai'nin <em>Seçkin Gayrimenkul</em> Bölgeleri',
+  'map.sub':'Palm Jebel Ali'den Downtown'a — her ikonik bölge, haritada.',
+  'coll.label':'<span class="s-num">01</span> Koleksiyon',
+  'coll.title':'Mülklerimiz <em>Seçkisi</em>',
+  'filter.all':'Tümü','filter.available':'Mevcut',
+  'filter.appointment':'Randevu ile','filter.soon':'Yakında',
+  'card.cta':'İncele',
+  'exp.label':'<span class="s-num">02</span> Deneyim',
+  'exp.title':'Ne <em>Sunuyoruz</em>',
+  'pillar1.title':'Mimari',
+  'pillar1.desc':'Her yapı, ışık ile kütle arasındaki bir diyalog — kendilerini tekrar etmeyi reddeden ödüllü mimarlar tarafından tasarlanmış.',
+  'pillar2.title':'İç Tasarım',
+  'pillar2.desc':'Seçkin malzemeler — traverten, ağartılmış meşe, el yapımı pirinç — hem görkemli hem de canlı hissettiren mekânlara dönüştürülmüş.',
+  'pillar3.title':'Bahçe & Çevre',
+  'pillar3.desc':'Peyzaj mimarları yaşayan bahçeler, sonsuzluk havuzları ve özel teraslar tasarlıyor — her biri evin doğayla buluşma noktası.',
+  'stat1.label':'Seçkin Mülk','stat2.label':'Müşteri Memnuniyeti',
+  'stat3.label':'Yıllık Deneyim','stat4.label':'Ödüllü Tasarım',
+  'contact.pre':'— İletişime Geçin','contact.title':'Yolculuğunuza<br><em>Başlayın</em>',
+  'contact.cta':'Özel Görüntüleme Talep Et',
+  'ccard.whatsapp':'WhatsApp','ccard.instagram':'Instagram',
+  'ccard.email':'E-posta','ccard.website':'Web Sitesi','ccard.office':'Ofis',
+  'office.label':'— Bizi Bulun','office.title':'Ofisimiz <em>Dubai'de</em>',
+  'office.addr.label':'Adres',
+  'office.addr.val':'World Trade Center Tower, 30. Kat<br>Sheikh Zayed Road, P.K. 63607<br>Dubai, Birleşik Arap Emirlikleri',
+  'office.hours.label':'Çalışma Saatleri',
+  'office.hours.val':'Pzt – Cmt &nbsp;·&nbsp; 09:00 – 19:00',
+  'office.phone.label':'Telefon / WhatsApp','office.directions':'Yol Tarifi Al',
+},
+hi:{
+  'nav.collection':'संग्रह','nav.experience':'अनुभव','nav.enquire':'पूछताछ',
+  'hero.eyebrow':'स्था. 2020 · निजी आवास',
+  'hero.sub':'अल्ट्रा-लक्ज़री संपत्तियाँ · चुनिंदा लोगों के लिए','hero.scroll':'देखें',
+  'phil.label':'— हमारा दर्शन',
+  'phil.text':'हम संपत्तियाँ नहीं बेचते। हम लोगों को ऐसी वास्तुकला के भीतर रखते हैं जो उन्हें गहराई से प्रभावित करती है। हमारे संग्रह में हर एस्टेट एक जीवंत कृति है — प्रकाश, सामग्री और असाधारण के प्रति एक जुनूनी दृष्टि से आकारित।',
+  'phil.author':'— The H Property · 2020 से',
+  'ticker.label':'— प्रमुख डेवलपर साझेदार · दुबई और अबू धाबी',
+  'map.label':'— हमारी उपस्थिति',
+  'map.title':'दुबई के <em>प्रमुख संपत्ति क्षेत्र</em>',
+  'map.sub':'पाम जेबेल अली से डाउनटाउन तक — हर प्रतिष्ठित जिला, मानचित्र पर।',
+  'coll.label':'<span class="s-num">01</span> संग्रह',
+  'coll.title':'हमारी <em>संपत्तियाँ</em>',
+  'filter.all':'सभी','filter.available':'उपलब्ध',
+  'filter.appointment':'अपॉइंटमेंट द्वारा','filter.soon':'शीघ्र आ रहा है',
+  'card.cta':'देखें',
+  'exp.label':'<span class="s-num">02</span> अनुभव',
+  'exp.title':'हम क्या <em>प्रदान करते हैं</em>',
+  'pillar1.title':'वास्तुकला',
+  'pillar1.desc':'हर संरचना प्रकाश और द्रव्यमान के बीच एक संवाद है — पुरस्कार विजेता वास्तुकारों द्वारा डिज़ाइन की गई जो खुद को दोहराने से इनकार करते हैं।',
+  'pillar2.title':'आंतरिक सज्जा',
+  'pillar2.desc':'चयनित सामग्रियाँ — ट्रैवर्टाइन, ब्लीच्ड ओक, हस्त-निर्मित पीतल — ऐसे स्थानों में संयोजित जो भव्य और जीवंत दोनों लगते हैं।',
+  'pillar3.title':'उद्यान एवं परिसर',
+  'pillar3.desc':'लैंडस्केप आर्किटेक्ट जीवंत बगीचे, इन्फिनिटी पूल और निजी छतें बनाते हैं — प्रत्येक घर का प्रकृति तक विस्तार।',
+  'stat1.label':'चयनित संपत्तियाँ','stat2.label':'ग्राहक संतुष्टि',
+  'stat3.label':'वर्षों का अनुभव','stat4.label':'पुरस्कार विजेता डिज़ाइन',
+  'contact.pre':'— संपर्क करें','contact.title':'अपनी<br><em>यात्रा शुरू करें</em>',
+  'contact.cta':'निजी दर्शन का अनुरोध करें',
+  'ccard.whatsapp':'WhatsApp','ccard.instagram':'Instagram',
+  'ccard.email':'ईमेल','ccard.website':'वेबसाइट','ccard.office':'कार्यालय',
+  'office.label':'— हमें खोजें','office.title':'हमारा <em>कार्यालय</em>',
+  'office.addr.label':'पता',
+  'office.addr.val':'वर्ल्ड ट्रेड सेंटर टॉवर, 30वीं मंजिल<br>शेख ज़ायद रोड, पी.ओ. बॉक्स 63607<br>दुबई, संयुक्त अरब अमीरात',
+  'office.hours.label':'कार्यालय समय',
+  'office.hours.val':'सोम – शनि &nbsp;·&nbsp; सुबह 9:00 – शाम 7:00',
+  'office.phone.label':'फोन / WhatsApp','office.directions':'दिशा-निर्देश पाएं',
 },
 };
 
@@ -6525,7 +6683,7 @@ function applyLang(lang){
   document.documentElement.setAttribute('dir', rtl ? 'rtl' : 'ltr');
   document.documentElement.setAttribute('lang', lang);
   // lang label in switcher
-  const labels = {en:'EN',ar:'عر',fa:'فا',ru:'RU',fr:'FR'};
+  const labels = {en:'EN',ar:'عر',fa:'فا',ru:'RU',fr:'FR',es:'ES',zh:'中文',tr:'TR',hi:'हि'};
   const lbl = document.getElementById('langLabel');
   if(lbl) lbl.textContent = labels[lang] || 'EN';
   // active button
@@ -6533,11 +6691,12 @@ function applyLang(lang){
     b.classList.toggle('active', b.dataset.lang === lang);
   });
   // load Arabic/Persian font if needed
-  if(rtl && !document.getElementById('rtl-font-link')){
+  const needsFont = rtl || lang==='hi' || lang==='zh';
+  if(needsFont && !document.getElementById('rtl-font-link')){
     const link = document.createElement('link');
     link.id = 'rtl-font-link';
     link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;600&family=Vazirmatn:wght@300;400;600&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;600&family=Vazirmatn:wght@300;400;600&family=Noto+Sans+Devanagari:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;600&display=swap';
     document.head.appendChild(link);
   }
   localStorage.setItem('hp_lang', lang);
