@@ -5556,6 +5556,164 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
 })();
 </script>
 
+<!-- ── AMBIENT MUSIC PLAYER ── -->
+<style>
+#musicBtn{
+  position:fixed;bottom:1.8rem;left:1.8rem;z-index:9000;
+  width:3.2rem;height:3.2rem;border-radius:50%;
+  border:1px solid rgba(184,147,90,.28);
+  background:rgba(10,10,10,.82);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  color:var(--gold);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .35s,box-shadow .35s,transform .25s;
+  outline:none;padding:0;
+}
+#musicBtn:hover{
+  border-color:rgba(184,147,90,.7);
+  transform:scale(1.08);
+}
+#musicBtn.playing{
+  border-color:var(--gold2);
+  box-shadow:0 0 22px rgba(184,147,90,.18),0 0 48px rgba(184,147,90,.08);
+}
+#musicBtn svg{
+  width:1.05rem;height:1.05rem;fill:var(--gold);
+  transition:opacity .25s,transform .35s;
+}
+#musicBtn .ic-play{display:block;}
+#musicBtn .ic-pause{display:none;}
+#musicBtn.playing .ic-play{display:none;}
+#musicBtn.playing .ic-pause{display:block;}
+
+/* Pulse rings when playing */
+@keyframes musicRing{
+  0%{transform:scale(1);opacity:.45;}
+  100%{transform:scale(2.2);opacity:0;}
+}
+.music-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(184,147,90,.35);
+  pointer-events:none;
+  animation:musicRing 2.4s ease-out infinite;
+  opacity:0;
+}
+.music-ring:nth-child(2){animation-delay:.8s;}
+.music-ring:nth-child(3){animation-delay:1.6s;}
+#musicBtn:not(.playing) .music-ring{animation:none;opacity:0;}
+
+/* Tooltip */
+#musicBtn::after{
+  content:attr(data-tip);
+  position:absolute;left:calc(100% + .9rem);top:50%;transform:translateY(-50%);
+  font-family:'Montserrat',sans-serif;font-size:.62rem;letter-spacing:.18em;
+  color:var(--gold);text-transform:uppercase;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#musicBtn:hover::after{opacity:.7;}
+</style>
+
+<div style="position:fixed;bottom:1.8rem;left:1.8rem;z-index:9000;">
+  <button id="musicBtn" data-tip="AMBIENT" onclick="musicToggle()" aria-label="Toggle ambient music">
+    <div class="music-ring"></div>
+    <div class="music-ring"></div>
+    <div class="music-ring"></div>
+    <!-- Note icon -->
+    <svg class="ic-play" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 3v11.09A4 4 0 1 0 11 17V7h4V3H9Z"/>
+    </svg>
+    <!-- Pause icon -->
+    <svg class="ic-pause" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+(function(){
+  let ctx, master, sources = [], lfos = [], playing = false, built = false;
+
+  function buildAmbient(){
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain();
+    master.gain.setValueAtTime(0, ctx.currentTime);
+    master.connect(ctx.destination);
+
+    // A-minor ambient pad — Am7 chord across 3 octaves
+    const voices = [
+      { freq:55.0,  type:'sine',     gain:.10, lfo:.06,  depth:.028 },
+      { freq:110.0, type:'sine',     gain:.09, lfo:.09,  depth:.022 },
+      { freq:165.0, type:'triangle', gain:.07, lfo:.12,  depth:.018 },
+      { freq:220.0, type:'triangle', gain:.07, lfo:.07,  depth:.016 },
+      { freq:261.6, type:'sine',     gain:.05, lfo:.15,  depth:.013 },
+      { freq:330.0, type:'triangle', gain:.04, lfo:.11,  depth:.010 },
+      { freq:392.0, type:'sine',     gain:.03, lfo:.18,  depth:.008 },
+      { freq:440.0, type:'sine',     gain:.025,lfo:.08,  depth:.006 },
+      { freq:523.2, type:'triangle', gain:.015,lfo:.22,  depth:.005 },
+    ];
+
+    // Delay node for pseudo-reverb
+    const delay = ctx.createDelay(1.0);
+    const delayGain = ctx.createGain();
+    delay.delayTime.value = 0.34;
+    delayGain.gain.value = 0.28;
+    delay.connect(delayGain);
+    delayGain.connect(master);
+    delayGain.connect(delay); // feedback loop
+
+    voices.forEach((v, i) => {
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      const lfoOsc = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+
+      osc.type = v.type;
+      osc.frequency.value = v.freq;
+      // slight detune per voice for chorus warmth
+      osc.detune.value = (i % 2 === 0 ? 1 : -1) * (i * 1.7);
+
+      gainNode.gain.value = v.gain;
+
+      lfoOsc.type = 'sine';
+      lfoOsc.frequency.value = v.lfo;
+      lfoGain.gain.value = v.depth;
+
+      lfoOsc.connect(lfoGain);
+      lfoGain.connect(gainNode.gain);
+      osc.connect(gainNode);
+      gainNode.connect(master);
+      gainNode.connect(delay);
+
+      osc.start();
+      lfoOsc.start();
+      sources.push({ osc, gainNode, lfoOsc });
+    });
+
+    built = true;
+  }
+
+  window.musicToggle = function(){
+    const btn = document.getElementById('musicBtn');
+    if(!built) buildAmbient();
+    if(ctx.state === 'suspended') ctx.resume();
+
+    if(!playing){
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0.72, ctx.currentTime + 2.8);
+      playing = true;
+      btn.classList.add('playing');
+    } else {
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.8);
+      playing = false;
+      btn.classList.remove('playing');
+    }
+  };
+})();
+</script>
+
 <!-- ── WHATSAPP LIVE CHAT · CINEMATIC EDITION ── -->
 <style>
 #wa{
