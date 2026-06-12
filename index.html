@@ -5781,7 +5781,7 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
     audio.volume = 0;
     audio.play().catch(()=>{});
     const step = () => {
-      if(audio.volume < 0.72){ audio.volume = Math.min(0.72, audio.volume + 0.02); requestAnimationFrame(step); }
+      if(audio.volume < 0.5){ audio.volume = Math.min(0.5, audio.volume + 0.02); requestAnimationFrame(step); }
     };
     requestAnimationFrame(step);
   }
@@ -5808,7 +5808,7 @@ if(document.getElementById('proj-panel')) trapFocus(document.getElementById('pro
     playing = true;
     btn.classList.add('playing');
     const step = () => {
-      if(audio.volume < 0.72){ audio.volume = Math.min(0.72, audio.volume + 0.02); requestAnimationFrame(step); }
+      if(audio.volume < 0.5){ audio.volume = Math.min(0.5, audio.volume + 0.02); requestAnimationFrame(step); }
     };
     requestAnimationFrame(step);
   }).catch(() => {
