@@ -33,10 +33,62 @@ body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-se
   padding-right:env(safe-area-inset-right);
 }
 
-/* ── CURSOR ── */
-#c-dot{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,background .3s;}
-#c-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(184,147,90,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),opacity .3s;}
-body:has(a:hover,button:hover,[data-hover]:hover) #c-ring{width:60px;height:60px;opacity:.8;}
+/* ── CURSOR BASE ── */
+#c-wrap{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;}
+#c-dot{
+  position:fixed;width:5px;height:5px;border-radius:50%;
+  background:#fff;mix-blend-mode:difference;
+  pointer-events:none;z-index:10001;
+  transform:translate(-50%,-50%);
+  transition:width .35s var(--ease),height .35s var(--ease),opacity .3s;
+}
+#c-ring{
+  position:fixed;width:44px;height:44px;border-radius:50%;
+  pointer-events:none;z-index:10000;
+  transform:translate(-50%,-50%);
+  display:flex;align-items:center;justify-content:center;
+  transition:width .55s var(--ease),height .55s var(--ease),opacity .3s;
+}
+#c-ring-svg{
+  position:absolute;inset:0;width:100%;height:100%;
+  transition:transform .6s var(--ease);
+  animation:ringRotate 12s linear infinite;
+}
+@keyframes ringRotate{to{transform:rotate(360deg);}}
+#c-ring-fill{
+  transition:stroke .4s,stroke-width .4s,r .5s var(--ease);
+}
+#c-text{
+  position:relative;z-index:2;
+  font-family:'Montserrat',sans-serif;
+  font-size:.42rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold2);opacity:0;white-space:nowrap;
+  transition:opacity .35s var(--ease),letter-spacing .5s var(--ease);
+}
+#c-ripple{
+  position:fixed;width:44px;height:44px;border-radius:50%;
+  pointer-events:none;z-index:9997;
+  border:1px solid rgba(201,169,110,.7);
+  transform:translate(-50%,-50%) scale(1);
+  opacity:0;
+}
+
+/* Cursor states via body class */
+body.c-hover #c-dot { width:0;height:0;opacity:0; }
+body.c-hover #c-ring { width:72px;height:72px; }
+body.c-hover #c-text { opacity:1;letter-spacing:.35em; }
+body.c-hover #c-ring circle:first-child { stroke:rgba(201,169,110,.9); }
+
+body.c-btn #c-dot    { width:0;height:0;opacity:0; }
+body.c-btn #c-ring   { width:58px;height:58px; }
+body.c-btn #c-ring-svg { animation-duration:3s; }
+body.c-btn #c-ring circle:first-child { stroke:rgba(201,169,110,1); }
+
+body.c-click #c-ripple { animation:rippleBurst .55s cubic-bezier(.76,0,.24,1) forwards; }
+@keyframes rippleBurst{
+  0%  { transform:translate(-50%,-50%) scale(1); opacity:.8; }
+  100%{ transform:translate(-50%,-50%) scale(3.2); opacity:0; }
+}
 
 /* ── PROGRESS ── */
 #prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:1000;width:0%;transition:width .1s linear;}
@@ -984,19 +1036,7 @@ html[lang="zh"] body,html[lang="zh"] .pillar-desc,html[lang="zh"] .statement-tex
   100%{ background-position: -30px  20px; }
 }
 
-/* ── CURSOR — golden liquid ───────────────────────────────────────── */
-#c-dot {
-  background: var(--gold2);
-  width: 5px; height: 5px;
-  transition: transform .08s, background .3s, width .3s, height .3s;
-}
-#c-ring {
-  border: 1px solid rgba(201,169,110,.5);
-  transition: width .45s var(--ease), height .45s var(--ease), opacity .3s, border-color .3s;
-}
-body:has(.prop-item:hover) #c-ring,
-body:has(.pillar:hover)    #c-ring { width: 72px; height: 72px; border-color: rgba(201,169,110,.7); }
-body:has(.c-btn:hover)     #c-ring { width: 80px; height: 80px; opacity: .9; }
+/* cursor handled by animated cursor system */
 
 /* ── SCROLL PROGRESS — gold ───────────────────────────────────────── */
 #prog {
@@ -1610,8 +1650,17 @@ footer {
 </head>
 <body>
 
-<div id="c-dot"></div>
-<div id="c-ring"></div>
+<div id="c-wrap">
+  <div id="c-dot"></div>
+  <div id="c-ring">
+    <svg id="c-ring-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" stroke="rgba(201,169,110,.65)" stroke-width="1" stroke-dasharray="8 4" />
+      <circle id="c-ring-fill" cx="50" cy="50" r="46" stroke="rgba(201,169,110,0)" stroke-width="1.5" />
+    </svg>
+    <span id="c-text"></span>
+  </div>
+  <div id="c-ripple"></div>
+</div>
 <div id="prog"></div>
 <div class="grain"></div>
 
@@ -2486,12 +2535,95 @@ function closePage(id){
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── CURSOR ──────────────────────────────────────────────
-const dot = document.getElementById('c-dot');
-const ring = document.getElementById('c-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function movering(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(movering);})();
+// ── ANIMATED CURSOR ENGINE ──────────────────────────────
+(function(){
+  if(window.matchMedia('(pointer:coarse)').matches) return;
+
+  const dot    = document.getElementById('c-dot');
+  const ring   = document.getElementById('c-ring');
+  const text   = document.getElementById('c-text');
+  const ripple = document.getElementById('c-ripple');
+
+  let mx=0,my=0, rx=0,ry=0;
+  let hoverLabel = '';
+
+  // — Cursor label map based on element context
+  const LABELS = {
+    '.prop-item':  'EXPLORE',
+    '.pillar':     'DISCOVER',
+    '.c-card':     'CONNECT',
+    '.nav-logo':   'HOME',
+    '.feat-wrap':  'VIEW',
+    '.gal-img':    'ENLARGE',
+    '.c-btn':      '',
+    'button':      '',
+    'a':           '',
+  };
+
+  // — Track mouse position (dot is instant)
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+    ripple.style.left = mx + 'px';
+    ripple.style.top  = my + 'px';
+  });
+
+  // — Ring follows with smooth lerp (lag = luxury feel)
+  (function lerpRing(){
+    rx += (mx - rx) * .088;
+    ry += (my - ry) * .088;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(lerpRing);
+  })();
+
+  // — Hover detection
+  document.addEventListener('mouseover', e => {
+    let el = e.target;
+    let matched = false;
+    for(const [sel, label] of Object.entries(LABELS)){
+      if(el.closest(sel)){
+        hoverLabel = label;
+        text.textContent = label;
+        if(label === '' || el.closest('button') || el.closest('a') || el.closest('.c-btn')){
+          document.body.classList.remove('c-hover');
+          document.body.classList.add('c-btn');
+        } else {
+          document.body.classList.add('c-hover');
+          document.body.classList.remove('c-btn');
+        }
+        matched = true;
+        break;
+      }
+    }
+    if(!matched){
+      document.body.classList.remove('c-hover','c-btn');
+      text.textContent = '';
+    }
+  });
+
+  document.addEventListener('mouseout', e => {
+    if(!e.relatedTarget){
+      document.body.classList.remove('c-hover','c-btn');
+      text.textContent = '';
+    }
+  });
+
+  // — Click ripple burst
+  document.addEventListener('mousedown', () => {
+    ripple.style.left = mx + 'px';
+    ripple.style.top  = my + 'px';
+    document.body.classList.add('c-click');
+  });
+  document.addEventListener('animationend', e => {
+    if(e.target === ripple) document.body.classList.remove('c-click');
+  });
+
+  // — Hide cursor when leaving window
+  document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.style.opacity='0'; });
+  document.addEventListener('mouseenter', () => { dot.style.opacity=''; ring.style.opacity=''; });
+})();
 
 // ── PRELOADER ───────────────────────────────────────────
 const fill=document.getElementById('pre-fill');
@@ -7678,7 +7810,7 @@ function init(){
   initMagnetic();
   initStatsCounter();
   initParallax();
-  initCursorTrail();
+  // cursor trail disabled — using animated cursor engine
   initHeroShimmer();
 }
 
