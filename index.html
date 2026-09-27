@@ -2642,6 +2642,501 @@ footer {
 }
 
 </style>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+<style id="exact-match">
+
+/* ═══════════════════════════════════════════════════════════
+   EXACT REFERENCE MATCH
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── FONT ─────────────────────────────────────────────────── */
+:root {
+  --rf-display: 'Outfit', 'DM Sans', system-ui, sans-serif;
+  --rf-body:    'Outfit', 'DM Sans', system-ui, sans-serif;
+  --rf-ink:     #1a1f3c;
+  --rf-ink2:    #4b5368;
+  --rf-ink3:    #8b93a8;
+  --rf-gold:    #b8935a;
+  --rf-gold2:   #d4ae7a;
+  --rf-white:   #ffffff;
+  --rf-glass:   rgba(255,255,255,.82);
+  --rf-glass2:  rgba(255,255,255,.92);
+  --rf-bg:      #f0f2f7;
+  --rf-r:       22px;
+  --rf-pill:    100px;
+  --rf-sh:      0 8px 40px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
+  --rf-sh2:     0 20px 60px rgba(0,0,0,.16), 0 4px 16px rgba(0,0,0,.08);
+}
+
+body {
+  font-family: var(--rf-body) !important;
+}
+
+/* ── HIDE ORIGINAL NAV on hero area ────────────────────────── */
+nav {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity .3s !important;
+}
+nav.scrolled {
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
+/* ── LEFT SIDEBAR ───────────────────────────────────────────── */
+#rf-sidebar {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 54px;
+}
+#rf-sidebar-top,
+#rf-sidebar-bot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--rf-glass2);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: 40px;
+  padding: 10px 8px;
+  box-shadow: var(--rf-sh);
+}
+#rf-sidebar-bot { margin-top: 10px; }
+
+.rf-sb-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rf-ink3);
+  transition: all .25s;
+  flex-shrink: 0;
+}
+.rf-sb-btn:hover { background: rgba(21,26,48,.06); color: var(--rf-ink); }
+.rf-sb-btn.active {
+  background: var(--rf-ink) !important;
+  color: #fff !important;
+}
+.rf-sb-btn svg { width: 16px; height: 16px; }
+
+.rf-sb-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rf-gold), var(--rf-gold2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--rf-body);
+  font-size: .7rem; font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(184,147,90,.3);
+  flex-shrink: 0;
+  margin: 2px 0;
+}
+.rf-sb-sep {
+  width: 20px;
+  height: 1px;
+  background: rgba(21,26,48,.08);
+  margin: 4px 0;
+}
+
+/* ── HERO FILTER BAR ─────────────────────────────────────────── */
+#rf-filter-bar {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: all;
+  white-space: nowrap;
+}
+.rf-fb-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--rf-glass2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: var(--rf-pill);
+  padding: .7rem 1.5rem .7rem 1rem;
+  font-family: var(--rf-body);
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--rf-ink);
+  cursor: pointer;
+  box-shadow: var(--rf-sh);
+  transition: all .25s;
+  min-width: 100px;
+}
+.rf-fb-pill:hover { box-shadow: var(--rf-sh2); transform: translateY(-1px); }
+.rf-fb-pill svg  { width: 14px; height: 14px; color: var(--rf-gold); flex-shrink: 0; }
+
+/* Center filter group */
+#rf-fb-center {
+  display: flex; align-items: center;
+  background: var(--rf-glass2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: var(--rf-pill);
+  padding: .6rem 0;
+  box-shadow: var(--rf-sh);
+}
+.rf-fb-drop {
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+.rf-fb-drop:hover { background: rgba(21,26,48,.04); }
+.rf-fb-drop-hdr {
+  display: flex; align-items: center; gap: 5px;
+  margin-bottom: 1px;
+}
+.rf-fb-drop-icon { color: var(--rf-gold); }
+.rf-fb-drop-icon svg { width: 11px; height: 11px; }
+.rf-fb-drop-label {
+  font-family: var(--rf-body);
+  font-size: .6rem;
+  font-weight: 500;
+  color: var(--rf-ink3);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.rf-fb-drop-val {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--rf-body);
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--rf-ink);
+}
+.rf-fb-drop-val svg { width: 13px; height: 13px; color: var(--rf-ink3); }
+.rf-fb-sep-v {
+  width: 1px;
+  height: 28px;
+  background: rgba(21,26,48,.1);
+  flex-shrink: 0;
+}
+
+/* ── HERO LAYOUT OVERHAUL ────────────────────────────────────── */
+#hero {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Big title — position upper center */
+.hero-content {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Hide original hero content elements */
+.hero-eyebrow,
+#hero-rule,
+#scroll-hint,
+#scroll-line,
+.hero-cta {
+  display: none !important;
+}
+
+/* ── HERO BIG TITLE (new element) ───────────────────────────── */
+#rf-hero-title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-40%);
+  z-index: 6;
+  pointer-events: none;
+}
+#rf-hero-title .rf-ht-line {
+  display: block;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 200;
+  font-size: clamp(5rem, 11vw, 12rem);
+  line-height: .95;
+  color: rgba(255,255,255,.78);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+/* ── HERO DESCRIPTION TEXT (left side) ─────────────────────── */
+#rf-hero-desc {
+  position: absolute;
+  left: 100px;
+  top: 45%;
+  width: clamp(220px, 25vw, 340px);
+  z-index: 6;
+}
+#rf-hero-desc p {
+  font-family: var(--rf-body);
+  font-size: clamp(.75rem, 1.1vw, .9rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(255,255,255,.72);
+  margin: 0;
+}
+
+/* ── INFO CARD (bottom left) ─────────────────────────────────── */
+#hgc-info {
+  position: absolute;
+  bottom: 8%;
+  left: 100px;
+  width: clamp(260px, 28vw, 330px);
+  background: var(--rf-glass2);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border-radius: var(--rf-r);
+  box-shadow: var(--rf-sh2);
+  border: 1px solid rgba(255,255,255,.75);
+  padding: 1.6rem 1.8rem;
+  z-index: 6;
+  pointer-events: all;
+  animation: rfFloat1 6s ease-in-out infinite;
+}
+@keyframes rfFloat1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+
+#hgc-info .rf-ic-title {
+  font-family: var(--rf-body);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--rf-ink);
+  margin-bottom: .55rem;
+  line-height: 1.25;
+}
+#hgc-info .rf-ic-desc {
+  font-family: var(--rf-body);
+  font-size: .76rem;
+  color: var(--rf-ink2);
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+#hgc-info .rf-ic-stat {
+  display: flex; align-items: flex-end; gap: .5rem;
+}
+#hgc-info .rf-ic-stat-num {
+  font-family: var(--rf-body);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--rf-ink);
+  line-height: 1;
+}
+#hgc-info .rf-ic-stat-sub {
+  font-family: var(--rf-body);
+  font-size: .7rem;
+  color: var(--rf-ink3);
+  padding-bottom: .3rem;
+}
+#hgc-info .rf-ic-thumbs {
+  display: flex; align-items: center;
+  margin-top: .8rem;
+  justify-content: space-between;
+}
+.rf-thumb-stack { display: flex; }
+.rf-thumb {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--rf-bg);
+  overflow: hidden;
+  margin-left: -10px;
+}
+.rf-thumb:first-child { margin-left: 0; }
+.rf-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.rf-ic-arrow {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--rf-ink);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(21,26,48,.2);
+  transition: all .25s;
+  flex-shrink: 0;
+}
+.rf-ic-arrow:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(21,26,48,.3); }
+.rf-ic-arrow svg { width: 14px; height: 14px; }
+
+/* ── PROPERTY CARD (bottom right) ──────────────────────────── */
+#hgc-prop {
+  position: absolute;
+  bottom: 6%;
+  right: 5%;
+  width: clamp(280px, 30vw, 370px);
+  background: var(--rf-glass2);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border-radius: var(--rf-r);
+  box-shadow: var(--rf-sh2);
+  border: 1px solid rgba(255,255,255,.75);
+  z-index: 6;
+  overflow: hidden;
+  pointer-events: all;
+  animation: rfFloat2 7s ease-in-out 1.2s infinite;
+}
+@keyframes rfFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+#hgc-prop .rf-pc-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 1.4rem 1.4rem .9rem;
+}
+#hgc-prop .rf-pc-title-block { flex: 1; margin-right: .8rem; }
+#hgc-prop .rf-pc-name {
+  font-family: var(--rf-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--rf-ink);
+  margin-bottom: .3rem;
+  line-height: 1.25;
+}
+#hgc-prop .rf-pc-addr {
+  font-family: var(--rf-body);
+  font-size: .72rem;
+  color: var(--rf-ink3);
+  display: flex; align-items: flex-start; gap: 4px;
+}
+#hgc-prop .rf-pc-addr svg { width: 11px; height: 11px; color: var(--rf-gold); margin-top: 2px; flex-shrink: 0; }
+#hgc-prop .rf-pc-expand {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.9); border: 1px solid rgba(21,26,48,.08);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--rf-ink2); transition: all .25s; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+#hgc-prop .rf-pc-expand:hover { background: var(--rf-ink); color: #fff; }
+#hgc-prop .rf-pc-expand svg { width: 13px; height: 13px; }
+
+#hgc-prop .rf-pc-desc {
+  padding: 0 1.4rem .9rem;
+  font-family: var(--rf-body);
+  font-size: .73rem;
+  color: var(--rf-ink2);
+  line-height: 1.6;
+}
+#hgc-prop .rf-pc-stats {
+  padding: .75rem 1.4rem;
+  border-top: 1px solid rgba(21,26,48,.06);
+  border-bottom: 1px solid rgba(21,26,48,.06);
+  display: flex; flex-wrap: wrap; gap: .35rem;
+}
+#hgc-prop .rf-pc-stat {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--rf-body);
+  font-size: .7rem;
+  color: var(--rf-ink2);
+}
+#hgc-prop .rf-pc-stat svg { width: 12px; height: 12px; color: var(--rf-ink3); }
+#hgc-prop .rf-pc-stat-dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: var(--rf-ink3); margin: 0 .15rem;
+}
+#hgc-prop .rf-pc-footer {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .9rem 1.4rem;
+}
+#hgc-prop .rf-pc-logo {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #3d2e8e;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: .7rem; font-weight: 700; font-family: var(--rf-body);
+  flex-shrink: 0;
+}
+#hgc-prop .rf-pc-actions {
+  display: flex; align-items: center; gap: .5rem; margin-left: auto;
+}
+.rf-pc-action {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  cursor: pointer; color: var(--rf-ink3); transition: color .2s;
+}
+.rf-pc-action:hover { color: var(--rf-gold); }
+.rf-pc-action svg { width: 16px; height: 16px; }
+.rf-pc-action span { font-family: var(--rf-body); font-size: .58rem; color: var(--rf-ink3); }
+
+/* ── HIDE OLD HERO CARDS ────────────────────────────────────── */
+.hgc-info, .hgc-prop,
+#hero-glass-cards { display: none !important; }
+
+/* ── HERO EXISTING TITLE — make massive and reposition ──────── */
+.hero-title, .hero-title .word, .hero-title .line span {
+  font-family: 'Outfit', system-ui, sans-serif !important;
+  font-weight: 200 !important;
+  font-size: clamp(4.5rem, 10vw, 11rem) !important;
+  line-height: .95 !important;
+  color: rgba(255,255,255,.75) !important;
+  letter-spacing: -.01em !important;
+  text-transform: none !important;
+}
+.hero-italic {
+  font-family: 'Outfit', system-ui, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 200 !important;
+  font-size: clamp(4.5rem, 10vw, 11rem) !important;
+  color: rgba(255,255,255,.75) !important;
+}
+.hero-sub {
+  font-family: var(--rf-body) !important;
+  font-weight: 300 !important;
+  font-size: clamp(.78rem, 1.1vw, .92rem) !important;
+  color: rgba(255,255,255,.65) !important;
+  max-width: 320px !important;
+}
+
+/* ── ALL OTHER SECTIONS ─────────────────────────────────────── */
+.s-title, h2, h3 {
+  font-family: var(--rf-body) !important;
+  font-weight: 300 !important;
+}
+.s-label {
+  font-family: var(--rf-body) !important;
+  font-weight: 500 !important;
+  letter-spacing: .28em !important;
+  font-size: .65rem !important;
+}
+
+/* Collection filter counts + labels */
+.coll-filter-label { font-family: var(--rf-body) !important; }
+.coll-filter-btn   { font-family: var(--rf-body) !important; }
+.prop-name {
+  font-family: var(--rf-body) !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+.prop-cta { font-family: var(--rf-body) !important; }
+
+/* Stat numbers */
+.stat-num { font-family: var(--rf-body) !important; font-weight: 200 !important; }
+
+/* ── MOBILE — hide sidebar + filter bar ─────────────────────── */
+@media (max-width: 768px) {
+  #rf-sidebar       { display: none !important; }
+  #rf-filter-bar    { display: none !important; }
+  #rf-hero-desc     { display: none !important; }
+  #rf-hero-title    { display: none !important; }
+  #hgc-info         { display: none !important; }
+  #hgc-prop         { bottom: 4%; right: 2%; left: 2%; width: auto !important; }
+  nav { opacity: 1 !important; pointer-events: all !important; }
+  .hero-title .line span { font-size: clamp(2.8rem, 9vw, 5rem) !important; }
+}
+
+</style>
 </head>
 <body>
 <!-- cursor spotlight -->
@@ -9005,6 +9500,244 @@ else applyLang('en');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else setTimeout(init, 900);
+
+})();
+</script>
+
+<script id="exact-match-js">
+(function() {
+
+/* ── Left Sidebar ──────────────────────────────────────────── */
+function buildSidebar() {
+  if (document.getElementById('rf-sidebar')) return;
+  const s = document.createElement('aside');
+  s.id = 'rf-sidebar';
+  s.setAttribute('aria-label', 'Site navigation');
+  s.innerHTML = `
+    <div id="rf-sidebar-top">
+      <button class="rf-sb-btn active" title="Home" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2L2 9h2v9h5v-5h2v5h5V9h2L10 2z"/></svg>
+      </button>
+      <button class="rf-sb-btn" title="Search" onclick="document.getElementById('collection')?.scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M15 15l3 3" stroke-linecap="round"/></svg>
+      </button>
+      <button class="rf-sb-btn" title="Properties" onclick="document.getElementById('collection')?.scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>
+      </button>
+      <button class="rf-sb-btn" title="Contact" onclick="document.getElementById('contact')?.scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6l-4 3V5z" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="rf-sb-sep"></div>
+      <div class="rf-sb-avatar" title="Account">H</div>
+      <button class="rf-sb-btn" title="Notifications">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 2a6 6 0 016 6v3l1.5 2.5H2.5L4 11V8a6 6 0 016-6z" stroke-linejoin="round"/><path d="M8 16a2 2 0 004 0"/></svg>
+      </button>
+    </div>
+    <div id="rf-sidebar-bot">
+      <button class="rf-sb-btn" title="Settings">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10" cy="10" r="2.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <button class="rf-sb-btn" title="Dark Mode">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.3 13.3A8 8 0 016.7 2.7 8 8 0 1017.3 13.3z"/></svg>
+      </button>
+      <button class="rf-sb-btn" title="Light Mode">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10" cy="10" r="4"/><path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.22 3.22l1.42 1.42M15.36 15.36l1.42 1.42M3.22 16.78l1.42-1.42M15.36 4.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  `;
+  document.body.appendChild(s);
+}
+
+/* ── Hero Filter Bar ───────────────────────────────────────── */
+function buildFilterBar() {
+  if (document.getElementById('rf-filter-bar')) return;
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  const bar = document.createElement('div');
+  bar.id = 'rf-filter-bar';
+  bar.innerHTML = `
+    <!-- Buy pill -->
+    <button class="rf-fb-pill">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="transform:rotate(45deg)"><path d="M3 13L13 3M3 3h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Buy
+    </button>
+
+    <!-- Filter dropdowns -->
+    <div id="rf-fb-center">
+      <!-- Location -->
+      <div class="rf-fb-drop">
+        <div class="rf-fb-drop-hdr">
+          <span class="rf-fb-drop-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1a5 5 0 015 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 015-5z"/><circle cx="8" cy="6" r="1.5"/></svg>
+          </span>
+          <span class="rf-fb-drop-label">Location</span>
+        </div>
+        <div class="rf-fb-drop-val">
+          Dubai
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+      </div>
+      <div class="rf-fb-sep-v"></div>
+      <!-- Property Type -->
+      <div class="rf-fb-drop">
+        <div class="rf-fb-drop-hdr">
+          <span class="rf-fb-drop-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+          </span>
+          <span class="rf-fb-drop-label">Property Type</span>
+        </div>
+        <div class="rf-fb-drop-val">
+          Villa
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+      </div>
+      <div class="rf-fb-sep-v"></div>
+      <!-- Price -->
+      <div class="rf-fb-drop">
+        <div class="rf-fb-drop-hdr">
+          <span class="rf-fb-drop-icon">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="14" height="10" rx="1.5"/><path d="M5 4V3a3 3 0 016 0v1"/><circle cx="8" cy="9" r="1.5"/></svg>
+          </span>
+          <span class="rf-fb-drop-label">Max Price</span>
+        </div>
+        <div class="rf-fb-drop-val">
+          AED 5M
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rent pill -->
+    <button class="rf-fb-pill">
+      Rent
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="transform:rotate(45deg)"><path d="M3 13L13 3M3 3h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  `;
+  hero.appendChild(bar);
+}
+
+/* ── Hero Info Card ────────────────────────────────────────── */
+function buildInfoCard() {
+  if (document.getElementById('hgc-info')) return;
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+
+  // Gather prop thumbs from listings
+  const propImgs = Array.from(document.querySelectorAll('.prop-item .prop-img-wrap img'))
+    .slice(0, 3).map(i => i.src);
+
+  const card = document.createElement('div');
+  card.id = 'hgc-info';
+  card.innerHTML = `
+    <div class="rf-ic-title">Find The Perfect Place</div>
+    <div class="rf-ic-desc">Our platform connects you with extraordinary homes in the most sought-after locations. Start your journey to discover the perfect match for your lifestyle.</div>
+    <div class="rf-ic-stat">
+      <span class="rf-ic-stat-num">10K+</span>
+      <span class="rf-ic-stat-sub">Properties</span>
+    </div>
+    <div class="rf-ic-thumbs">
+      <div class="rf-thumb-stack">
+        ${propImgs.map(src => `<div class="rf-thumb"><img src="${src}" alt="" loading="lazy"/></div>`).join('')}
+        ${propImgs.length < 3 ? '<div class="rf-thumb"></div>'.repeat(3-propImgs.length) : ''}
+      </div>
+      <button class="rf-ic-arrow" onclick="document.getElementById('collection')?.scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(-45deg)"><path d="M3 13L13 3M3 3h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  `;
+  hero.appendChild(card);
+}
+
+/* ── Hero Property Card ────────────────────────────────────── */
+function buildPropCard() {
+  if (document.getElementById('hgc-prop')) return;
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+
+  const firstPropName  = document.querySelector('.prop-item .prop-name')?.textContent.trim()  || 'The Crown Residence';
+  const firstPropLoc   = document.querySelector('.prop-item .prop-location')?.textContent.trim()  || 'Downtown Dubai, UAE';
+  const firstPropPrice = document.querySelector('.prop-item .prop-price')?.textContent.trim()  || 'AED 12,500,000';
+
+  const card = document.createElement('div');
+  card.id = 'hgc-prop';
+  card.innerHTML = `
+    <div class="rf-pc-header">
+      <div class="rf-pc-title-block">
+        <div class="rf-pc-name">${firstPropName}</div>
+        <div class="rf-pc-addr">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1a5 5 0 015 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 015-5z"/><circle cx="8" cy="6" r="1.5"/></svg>
+          ${firstPropLoc}
+        </div>
+      </div>
+      <button class="rf-pc-expand" onclick="this.closest('#hgc-prop').querySelector('.prop-item')?.click()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(-45deg)"><path d="M3 13L13 3M3 3h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="rf-pc-desc">An exceptional residence seamlessly blending timeless architecture with contemporary luxury, offering panoramic views and world-class amenities.</div>
+    <div class="rf-pc-stats">
+      <span class="rf-pc-stat">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="1" width="14" height="14" rx="1.5"/></svg>
+        695 m²
+      </span>
+      <span class="rf-pc-stat-dot"></span>
+      <span class="rf-pc-stat">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 13V5a2 2 0 012-2h10a2 2 0 012 2v8"/><path d="M1 13h14M6 9V6M10 9V6"/></svg>
+        4 bedrooms
+      </span>
+      <span class="rf-pc-stat-dot"></span>
+      <span class="rf-pc-stat">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M3 8V5a2 2 0 012-2h6a2 2 0 012 2v3M1 8v2a2 2 0 002 2h10a2 2 0 002-2V8"/></svg>
+        3 baths
+      </span>
+    </div>
+    <div class="rf-pc-footer">
+      <div class="rf-pc-logo">H</div>
+      <div style="font-family:var(--rf-body);font-size:.82rem;font-weight:600;color:var(--rf-gold);margin-left:.4rem">${firstPropPrice}</div>
+      <div class="rf-pc-actions">
+        <div class="rf-pc-action">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 17s-7-4.35-7-9a5 5 0 0110 0c0 4.65-3 9-3 9z" stroke-linejoin="round"/></svg>
+          <span>4.4k</span>
+        </div>
+        <div class="rf-pc-action" style="margin:0 .3rem">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h12v12l-6-4-6 4V4z"/></svg>
+          <span>157</span>
+        </div>
+        <div class="rf-pc-action">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="17" cy="3" r="2"/><circle cx="3" cy="10" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 9l10-5M5 11l10 5"/></svg>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  `;
+  hero.appendChild(card);
+}
+
+/* ── Sidebar Active on Scroll ──────────────────────────────── */
+function initSidebarScroll() {
+  const btns = document.querySelectorAll('.rf-sb-btn');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const hero = document.getElementById('hero');
+    const coll = document.getElementById('collection');
+    const contact = document.getElementById('contact');
+    btns.forEach(b => b.classList.remove('active'));
+    if (contact && y >= contact.offsetTop - 200) btns[3]?.classList.add('active');
+    else if (coll && y >= coll.offsetTop - 200) btns[1]?.classList.add('active');
+    else btns[0]?.classList.add('active');
+  }, { passive: true });
+}
+
+/* ── INIT ───────────────────────────────────────────────────── */
+function init() {
+  buildSidebar();
+  buildFilterBar();
+  buildInfoCard();
+  buildPropCard();
+  initSidebarScroll();
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else setTimeout(init, 1000);
 
 })();
 </script>
