@@ -3132,6 +3132,308 @@ nav {
 }
 
 </style>
+
+<style id="mobile-polish">
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE POLISH — comprehensive responsive improvements
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── NAV mobile ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav {
+    padding: 1.1rem 5vw !important;
+    padding-top: calc(1.1rem + env(safe-area-inset-top)) !important;
+  }
+  /* Hide middle nav links, keep logo + CTA */
+  .nav-right .nav-link { display: none !important; }
+  .nav-right {
+    gap: 1rem !important;
+  }
+  .nav-cta {
+    font-size: .68rem !important;
+    padding: .45rem 1rem !important;
+    letter-spacing: .1em !important;
+  }
+  .nav-logo img { height: 30px !important; }
+  /* Hide sparkles on mobile */
+  .nav-logo-wrap .sp { display: none !important; }
+  /* Hide lang toggle label on mobile */
+  #langLabel { display: none !important; }
+  .lang-toggle { padding: .4rem .7rem !important; }
+  nav.scrolled {
+    background: rgba(255,255,255,.94) !important;
+    backdrop-filter: blur(20px) !important;
+  }
+}
+
+/* ── HERO mobile ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #hero { height: 100svh !important; height: 100vh !important; }
+
+  /* Bigger overlay for readability */
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(10,10,10,.35) 0%,
+      rgba(10,10,10,.1)  40%,
+      rgba(10,10,10,.82) 100%
+    ) !important;
+  }
+
+  /* Hero title — readable on mobile */
+  .hero-title {
+    font-size: clamp(2.8rem, 11vw, 4.5rem) !important;
+    letter-spacing: .04em !important;
+  }
+  .hero-title .line span {
+    font-size: clamp(2.8rem, 11vw, 4.5rem) !important;
+  }
+  .hero-italic, .hero-italic span {
+    font-size: clamp(1.8rem, 7vw, 3rem) !important;
+  }
+  .hero-eyebrow { margin-bottom: 1.2rem !important; }
+  #hero-rule { margin: 1.2rem auto !important; }
+  .hero-sub {
+    font-size: .72rem !important;
+    letter-spacing: .14em !important;
+    max-width: 80vw !important;
+    margin: 0 auto !important;
+  }
+  .hero-content { padding: 0 5vw !important; }
+  #scroll-hint { bottom: 1.5rem !important; }
+
+  /* Hide desktop hero description (too crowded) */
+  #rf-hero-desc { display: none !important; }
+
+  /* Show mobile property card — full width at bottom */
+  #hgc-prop {
+    display: block !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    border-radius: var(--rf-r) var(--rf-r) 0 0 !important;
+    animation: none !important;
+    max-height: 38vh !important;
+    overflow: hidden !important;
+  }
+  #hgc-prop .rf-pc-desc { display: none !important; }
+
+  /* Hide info card on mobile */
+  #hgc-info { display: none !important; }
+}
+
+/* ── STATEMENT mobile ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  #statement { padding: 14vh 6vw !important; }
+  .statement-text {
+    font-size: clamp(1.6rem, 6vw, 2.8rem) !important;
+    line-height: 1.4 !important;
+  }
+}
+
+/* ── MARQUEE mobile ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .marquee-text {
+    font-size: clamp(1rem, 4.5vw, 1.8rem) !important;
+  }
+}
+
+/* ── MAP mobile ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #dubai-map-section { padding: 10vh 0 0 !important; }
+  .dmap-header { padding: 0 6vw !important; margin-bottom: 4vh !important; }
+  .dmap-title {
+    font-size: clamp(1.6rem, 7vw, 2.8rem) !important;
+    letter-spacing: .04em !important;
+  }
+  .dmap-legend { gap: 1rem !important; padding: 2vh 4vw 6vh !important; }
+  #dubai-map { height: 280px !important; }
+}
+
+/* ── COLLECTION mobile ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  #collection { padding: 10vh 5vw 12vh !important; }
+
+  .coll-header { margin-bottom: 4vh !important; }
+  #collection .s-title {
+    font-size: clamp(1.8rem, 8vw, 3rem) !important;
+    letter-spacing: .02em !important;
+  }
+  #collection .s-label { font-size: .65rem !important; letter-spacing: .25em !important; }
+
+  /* Filter bar — scrollable horizontal */
+  .coll-filters {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: .55rem !important;
+    margin-bottom: 4vh !important;
+    padding-bottom: .4rem !important;
+    scrollbar-width: none !important;
+  }
+  .coll-filters::-webkit-scrollbar { display: none !important; }
+  .coll-filter-label { display: none !important; }
+  .coll-filter-btn {
+    flex-shrink: 0 !important;
+    font-size: .65rem !important;
+    padding: .45rem .95rem !important;
+    letter-spacing: .1em !important;
+  }
+  .coll-count { display: none !important; }
+
+  /* Property grid — single column with proper card sizing */
+  .prop-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .prop-img-wrap { height: 52vw !important; min-height: 200px !important; }
+  .prop-body { padding: 1.2rem 1.4rem 1.4rem !important; }
+  .prop-name {
+    font-size: clamp(1rem, 5vw, 1.35rem) !important;
+    letter-spacing: .06em !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .prop-location { font-size: .7rem !important; letter-spacing: .18em !important; opacity: 1 !important; transform: none !important; }
+  .prop-cta { margin-top: .9rem !important; opacity: 1 !important; transform: none !important; }
+
+  /* Cards — proper rounding and shadow */
+  .prop-item {
+    border-radius: var(--rf-r) !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255,255,255,.06) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,.3) !important;
+    transform: none !important;
+  }
+  .prop-item:hover {
+    transform: none !important;
+  }
+}
+
+/* ── PILLARS mobile ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #pillars { padding: 10vh 5vw !important; }
+  .pillars-header { margin-bottom: 6vh !important; }
+  #pillars .s-title {
+    font-size: clamp(1.8rem, 8vw, 3rem) !important;
+    letter-spacing: .02em !important;
+  }
+  .pillars-grid { grid-template-columns: 1fr !important; gap: .8rem !important; }
+  .pillar {
+    padding: 2rem 1.6rem !important;
+    border-radius: var(--rf-r) !important;
+  }
+  .pillar-num { font-size: 2.2rem !important; margin-bottom: 1.2rem !important; }
+  .pillar-title { font-size: .9rem !important; }
+  .pillar-desc { font-size: .82rem !important; line-height: 1.8 !important; }
+}
+
+/* ── STATS mobile ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #stats { padding: 8vh 5vw !important; }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: .6rem !important;
+  }
+  .stat-item {
+    padding: 1.8rem 1rem !important;
+    border-radius: var(--rf-r) !important;
+  }
+  .stat-num {
+    font-size: clamp(2rem, 10vw, 3.5rem) !important;
+  }
+  .stat-label { font-size: .65rem !important; letter-spacing: .16em !important; }
+  /* Override stat-item border for 2-col grid */
+  .stat-item + .stat-item { border-left: none !important; }
+}
+
+/* ── FEATURED mobile ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #featured { padding: 0 5vw 10vh !important; }
+  .feat-wrap { height: 45vw !important; min-height: 200px !important; border-radius: var(--rf-r) !important; overflow: hidden !important; }
+  .feat-title { font-size: clamp(.85rem, 3vw, 1.2rem) !important; }
+  #featured .s-title { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
+}
+
+/* ── CONTACT mobile ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #contact { padding: 10vh 5vw !important; text-align: left !important; align-items: flex-start !important; }
+  .contact-heading {
+    font-size: clamp(2.2rem, 11vw, 5rem) !important;
+    letter-spacing: .03em !important;
+  }
+  .contact-cards {
+    flex-direction: column !important;
+    gap: .8rem !important;
+    width: 100% !important;
+    margin-bottom: 2.5rem !important;
+  }
+  .c-card {
+    width: 100% !important;
+    padding: 1.4rem 1.6rem !important;
+    text-align: left !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    min-width: unset !important;
+  }
+  .c-card-icon { margin-bottom: 0 !important; font-size: 1.1rem !important; }
+  .contact-line { display: none !important; }
+  .c-btn { padding: .85rem 2rem !important; font-size: .72rem !important; width: 100% !important; text-align: center !important; display: block !important; }
+}
+
+/* ── OFFICE LOCATION mobile ─────────────────────────────────── */
+@media (max-width: 768px) {
+  #office-location { padding: 8vh 5vw !important; }
+  .office-title { font-size: clamp(1.6rem, 7vw, 2.5rem) !important; letter-spacing: .02em !important; }
+  .office-map-wrap { border-radius: var(--rf-r) !important; overflow: hidden !important; margin-top: 2rem !important; }
+}
+
+/* ── FOOTER mobile ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 2.5rem 5vw !important;
+    gap: 1.2rem !important;
+  }
+  .foot-logo { margin-bottom: .5rem !important; }
+  .foot-copy { font-size: .7rem !important; }
+}
+
+/* ── DETAIL PAGE mobile ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .detail-title {
+    font-size: clamp(2rem, 9vw, 4rem) !important;
+    letter-spacing: .04em !important;
+  }
+  .detail-tagline { font-size: clamp(.9rem, 3.5vw, 1.2rem) !important; }
+  .detail-stats-row { gap: 1.2rem !important; }
+  .detail-stat-num { font-size: 1.6rem !important; }
+  .detail-back { padding: 1rem 4vw !important; font-size: .72rem !important; }
+}
+
+/* ── GENERAL: cursor off on touch ─────────────────────────────── */
+@media (hover: none) {
+  #c-dot, #c-ring, #c-wrap { display: none !important; }
+  *, *:hover { cursor: auto !important; }
+}
+
+/* ── SMOOTH tap highlights ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .prop-item, .pillar, .c-card, .coll-filter-btn,
+  .nav-cta, .hero-cta, .c-btn, .rf-fb-pill {
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Active state feedback */
+  .prop-item:active { transform: scale(.98) !important; transition: transform .15s !important; }
+  .coll-filter-btn:active { opacity: .75 !important; }
+}
+
+</style>
 </head>
 <body>
 <!-- cursor spotlight -->
