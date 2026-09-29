@@ -3467,6 +3467,146 @@ nav {
    and hero-content has pointer-events:none so clicks pass through */
 
 </style>
+
+<style id="filter-upgrade">
+
+/* ── Filter bar upgrade ─────────────────────────────────────────── */
+#rf-filter-bar {
+  position: absolute !important;
+  top: 26px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 20 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: .55rem !important;
+  white-space: nowrap !important;
+}
+
+/* Mode toggle (Buy/Rent) */
+.rf-mode-wrap {
+  display: flex;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 100px;
+  padding: 3px;
+  gap: 2px;
+}
+.rf-mode-btn {
+  padding: .38rem 1.1rem;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,.75);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .22s;
+}
+.rf-mode-btn.active {
+  background: rgba(255,255,255,.95);
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+/* Main dropdown container */
+#rf-fb-center {
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(255,255,255,.92) !important;
+  backdrop-filter: blur(24px) saturate(1.8) !important;
+  border: 1px solid rgba(255,255,255,.8) !important;
+  border-radius: 100px !important;
+  padding: 0 .3rem !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.08) !important;
+  gap: 0 !important;
+  position: relative !important;
+}
+
+.rf-fb-drop {
+  position: relative;
+  padding: .55rem 1.15rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background .18s;
+  border-radius: 100px;
+  min-width: 110px;
+}
+.rf-fb-drop:hover { background: rgba(0,0,0,.04); }
+.rf-fb-drop.open   { background: rgba(0,0,0,.06); }
+.rf-fb-drop-label  { font-size: .55rem; color: #666; text-transform: uppercase; letter-spacing: .12em; display: block; margin-bottom: 2px; }
+.rf-fb-drop-val    { font-size: .82rem; font-weight: 600; color: #151a30; display: flex; align-items: center; gap: .3rem; }
+.rf-fb-drop-val svg { width: 12px; height: 12px; flex-shrink: 0; transition: transform .2s; }
+.rf-fb-drop.open .rf-fb-drop-val svg { transform: rotate(180deg); }
+
+.rf-fb-sep-v { width: 1px; height: 28px; background: rgba(0,0,0,.1); flex-shrink: 0; margin: 0 .1rem; }
+
+/* Dropdown panel */
+.rf-drop-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.2), 0 4px 16px rgba(0,0,0,.1);
+  padding: .5rem;
+  min-width: 200px;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-6px);
+  transition: opacity .18s, transform .18s;
+  display: flex;
+  flex-direction: column;
+}
+.rf-drop-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.rf-drop-option {
+  padding: .6rem 1rem;
+  border-radius: 10px;
+  font-size: .82rem;
+  color: #151a30;
+  cursor: pointer;
+  transition: background .15s;
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+.rf-drop-option:hover  { background: #f5f5f8; }
+.rf-drop-option.active { background: #151a30; color: #fff; font-weight: 500; }
+
+/* Search button */
+.rf-fb-search-btn {
+  background: #151a30;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: .55rem 1.3rem;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  transition: background .2s, transform .15s;
+  flex-shrink: 0;
+}
+.rf-fb-search-btn:hover  { background: #2a3060; transform: scale(1.02); }
+.rf-fb-search-btn svg    { width: 13px; height: 13px; }
+
+@media (max-width: 768px) {
+  #rf-filter-bar { display: none !important; }
+}
+
+</style>
 </head>
 <body>
 <!-- cursor spotlight -->
@@ -9878,73 +10018,139 @@ function buildSidebar() {
   document.body.appendChild(s);
 }
 
-/* ── Hero Filter Bar ───────────────────────────────────────── */
+/* ── Hero Filter Bar (upgraded) ─────────────────────────────── */
 function buildFilterBar() {
   if (document.getElementById('rf-filter-bar')) return;
   const hero = document.getElementById('hero');
   if (!hero) return;
+
+  const CITIES = ['Dubai','Abu Dhabi','Sharjah','Ras Al Khaimah','Ajman','Umm Al Quwain','Fujairah'];
+  const TYPES  = ['All Types','Villa','Apartment','Penthouse','Townhouse','Duplex','Studio','Plot / Land','Office','Retail'];
+  const BUY_PRICES  = ['Any Price','AED 500K','AED 1M','AED 2M','AED 3M','AED 5M','AED 10M','AED 20M','AED 50M+'];
+  const RENT_PRICES = ['Any Price','AED 30K / yr','AED 60K / yr','AED 100K / yr','AED 150K / yr','AED 200K / yr','AED 300K / yr','AED 500K+ / yr'];
+  const BEDS = ['Any Beds','Studio','1 Bed','2 Beds','3 Beds','4 Beds','5+ Beds'];
+
+  let mode = 'Buy';
+  let sel  = { city: 'Dubai', type: 'All Types', price: 'Any Price', beds: 'Any Beds' };
+
+  function makeDropdown(label, icon, key, options) {
+    const wrap = document.createElement('div');
+    wrap.className = 'rf-fb-drop';
+    wrap.dataset.key = key;
+    wrap.innerHTML = `
+      <span class="rf-fb-drop-label">${label}</span>
+      <div class="rf-fb-drop-val">
+        <span class="rf-fb-val-text">${sel[key]}</span>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+      </div>
+      <div class="rf-drop-panel">
+        ${options.map(o => `<div class="rf-drop-option${o === sel[key] ? ' active' : ''}" data-val="${o}">${o}</div>`).join('')}
+      </div>
+    `;
+
+    const panel = wrap.querySelector('.rf-drop-panel');
+
+    wrap.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isOpen = wrap.classList.contains('open');
+      // close all
+      document.querySelectorAll('.rf-fb-drop.open').forEach(d => { d.classList.remove('open'); d.querySelector('.rf-drop-panel').classList.remove('open'); });
+      if (!isOpen) { wrap.classList.add('open'); panel.classList.add('open'); }
+    });
+
+    panel.addEventListener('click', function(e) {
+      const opt = e.target.closest('.rf-drop-option');
+      if (!opt) return;
+      sel[key] = opt.dataset.val;
+      wrap.querySelector('.rf-fb-val-text').textContent = sel[key];
+      panel.querySelectorAll('.rf-drop-option').forEach(o => o.classList.toggle('active', o.dataset.val === sel[key]));
+      wrap.classList.remove('open'); panel.classList.remove('open');
+      e.stopPropagation();
+    });
+
+    return wrap;
+  }
+
+  function updatePriceOptions(priceWrap) {
+    const options = mode === 'Buy' ? BUY_PRICES : RENT_PRICES;
+    sel.price = options[0];
+    const panel = priceWrap.querySelector('.rf-drop-panel');
+    panel.innerHTML = options.map(o => `<div class="rf-drop-option active" data-val="${o}">${o}</div>`).join('');
+    priceWrap.querySelector('.rf-fb-val-text').textContent = sel.price;
+    // re-bind clicks
+    panel.querySelectorAll('.rf-drop-option')[0].classList.add('active');
+    panel.addEventListener('click', function(e) {
+      const opt = e.target.closest('.rf-drop-option');
+      if (!opt) return;
+      sel.price = opt.dataset.val;
+      priceWrap.querySelector('.rf-fb-val-text').textContent = sel.price;
+      panel.querySelectorAll('.rf-drop-option').forEach(o => o.classList.toggle('active', o.dataset.val === sel.price));
+      priceWrap.classList.remove('open'); panel.classList.remove('open');
+      e.stopPropagation();
+    });
+  }
+
   const bar = document.createElement('div');
   bar.id = 'rf-filter-bar';
-  bar.innerHTML = `
-    <!-- Buy pill -->
-    <button class="rf-fb-pill">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="transform:rotate(45deg)"><path d="M3 13L13 3M3 3h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Buy
-    </button>
 
-    <!-- Filter dropdowns -->
-    <div id="rf-fb-center">
-      <!-- Location -->
-      <div class="rf-fb-drop">
-        <div class="rf-fb-drop-hdr">
-          <span class="rf-fb-drop-icon">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1a5 5 0 015 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 015-5z"/><circle cx="8" cy="6" r="1.5"/></svg>
-          </span>
-          <span class="rf-fb-drop-label">Location</span>
-        </div>
-        <div class="rf-fb-drop-val">
-          Dubai
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
-        </div>
-      </div>
-      <div class="rf-fb-sep-v"></div>
-      <!-- Property Type -->
-      <div class="rf-fb-drop">
-        <div class="rf-fb-drop-hdr">
-          <span class="rf-fb-drop-icon">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-          </span>
-          <span class="rf-fb-drop-label">Property Type</span>
-        </div>
-        <div class="rf-fb-drop-val">
-          Villa
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
-        </div>
-      </div>
-      <div class="rf-fb-sep-v"></div>
-      <!-- Price -->
-      <div class="rf-fb-drop">
-        <div class="rf-fb-drop-hdr">
-          <span class="rf-fb-drop-icon">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="14" height="10" rx="1.5"/><path d="M5 4V3a3 3 0 016 0v1"/><circle cx="8" cy="9" r="1.5"/></svg>
-          </span>
-          <span class="rf-fb-drop-label">Max Price</span>
-        </div>
-        <div class="rf-fb-drop-val">
-          AED 5M
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
-        </div>
-      </div>
-    </div>
+  // Mode toggle
+  const modeWrap = document.createElement('div');
+  modeWrap.className = 'rf-mode-wrap';
+  ['Buy','Rent'].forEach(m => {
+    const btn = document.createElement('button');
+    btn.className = 'rf-mode-btn' + (m === mode ? ' active' : '');
+    btn.textContent = m;
+    btn.addEventListener('click', function() {
+      mode = m;
+      modeWrap.querySelectorAll('.rf-mode-btn').forEach(b => b.classList.toggle('active', b.textContent === mode));
+      updatePriceOptions(priceWrap);
+    });
+    modeWrap.appendChild(btn);
+  });
 
-    <!-- Rent pill -->
-    <button class="rf-fb-pill">
-      Rent
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" style="transform:rotate(45deg)"><path d="M3 13L13 3M3 3h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-  `;
+  // Center dropdowns
+  const center = document.createElement('div');
+  center.id = 'rf-fb-center';
+
+  const cityWrap  = makeDropdown('Location', '', 'city', CITIES);
+  const typeWrap  = makeDropdown('Property Type', '', 'type', TYPES);
+  const priceWrap = makeDropdown('Max Price', '', 'price', BUY_PRICES);
+  const bedsWrap  = makeDropdown('Bedrooms', '', 'beds', BEDS);
+
+  const sep = () => { const d = document.createElement('div'); d.className = 'rf-fb-sep-v'; return d; };
+  center.appendChild(cityWrap);
+  center.appendChild(sep());
+  center.appendChild(typeWrap);
+  center.appendChild(sep());
+  center.appendChild(bedsWrap);
+  center.appendChild(sep());
+  center.appendChild(priceWrap);
+
+  // Bind price panel click after creation
+  updatePriceOptions(priceWrap);
+
+  // Search button
+  const searchBtn = document.createElement('button');
+  searchBtn.className = 'rf-fb-search-btn';
+  searchBtn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="M12 12l3 3" stroke-linecap="round"/></svg> Search`;
+  searchBtn.addEventListener('click', function() {
+    document.getElementById('collection')?.scrollIntoView({behavior:'smooth'});
+  });
+
+  bar.appendChild(modeWrap);
+  bar.appendChild(center);
+  bar.appendChild(searchBtn);
   hero.appendChild(bar);
+
+  // Close dropdowns on outside click
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.rf-fb-drop.open').forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('.rf-drop-panel')?.classList.remove('open');
+    });
+  });
 }
+
 
 /* ── Hero Info Card ────────────────────────────────────────── */
 function buildInfoCard() {
