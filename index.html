@@ -10074,9 +10074,7 @@ else setTimeout(init, 1000);
 
 <style id="logo-center">
 
-/* ── Hero logo: smaller + centered in the hero section ────── */
-/* Move logo out of text-flow via JS below; here we style it */
-
+/* ── Hero: logo + title grouped and centered ─────────────────── */
 #hero-center-logo {
   position: absolute !important;
   left: 50% !important;
@@ -10085,51 +10083,82 @@ else setTimeout(init, 1000);
   z-index: 35 !important;
   margin: 0 !important;
   pointer-events: none !important;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .85rem;
   animation: fadeLogoIn 1.2s .8s ease forwards;
   opacity: 0;
-  text-align: center;
 }
 #hero-center-logo img {
-  height: 90px !important;
+  height: 72px !important;
   width: auto !important;
-  max-width: 200px !important;
   display: block !important;
   filter: brightness(0) invert(1) drop-shadow(0 4px 24px rgba(0,0,0,.5)) !important;
 }
+#hero-center-logo .hcl-title {
+  font-family: 'Tenor Sans', 'Cormorant Garamond', serif;
+  font-size: clamp(.7rem, 2vw, 1.05rem);
+  letter-spacing: .38em;
+  color: rgba(255,255,255,.9);
+  text-transform: uppercase;
+  font-weight: 300;
+  white-space: nowrap;
+  text-shadow: 0 2px 12px rgba(0,0,0,.55);
+  line-height: 1;
+}
 
-/* Hide the original logo in hero-content to avoid duplicates */
+/* Hide originals from hero-content flow */
 .hero-logo-wrap { display: none !important; }
+.hero-title, .hero-italic { opacity: 0 !important; pointer-events: none !important; position: absolute !important; }
 
 @media (max-width: 768px) {
-  #hero-center-logo img {
-    height: 64px !important;
-  }
+  #hero-center-logo img { height: 54px !important; }
+  #hero-center-logo .hcl-title { font-size: clamp(.6rem, 3.5vw, .85rem) !important; letter-spacing: .22em !important; }
 }
 
 </style>
 
 <script id="logo-center-js">
 (function() {
-  function moveHeroLogo() {
+  function buildHeroBrand() {
     const hero = document.getElementById('hero');
     const logoWrap = document.querySelector('.hero-logo-wrap');
-    if (!hero || !logoWrap) return;
+    if (!hero) return;
 
-    // Clone the logo img into a new positioned container
-    const img = logoWrap.querySelector('img');
-    if (!img) return;
+    // Get title text from existing hero-title
+    let titleText = 'The H Property';
+    const titleEl = document.querySelector('.hero-title');
+    if (titleEl) {
+      titleText = titleEl.textContent.trim().replace(/\s+/g, ' ') || titleText;
+    }
 
+    // Build container
     const centerDiv = document.createElement('div');
     centerDiv.id = 'hero-center-logo';
-    const clonedImg = img.cloneNode(true);
-    centerDiv.appendChild(clonedImg);
+
+    // Logo image
+    const img = logoWrap ? logoWrap.querySelector('img') : null;
+    if (img) {
+      const clonedImg = img.cloneNode(true);
+      clonedImg.removeAttribute('style');
+      centerDiv.appendChild(clonedImg);
+    }
+
+    // Title below logo
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'hcl-title';
+    titleDiv.textContent = titleText;
+    centerDiv.appendChild(titleDiv);
+
     hero.appendChild(centerDiv);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', moveHeroLogo);
+    document.addEventListener('DOMContentLoaded', buildHeroBrand);
   } else {
-    moveHeroLogo();
+    buildHeroBrand();
   }
 })();
 </script>
