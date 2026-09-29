@@ -3607,6 +3607,117 @@ nav {
 }
 
 </style>
+
+<style id="mobile-filter">
+
+/* ── Filter bar mobile layout ─────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Undo the two hide rules from earlier style blocks */
+  #rf-filter-bar {
+    display: flex !important;
+    /* Reposition: full-width at bottom of hero, above property card */
+    position: absolute !important;
+    top: auto !important;
+    bottom: 6vh !important;
+    left: 5vw !important;
+    right: 5vw !important;
+    width: auto !important;
+    transform: none !important;
+    flex-direction: column !important;
+    gap: .6rem !important;
+    z-index: 22 !important;
+    white-space: normal !important;
+    /* Glass card */
+    background: rgba(255,255,255,.92) !important;
+    backdrop-filter: blur(24px) saturate(1.8) !important;
+    border: 1px solid rgba(255,255,255,.8) !important;
+    border-radius: 20px !important;
+    padding: 1rem 1rem .85rem !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,.22) !important;
+  }
+
+  /* Mode toggle row */
+  .rf-mode-wrap {
+    display: flex !important;
+    background: rgba(0,0,0,.07) !important;
+    border: none !important;
+    border-radius: 100px !important;
+    padding: 3px !important;
+    width: 100% !important;
+    justify-content: stretch !important;
+  }
+  .rf-mode-btn {
+    flex: 1 !important;
+    text-align: center !important;
+    padding: .42rem 0 !important;
+    font-size: .72rem !important;
+    border-radius: 100px !important;
+  }
+  .rf-mode-btn.active {
+    background: #151a30 !important;
+    color: #fff !important;
+  }
+
+  /* Dropdowns: 2x2 grid */
+  #rf-fb-center {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: .5rem !important;
+  }
+  /* Hide the vertical separators on mobile */
+  .rf-fb-sep-v { display: none !important; }
+
+  .rf-fb-drop {
+    background: rgba(0,0,0,.05) !important;
+    border-radius: 12px !important;
+    padding: .55rem .75rem !important;
+    min-width: unset !important;
+  }
+  .rf-fb-drop:hover,
+  .rf-fb-drop.open {
+    background: rgba(0,0,0,.09) !important;
+  }
+  .rf-fb-drop-label { font-size: .55rem !important; }
+  .rf-fb-drop-val   { font-size: .78rem !important; }
+
+  /* Dropdown panels: open downward but stay within screen */
+  .rf-drop-panel {
+    left: 0 !important;
+    transform: translateY(-6px) !important;
+    min-width: 160px !important;
+    z-index: 300 !important;
+  }
+  .rf-drop-panel.open {
+    transform: translateY(0) !important;
+  }
+
+  /* Search button: full width */
+  .rf-fb-search-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: .7rem 0 !important;
+    font-size: .75rem !important;
+    border-radius: 12px !important;
+    margin-top: .1rem !important;
+  }
+
+  /* Push hero-center-logo up so it doesn't sit behind the filter card */
+  #hero-center-logo {
+    top: 38% !important;
+  }
+
+  /* Hide the separate hgc-prop card on mobile — filter card replaces it */
+  #hgc-prop { display: none !important; }
+}
+
+</style>
 </head>
 <body>
 <!-- cursor spotlight -->
