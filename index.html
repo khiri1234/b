@@ -35,7 +35,7 @@ body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-se
 
 /* ── CURSOR ── */
 #c-dot{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,background .3s;}
-#c-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(184,147,90,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),opacity .3s;}
+#c-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(184,147,90,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .22s var(--ease),height .22s var(--ease),opacity .2s;}
 body:has(a:hover,button:hover,[data-hover]:hover) #c-ring{width:60px;height:60px;opacity:.8;}
 
 /* ── PROGRESS ── */
@@ -4494,7 +4494,7 @@ const dot = document.getElementById('c-dot');
 const ring = document.getElementById('c-ring');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function movering(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(movering);})();
+(function movering(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(movering);})();
 
 // ── PRELOADER ───────────────────────────────────────────
 const fill=document.getElementById('pre-fill');
@@ -10134,7 +10134,12 @@ function buildFilterBar() {
   searchBtn.className = 'rf-fb-search-btn';
   searchBtn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5"/><path d="M12 12l3 3" stroke-linecap="round"/></svg> Search`;
   searchBtn.addEventListener('click', function() {
-    document.getElementById('collection')?.scrollIntoView({behavior:'smooth'});
+    // Run filter with current selections
+    if (typeof window.runPropertyFilter === 'function') {
+      window.runPropertyFilter({ city: sel.city, type: sel.type, beds: sel.beds, price: sel.price, mode });
+    }
+    // Scroll to collection
+    setTimeout(() => document.getElementById('collection')?.scrollIntoView({behavior:'smooth'}), 80);
   });
 
   bar.appendChild(modeWrap);
@@ -10365,6 +10370,125 @@ else setTimeout(init, 1000);
     document.addEventListener('DOMContentLoaded', buildHeroBrand);
   } else {
     buildHeroBrand();
+  }
+})();
+</script>
+
+<script id="search-filter-logic">
+(function() {
+
+  /* ── Property data: city, type, beds, price (AED) ─────────────── */
+  const PROP_DATA = {
+    'EMAAR':          { city: 'Dubai',          type: 'Villa',      beds: 8, price: 25000000 },
+    'DAMAC':          { city: 'Dubai',          type: 'Villa',      beds: 6, price: 18000000 },
+    'MERAAS':         { city: 'Abu Dhabi',      type: 'Villa',      beds: 5, price: 12000000 },
+    'NAKHEEL':        { city: 'Dubai',          type: 'Penthouse',  beds: 6, price: 20000000 },
+    'DUBAI PROPERTY': { city: 'Dubai',          type: 'Apartment',  beds: 4, price:  8000000 },
+    'MEYDAN':         { city: 'Dubai',          type: 'Villa',      beds: 5, price: 15000000 },
+    'SOBHA':          { city: 'Abu Dhabi',      type: 'Villa',      beds: 7, price: 22000000 },
+    'BINGHATTI':      { city: 'Abu Dhabi',      type: 'Apartment',  beds: 5, price: 10000000 },
+    'BEYOND':         { city: 'Sharjah',        type: 'Penthouse',  beds: 6, price: 16000000 },
+    'ELLINGTON':      { city: 'Ras Al Khaimah', type: 'Villa',      beds: 5, price: 14000000 },
+    'AZIZI':          { city: 'Ajman',          type: 'Apartment',  beds: 4, price:  6000000 },
+    'IMTIAZ':         { city: 'Dubai',          type: 'Townhouse',  beds: 5, price:  9000000 },
+    'DANUBE':         { city: 'Sharjah',        type: 'Apartment',  beds: 4, price:  5000000 },
+    'DUBAI SOUTH':    { city: 'Dubai',          type: 'Townhouse',  beds: 4, price:  7000000 },
+  };
+
+  /* Price ceiling per label */
+  const PRICE_CAP = {
+    'Any Price':       Infinity,
+    'AED 500K':          500000,
+    'AED 1M':           1000000,
+    'AED 2M':           2000000,
+    'AED 3M':           3000000,
+    'AED 5M':           5000000,
+    'AED 10M':         10000000,
+    'AED 20M':         20000000,
+    'AED 50M+':         Infinity,
+    // rent labels — skip (no rent data yet)
+  };
+
+  /* Bed count per label */
+  const BED_MIN = {
+    'Any Beds': -1, 'Studio': 0,
+    '1 Bed': 1, '2 Beds': 2, '3 Beds': 3, '4 Beds': 4, '5+ Beds': 5,
+  };
+
+  /* Decorate each .prop-item with data attributes */
+  function decorateCards() {
+    document.querySelectorAll('.prop-item').forEach(card => {
+      const nameEl = card.querySelector('.prop-name');
+      if (!nameEl) return;
+      const name = nameEl.textContent.trim();
+      const d = PROP_DATA[name];
+      if (!d) return;
+      card.dataset.city  = d.city;
+      card.dataset.type  = d.type;
+      card.dataset.beds  = d.beds;
+      card.dataset.price = d.price;
+    });
+  }
+
+  /* Run the filter and show/hide cards */
+  window.runPropertyFilter = function(filters) {
+    const { city, type, beds, price, mode } = filters;
+    const priceCap = PRICE_CAP[price] ?? Infinity;
+    const bedMin   = BED_MIN[beds] ?? -1;
+
+    let shown = 0, hidden = 0;
+    document.querySelectorAll('.prop-item').forEach(card => {
+      let match = true;
+
+      // City
+      if (city && city !== 'Any City') {
+        match = match && (card.dataset.city || '').toLowerCase() === city.toLowerCase();
+      }
+      // Type
+      if (type && type !== 'All Types') {
+        match = match && (card.dataset.type || '').toLowerCase() === type.toLowerCase();
+      }
+      // Beds
+      if (bedMin >= 0) {
+        const cardBeds = parseInt(card.dataset.beds) || 0;
+        match = match && (bedMin === 5 ? cardBeds >= 5 : cardBeds === bedMin);
+      }
+      // Price (buy only; skip rent for now)
+      if (mode === 'Buy' && priceCap < Infinity) {
+        const cardPrice = parseInt(card.dataset.price) || 0;
+        match = match && cardPrice <= priceCap;
+      }
+
+      card.style.display = match ? '' : 'none';
+      match ? shown++ : hidden++;
+    });
+
+    // Update the count label if it exists
+    const countEl = document.querySelector('.coll-count');
+    if (countEl) countEl.textContent = shown + (shown === 1 ? ' property' : ' properties');
+
+    // Reset collection filter buttons to 'All' so our filter takes over
+    document.querySelectorAll('.coll-filter-btn').forEach(b => b.classList.remove('active'));
+    const allBtn = document.querySelector('.coll-filter-btn[data-filter="all"]');
+    if (allBtn) allBtn.classList.add('active');
+  };
+
+  /* Wire up after DOM ready */
+  function init() {
+    decorateCards();
+
+    // Also hook the collection filter buttons to restore all cards
+    document.querySelectorAll('.coll-filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.prop-item').forEach(c => c.style.display = '');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
 </script>
