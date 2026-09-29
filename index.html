@@ -10071,4 +10071,66 @@ else setTimeout(init, 1000);
 
 })();
 </script>
+
+<style id="logo-center">
+
+/* ── Hero logo: smaller + centered in the hero section ────── */
+/* Move logo out of text-flow via JS below; here we style it */
+
+#hero-center-logo {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 35 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  animation: fadeLogoIn 1.2s .8s ease forwards;
+  opacity: 0;
+  text-align: center;
+}
+#hero-center-logo img {
+  height: 90px !important;
+  width: auto !important;
+  max-width: 200px !important;
+  display: block !important;
+  filter: drop-shadow(0 4px 24px rgba(0,0,0,.5)) !important;
+}
+
+/* Hide the original logo in hero-content to avoid duplicates */
+.hero-logo-wrap { display: none !important; }
+
+@media (max-width: 768px) {
+  #hero-center-logo img {
+    height: 64px !important;
+  }
+}
+
+</style>
+
+<script id="logo-center-js">
+(function() {
+  function moveHeroLogo() {
+    const hero = document.getElementById('hero');
+    const logoWrap = document.querySelector('.hero-logo-wrap');
+    if (!hero || !logoWrap) return;
+
+    // Clone the logo img into a new positioned container
+    const img = logoWrap.querySelector('img');
+    if (!img) return;
+
+    const centerDiv = document.createElement('div');
+    centerDiv.id = 'hero-center-logo';
+    const clonedImg = img.cloneNode(true);
+    centerDiv.appendChild(clonedImg);
+    hero.appendChild(centerDiv);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', moveHeroLogo);
+  } else {
+    moveHeroLogo();
+  }
+})();
+</script>
 </body></html>
