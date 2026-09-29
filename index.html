@@ -3434,6 +3434,39 @@ nav {
 }
 
 </style>
+
+<style id="logo-zindex-fix">
+
+/* ── Hero logo z-index fix ─────────────────────────────────── */
+/* .hero-content was z-index:5, filter bar is z-index:20
+   Result: logo was hidden behind filter bar.
+   Fix: raise hero-content above the filter bar,
+        use pointer-events:none so filter bar stays clickable. */
+
+.hero-content {
+  z-index: 30 !important;
+  pointer-events: none !important;
+}
+
+/* Restore pointer-events for interactive children inside hero-content */
+.hero-content a,
+.hero-content button,
+.hero-content [onclick],
+.hero-cta,
+#scroll-hint {
+  pointer-events: auto !important;
+}
+
+/* Nav already has z-index:500 — keep it well above everything */
+nav {
+  z-index: 600 !important;
+}
+
+/* Filter bar stays at 20, below hero-content (30) but that's fine —
+   it's visually separate (top:24px) from most hero-content area,
+   and hero-content has pointer-events:none so clicks pass through */
+
+</style>
 </head>
 <body>
 <!-- cursor spotlight -->
