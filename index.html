@@ -10739,3 +10739,33 @@ else setTimeout(init, 1000);
 })();
 </script>
 </body></html>
+<!-- hero-video-fix: lighten overlay so video is visible -->
+<style id="hero-video-fix">
+/* All previous overlay rules stacked too much opacity.
+   This final rule wins the cascade and lets the video breathe. */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.18) 0%,
+    rgba(0,0,0,.05) 40%,
+    rgba(0,0,0,.55) 100%
+  ) !important;
+}
+@media (max-width: 768px) {
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,.28) 0%,
+      rgba(0,0,0,.08) 40%,
+      rgba(0,0,0,.65) 100%
+    ) !important;
+  }
+}
+</style>
+<style id="filterbar-position-fix">
+/* Filter bar was at top:26px, overlapping nav links.
+   Push it below the nav bar (~80px tall) with a little breathing room. */
+#rf-filter-bar {
+  top: 88px !important;
+}
+</style>
