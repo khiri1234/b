@@ -10769,3 +10769,120 @@ else setTimeout(init, 1000);
   top: 88px !important;
 }
 </style>
+<style id="filterbar-fixed-desktop">
+/* On desktop the bar is moved to body (position:fixed) by JS below,
+   so we only need the desktop panel styles here. */
+@media (min-width: 769px) {
+  /* Panels open downward from the bar — no clipping since bar is fixed */
+  .rf-drop-panel {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 50% !important;
+    bottom: auto !important;
+    transform: translateX(-50%) translateY(-6px) !important;
+    transition: opacity .18s, transform .18s !important;
+    border-radius: 18px !important;
+    max-height: 320px !important;
+    overflow-y: auto !important;
+    z-index: 500 !important;
+    min-width: 190px !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+  }
+  .rf-drop-panel.open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+  /* Backdrop not needed on desktop */
+  #rf-drop-backdrop { display: none !important; }
+}
+</style>
+
+<script id="filterbar-relocate">
+(function () {
+  function relocate() {
+    if (window.innerWidth <= 768) return; // mobile keeps its own layout
+    var bar = document.getElementById('rf-filter-bar');
+    if (!bar) return;
+    // Move out of #hero (overflow:hidden) onto body so panels are never clipped
+    document.body.appendChild(bar);
+    bar.style.cssText += [
+      'position:fixed',
+      'top:88px',
+      'left:50%',
+      'transform:translateX(-50%)',
+      'z-index:400',
+      'bottom:auto',
+      'width:auto',
+      'border-radius:100px',
+      'background:transparent',
+      'backdrop-filter:none',
+      'box-shadow:none',
+      'padding:0',
+      'flex-direction:row',
+    ].join('!important;') + '!important';
+
+    // Re-bind desktop drop clicks (the mobile-dropdown-fix patch may have cloned them)
+    bar.querySelectorAll('.rf-fb-drop').forEach(function (wrap) {
+      var panel = wrap.querySelector('.rf-drop-panel');
+      if (!panel) return;
+
+      // Remove stale listeners by replacing node
+      var clone = wrap.cloneNode(true);
+      wrap.parentNode.replaceChild(clone, wrap);
+      var clonePanel = clone.querySelector('.rf-drop-panel');
+
+      clone.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = clone.classList.contains('open');
+        bar.querySelectorAll('.rf-fb-drop.open').forEach(function (d) {
+          d.classList.remove('open');
+          d.querySelector('.rf-drop-panel')?.classList.remove('open');
+        });
+        if (!isOpen) {
+          clone.classList.add('open');
+          clonePanel.classList.add('open');
+        }
+      });
+
+      clonePanel.addEventListener('click', function (e) {
+        var opt = e.target.closest('.rf-drop-option');
+        if (!opt) return;
+        var val = opt.dataset.val;
+        clone.querySelector('.rf-fb-val-text').textContent = val;
+        clonePanel.querySelectorAll('.rf-drop-option').forEach(function (o) {
+          o.classList.toggle('active', o.dataset.val === val);
+        });
+        var key = clone.dataset.key;
+        if (key && window._rfSel) window._rfSel[key] = val;
+        clone.classList.remove('open');
+        clonePanel.classList.remove('open');
+        e.stopPropagation();
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function () {
+      bar.querySelectorAll('.rf-fb-drop.open').forEach(function (d) {
+        d.classList.remove('open');
+        d.querySelector('.rf-drop-panel')?.classList.remove('open');
+      });
+    });
+  }
+
+  function tryRelocate() {
+    if (document.getElementById('rf-filter-bar')) {
+      relocate();
+    } else {
+      setTimeout(tryRelocate, 150);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryRelocate);
+  } else {
+    tryRelocate();
+  }
+})();
+</script>
