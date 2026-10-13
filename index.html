@@ -3610,56 +3610,60 @@ nav {
 
 <style id="mobile-filter">
 
-/* ── Filter bar mobile layout ─────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   MOBILE FILTER — full rewrite
+   Root problem: #hero has overflow:hidden which clips any child
+   dropdown panel that opens downward. Fix: panels become
+   position:fixed on mobile, escaping the clipping context.
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* Undo the two hide rules from earlier style blocks */
+  /* ── Show filter bar, anchored near bottom of hero ─────────── */
   #rf-filter-bar {
     display: flex !important;
-    /* Reposition: full-width at bottom of hero, above property card */
     position: absolute !important;
     top: auto !important;
-    bottom: 6vh !important;
-    left: 5vw !important;
-    right: 5vw !important;
+    bottom: 5vh !important;
+    left: 4vw !important;
+    right: 4vw !important;
     width: auto !important;
     transform: none !important;
     flex-direction: column !important;
-    gap: .6rem !important;
+    gap: .55rem !important;
     z-index: 22 !important;
     white-space: normal !important;
-    /* Glass card */
-    background: rgba(255,255,255,.92) !important;
-    backdrop-filter: blur(24px) saturate(1.8) !important;
-    border: 1px solid rgba(255,255,255,.8) !important;
-    border-radius: 20px !important;
-    padding: 1rem 1rem .85rem !important;
-    box-shadow: 0 12px 40px rgba(0,0,0,.22) !important;
+    background: rgba(255,255,255,.93) !important;
+    backdrop-filter: blur(28px) saturate(1.8) !important;
+    border: 1px solid rgba(255,255,255,.85) !important;
+    border-radius: 22px !important;
+    padding: .95rem 1rem .85rem !important;
+    box-shadow: 0 12px 48px rgba(0,0,0,.26) !important;
   }
 
-  /* Mode toggle row */
+  /* ── Mode toggle ────────────────────────────────────────────── */
   .rf-mode-wrap {
     display: flex !important;
-    background: rgba(0,0,0,.07) !important;
+    background: rgba(0,0,0,.08) !important;
     border: none !important;
     border-radius: 100px !important;
     padding: 3px !important;
     width: 100% !important;
-    justify-content: stretch !important;
   }
   .rf-mode-btn {
     flex: 1 !important;
     text-align: center !important;
-    padding: .42rem 0 !important;
+    padding: .45rem 0 !important;
     font-size: .72rem !important;
     border-radius: 100px !important;
+    color: #555 !important;
   }
   .rf-mode-btn.active {
     background: #151a30 !important;
     color: #fff !important;
+    font-weight: 600 !important;
   }
 
-  /* Dropdowns: 2x2 grid */
+  /* ── Dropdowns: 2×2 grid ────────────────────────────────────── */
   #rf-fb-center {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
@@ -3669,51 +3673,96 @@ nav {
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 !important;
-    gap: .5rem !important;
+    gap: .45rem !important;
   }
-  /* Hide the vertical separators on mobile */
   .rf-fb-sep-v { display: none !important; }
 
   .rf-fb-drop {
-    background: rgba(0,0,0,.05) !important;
-    border-radius: 12px !important;
-    padding: .55rem .75rem !important;
+    background: rgba(0,0,0,.06) !important;
+    border-radius: 14px !important;
+    padding: .6rem .8rem !important;
     min-width: unset !important;
+    cursor: pointer !important;
   }
-  .rf-fb-drop:hover,
-  .rf-fb-drop.open {
-    background: rgba(0,0,0,.09) !important;
-  }
-  .rf-fb-drop-label { font-size: .55rem !important; }
-  .rf-fb-drop-val   { font-size: .78rem !important; }
+  .rf-fb-drop.open { background: rgba(21,26,48,.1) !important; }
+  .rf-fb-drop-label { font-size: .56rem !important; color: #666 !important; }
+  .rf-fb-drop-val   { font-size: .8rem !important;  color: #151a30 !important; }
 
-  /* Dropdown panels: open downward but stay within screen */
+  /* ── Dropdown panels: fixed bottom sheet ────────────────────── */
+  /* position:fixed escapes #hero overflow:hidden */
   .rf-drop-panel {
-    left: 0 !important;
-    transform: translateY(-6px) !important;
-    min-width: 160px !important;
-    z-index: 300 !important;
+    position: fixed !important;
+    left: 4vw !important;
+    right: 4vw !important;
+    bottom: 0 !important;
+    top: auto !important;
+    transform: translateY(100%) !important;    /* hidden below screen */
+    transition: transform .28s cubic-bezier(.32,0,.67,0), opacity .22s !important;
+    border-radius: 22px 22px 0 0 !important;
+    padding: 1.2rem 1rem 2.5rem !important;    /* bottom padding for home bar */
+    max-height: 55vh !important;
+    overflow-y: auto !important;
+    z-index: 10000 !important;
+    min-width: unset !important;
+    width: auto !important;
+    box-shadow: 0 -8px 40px rgba(0,0,0,.2) !important;
+    display: block !important;                 /* don't flex-direction column on desktop */
+    opacity: 1 !important;
+    pointer-events: none !important;
   }
   .rf-drop-panel.open {
-    transform: translateY(0) !important;
+    transform: translateY(0) !important;       /* slide up into view */
+    pointer-events: auto !important;
   }
 
-  /* Search button: full width */
+  /* Drag handle at top of sheet */
+  .rf-drop-panel::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(0,0,0,.15);
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+  }
+
+  /* Options inside the sheet */
+  .rf-drop-option {
+    padding: .85rem 1.1rem !important;
+    font-size: .9rem !important;
+    border-radius: 12px !important;
+    margin-bottom: 2px !important;
+    min-height: 44px !important;              /* touch target */
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Backdrop shown when any panel is open */
+  #rf-drop-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+    z-index: 9999;
+    backdrop-filter: blur(2px);
+  }
+  #rf-drop-backdrop.open { display: block; }
+
+  /* ── Search button ─────────────────────────────────────────── */
   .rf-fb-search-btn {
     width: 100% !important;
     justify-content: center !important;
-    padding: .7rem 0 !important;
+    padding: .75rem 0 !important;
     font-size: .75rem !important;
-    border-radius: 12px !important;
-    margin-top: .1rem !important;
+    border-radius: 14px !important;
+    margin-top: .15rem !important;
+    background: #151a30 !important;
   }
 
-  /* Push hero-center-logo up so it doesn't sit behind the filter card */
-  #hero-center-logo {
-    top: 38% !important;
-  }
+  /* Logo higher so it clears the card */
+  #hero-center-logo { top: 36% !important; }
 
-  /* Hide the separate hgc-prop card on mobile — filter card replaces it */
+  /* Hide old floating prop card */
   #hgc-prop { display: none !important; }
 }
 
@@ -10143,6 +10192,7 @@ function buildFilterBar() {
 
   let mode = 'Buy';
   let sel  = { city: 'Dubai', type: 'All Types', price: 'Any Price', beds: 'Any Beds' };
+  window._rfSel = sel; window._rfMode = function() { return mode; };
 
   function makeDropdown(label, icon, key, options) {
     const wrap = document.createElement('div');
@@ -10600,6 +10650,91 @@ else setTimeout(init, 1000);
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
+  }
+})();
+</script>
+
+<script id="mobile-dropdown-fix">
+(function () {
+  function isMobile() { return window.innerWidth <= 768; }
+
+  function closeAll() {
+    document.querySelectorAll('.rf-fb-drop.open').forEach(function(d) {
+      d.classList.remove('open');
+      var p = d.querySelector('.rf-drop-panel');
+      if (p) p.classList.remove('open');
+    });
+    var bd = document.getElementById('rf-drop-backdrop');
+    if (bd) bd.classList.remove('open');
+  }
+
+  function patchFilterBar() {
+    if (!isMobile()) return;
+
+    // Create backdrop element if not present
+    if (!document.getElementById('rf-drop-backdrop')) {
+      var bd = document.createElement('div');
+      bd.id = 'rf-drop-backdrop';
+      document.body.appendChild(bd);
+      bd.addEventListener('click', closeAll);
+    }
+
+    // Re-bind all drop triggers to also toggle backdrop
+    document.querySelectorAll('.rf-fb-drop').forEach(function(wrap) {
+      // Clone to remove old listeners
+      var clone = wrap.cloneNode(true);
+      wrap.parentNode.replaceChild(clone, wrap);
+
+      clone.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var panel = clone.querySelector('.rf-drop-panel');
+        var isOpen = clone.classList.contains('open');
+
+        closeAll();
+
+        if (!isOpen) {
+          clone.classList.add('open');
+          if (panel) panel.classList.add('open');
+          var bd = document.getElementById('rf-drop-backdrop');
+          if (bd) bd.classList.add('open');
+        }
+      });
+
+      // Option clicks inside the new clone
+      var panel = clone.querySelector('.rf-drop-panel');
+      if (panel) {
+        panel.addEventListener('click', function(e) {
+          var opt = e.target.closest('.rf-drop-option');
+          if (!opt) return;
+          var val = opt.dataset.val;
+          var valText = clone.querySelector('.rf-fb-val-text');
+          if (valText) valText.textContent = val;
+          panel.querySelectorAll('.rf-drop-option').forEach(function(o) {
+            o.classList.toggle('active', o.dataset.val === val);
+          });
+          // Sync back to the sel object the search button reads
+          var key = clone.dataset.key;
+          if (key && window._rfSel) window._rfSel[key] = val;
+          closeAll();
+          e.stopPropagation();
+        });
+      }
+    });
+  }
+
+  // Run after buildFilterBar has fired
+  function tryPatch() {
+    if (document.getElementById('rf-filter-bar')) {
+      patchFilterBar();
+    } else {
+      setTimeout(tryPatch, 200);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryPatch);
+  } else {
+    tryPatch();
   }
 })();
 </script>
