@@ -10186,7 +10186,7 @@ function buildFilterBar() {
 
   const CITIES = ['Dubai','Abu Dhabi','Sharjah','Ras Al Khaimah','Ajman','Umm Al Quwain','Fujairah'];
   const TYPES  = ['All Types','Villa','Apartment','Penthouse','Townhouse','Duplex','Studio','Plot / Land','Office','Retail'];
-  const BUY_PRICES  = ['Any Price','AED 500K','AED 1M','AED 2M','AED 3M','AED 5M','AED 10M','AED 20M','AED 50M+'];
+  const BUY_PRICES  = ['Any Price','AED 500K','AED 1M','AED 2M','AED 3M','AED 5M','AED 10M','AED 20M','AED 50M','AED 100M','AED 200M','AED 500M+'];
   const RENT_PRICES = ['Any Price','AED 30K / yr','AED 60K / yr','AED 100K / yr','AED 150K / yr','AED 200K / yr','AED 300K / yr','AED 500K+ / yr'];
   const BEDS = ['Any Beds','Studio','1 Bed','2 Beds','3 Beds','4 Beds','5+ Beds'];
 
@@ -10566,7 +10566,10 @@ else setTimeout(init, 1000);
     'AED 5M':           5000000,
     'AED 10M':         10000000,
     'AED 20M':         20000000,
-    'AED 50M+':         Infinity,
+    'AED 50M':         50000000,
+    'AED 100M':       100000000,
+    'AED 200M':       200000000,
+    'AED 500M+':       Infinity,
     // rent labels — skip (no rent data yet)
   };
 
